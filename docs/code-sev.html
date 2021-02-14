@@ -1,0 +1,1255 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Code</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Updated Meta - analysis SBR</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa fa fa-home"></span>
+     
+    About
+  </a>
+</li>
+<li>
+  <a href="data.html">
+    <span class="fa fa fa fa-table"></span>
+     
+    Data
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa fa fa-file-code-o"></span>
+     
+    Documented analysis
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="code-sev.html">SBR Severity</a>
+    </li>
+    <li>
+      <a href="code-yld.html">Soybean yield</a>
+    </li>
+    <li>
+      <a href="simulations.html">Economic Analysis</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="plots.html">
+    <span class="fas fa-bar-chart"></span>
+     
+    Publication-ready plots
+  </a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Code</h1>
+
+</div>
+
+
+<pre class="r"><code>knitr::opts_chunk$set(echo = TRUE, warning = FALSE)</code></pre>
+<div id="network-model" class="section level1">
+<h1>Network model</h1>
+<pre class="r"><code>library(tidyverse)
+library(viridis)
+library(cowplot)
+library(survival)
+library(gsheet)
+library(ggthemes)
+library(ggfortify)
+library(survminer)
+library(lme4)
+library(metafor)
+library(janitor)
+library(here)
+rust_sev &lt;- read_csv(&quot;data/dat-sev.csv&quot;)</code></pre>
+<pre><code>## 
+## -- Column specification --------------------------------------------------------
+## cols(
+##   study = col_double(),
+##   year = col_double(),
+##   location = col_character(),
+##   state = col_character(),
+##   n_spray = col_double(),
+##   brand_name = col_character(),
+##   mean_sev = col_double(),
+##   mean_yld = col_double(),
+##   v_sev = col_double(),
+##   v_yld = col_double(),
+##   yld_check = col_double(),
+##   v_yld_check = col_double(),
+##   sev_check = col_double(),
+##   v_sev_check = col_double(),
+##   log_sev = col_double(),
+##   vi_sev = col_double(),
+##   n2 = col_double(),
+##   n3 = col_double(),
+##   design = col_double()
+## )</code></pre>
+<pre class="r"><code>head(rust_sev)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["study"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["year"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["location"],"name":[3],"type":["chr"],"align":["left"]},{"label":["state"],"name":[4],"type":["chr"],"align":["left"]},{"label":["n_spray"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["brand_name"],"name":[6],"type":["chr"],"align":["left"]},{"label":["mean_sev"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["mean_yld"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["v_sev"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["v_yld"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["yld_check"],"name":[11],"type":["dbl"],"align":["right"]},{"label":["v_yld_check"],"name":[12],"type":["dbl"],"align":["right"]},{"label":["sev_check"],"name":[13],"type":["dbl"],"align":["right"]},{"label":["v_sev_check"],"name":[14],"type":["dbl"],"align":["right"]},{"label":["log_sev"],"name":[15],"type":["dbl"],"align":["right"]},{"label":["vi_sev"],"name":[16],"type":["dbl"],"align":["right"]},{"label":["n2"],"name":[17],"type":["dbl"],"align":["right"]},{"label":["n3"],"name":[18],"type":["dbl"],"align":["right"]},{"label":["design"],"name":[19],"type":["dbl"],"align":["right"]}],"data":[{"1":"309","2":"2017","3":"DECIOLÂNDIA","4":"MT","5":"3","6":"PICO + CYPR","7":"65.375","8":"2472.75","9":"1.267974","10":"41884.85","11":"2269","12":"41884.85","13":"95.25","14":"1.267974","15":"4.180140","16":"7.416977e-05","17":"9","18":"9","19":"1"},{"1":"309","2":"2017","3":"DECIOLÂNDIA","4":"MT","5":"3","6":"PYRA + EPOX + FLUX","7":"48.750","8":"2878.75","9":"1.267974","10":"41884.85","11":"2269","12":"41884.85","13":"95.25","14":"1.267974","15":"3.886705","16":"1.333832e-04","17":"9","18":"9","19":"1"},{"1":"309","2":"2017","3":"DECIOLÂNDIA","4":"MT","5":"3","6":"AACHECK","7":"95.250","8":"2269.00","9":"1.267974","10":"41884.85","11":"2269","12":"41884.85","13":"95.25","14":"1.267974","15":"4.556505","16":"3.493979e-05","17":"9","18":"9","19":"1"},{"1":"309","2":"2017","3":"DECIOLÂNDIA","4":"MT","5":"3","6":"AZOX + BENZ","7":"29.375","8":"2935.00","9":"1.267974","10":"41884.85","11":"2269","12":"41884.85","13":"95.25","14":"1.267974","15":"3.380144","16":"3.673623e-04","17":"9","18":"9","19":"1"},{"1":"309","2":"2017","3":"DECIOLÂNDIA","4":"MT","5":"3","6":"TFLX + PROT","7":"39.875","8":"2714.75","9":"1.267974","10":"41884.85","11":"2269","12":"41884.85","13":"95.25","14":"1.267974","15":"3.685750","16":"1.993650e-04","17":"9","18":"9","19":"1"},{"1":"309","2":"2017","3":"DECIOLÂNDIA","4":"MT","5":"3","6":"BIXF + TFLX + PROT","7":"29.325","8":"2905.50","9":"1.267974","10":"41884.85","11":"2269","12":"41884.85","13":"95.25","14":"1.267974","15":"3.378440","16":"3.686161e-04","17":"9","18":"9","19":"1"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<pre class="r"><code>summary(rust_sev$vi_sev)</code></pre>
+<pre><code>##      Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+##   0.00000   0.00093   0.00307   0.24779   0.01193 149.30794</code></pre>
+<pre class="r"><code>rust_sev = rust_sev %&gt;% 
+  filter(vi_sev&gt;0.0001)</code></pre>
+<pre class="r"><code>mv_sev_HCS &lt;- rma.mv(log_sev, vi_sev,
+  mods = ~brand_name,
+  random = list(~brand_name | factor(study)),
+  struct = &quot;HCS&quot;,
+  method = &quot;ML&quot;,
+  control = list(optimizer = &quot;nlm&quot;),
+  data = rust_sev
+)
+
+
+mv_sev_HCS</code></pre>
+<pre><code>## 
+## Multivariate Meta-Analysis Model (k = 1266; method: ML)
+## 
+## Variance Components:
+## 
+## outer factor: factor(study) (nlvls = 174)
+## inner factor: brand_name    (nlvls = 9)
+## 
+##             estim    sqrt  k.lvl  fixed               level 
+## tau^2.1    0.2171  0.4659    149     no             AACHECK 
+## tau^2.2    0.9952  0.9976    144     no         AZOX + BENZ 
+## tau^2.3    0.8154  0.9030    115     no  BIXF + TFLX + PROT 
+## tau^2.4    0.8687  0.9320    116     no         PICO + BENZ 
+## tau^2.5    0.5489  0.7409    169     no         PICO + CYPR 
+## tau^2.6    0.7062  0.8403    149     no         PICO + TEBU 
+## tau^2.7    0.7445  0.8629    115     no  PYRA + EPOX + FLUX 
+## tau^2.8    0.5990  0.7740    143     no         TFLX + CYPR 
+## tau^2.9    0.8344  0.9135    166     no         TFLX + PROT 
+## rho        0.8495                    no                     
+## 
+## Test for Residual Heterogeneity:
+## QE(df = 1257) = 292126.3351, p-val &lt; .0001
+## 
+## Test of Moderators (coefficients 2:9):
+## QM(df = 8) = 1233.1513, p-val &lt; .0001
+## 
+## Model Results:
+## 
+##                               estimate      se      zval    pval    ci.lb 
+## intrcpt                         4.1347  0.0360  114.9271  &lt;.0001   4.0642 
+## brand_nameAZOX + BENZ          -1.3017  0.0541  -24.0435  &lt;.0001  -1.4078 
+## brand_nameBIXF + TFLX + PROT   -1.4612  0.0504  -28.9723  &lt;.0001  -1.5601 
+## brand_namePICO + BENZ          -1.3482  0.0520  -25.9251  &lt;.0001  -1.4501 
+## brand_namePICO + CYPR          -0.8268  0.0338  -24.4286  &lt;.0001  -0.8932 
+## brand_namePICO + TEBU          -1.0793  0.0418  -25.8019  &lt;.0001  -1.1613 
+## brand_namePYRA + EPOX + FLUX   -1.2812  0.0468  -27.3721  &lt;.0001  -1.3730 
+## brand_nameTFLX + CYPR          -0.8651  0.0375  -23.0799  &lt;.0001  -0.9385 
+## brand_nameTFLX + PROT          -1.2719  0.0462  -27.5374  &lt;.0001  -1.3624 
+##                                 ci.ub 
+## intrcpt                        4.2052  *** 
+## brand_nameAZOX + BENZ         -1.1956  *** 
+## brand_nameBIXF + TFLX + PROT  -1.3624  *** 
+## brand_namePICO + BENZ         -1.2463  *** 
+## brand_namePICO + CYPR         -0.7605  *** 
+## brand_namePICO + TEBU         -0.9973  *** 
+## brand_namePYRA + EPOX + FLUX  -1.1895  *** 
+## brand_nameTFLX + CYPR         -0.7916  *** 
+## brand_nameTFLX + PROT         -1.1814  *** 
+## 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<div id="percent-control" class="section level2">
+<h2>Percent control</h2>
+<pre class="r"><code>## HCS
+
+efficacy_sev &lt;- data.frame(cbind(
+  (1 - exp(mv_sev_HCS$b)) * 100,
+  (1 - exp(mv_sev_HCS$ci.lb)) * 100,
+  (1 - exp(mv_sev_HCS$ci.ub)) * 100
+))
+
+efficacy_sev</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["X1"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["X2"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["X3"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"-6146.95330","2":"-5721.63491","3":"-6603.34469","_rn_":"intrcpt"},{"1":"72.79373","2":"75.53277","3":"69.74805","_rn_":"brand_nameAZOX + BENZ"},{"1":"76.80444","2":"78.98764","3":"74.39440","_rn_":"brand_nameBIXF + TFLX + PROT"},{"1":"74.02956","2":"76.54620","3":"71.24289","_rn_":"brand_namePICO + BENZ"},{"1":"56.25731","2":"59.06503","3":"53.25701","_rn_":"brand_namePICO + CYPR"},{"1":"66.01778","2":"68.69276","3":"63.11424","_rn_":"brand_namePICO + TEBU"},{"1":"72.23047","2":"74.66472","3":"69.56232","_rn_":"brand_namePYRA + EPOX + FLUX"},{"1":"57.89799","2":"60.88004","3":"54.68862","_rn_":"brand_nameTFLX + CYPR"},{"1":"71.96954","2":"74.39555","3":"69.31367","_rn_":"brand_nameTFLX + PROT"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<pre class="r"><code>#Organize the data.frame
+efficacy_sev = efficacy_sev
+names (efficacy_sev) = c(&quot;efficacy&quot;, &quot;efficacy_up&quot;, &quot;efficacy_lw&quot;)
+  
+efficacy_sev = efficacy_sev %&gt;% 
+  mutate(fungicide = c(&quot;check&quot;, &quot;AZOX + BENZ&quot;, &quot;BIXF + TFLX + PROT&quot;, &quot;PICO + BENZ&quot;, &quot;PICO + CYPR&quot;,&quot;PICO + TEBU&quot;, &quot;PYRA + EPOX + FLUX&quot;, &quot;TFLX + CYPR&quot;, &quot;TFLX + PROT&quot;)) %&gt;% 
+  filter(fungicide != &quot;check&quot;) 
+efficacy_sev</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["efficacy"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["efficacy_up"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["efficacy_lw"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["fungicide"],"name":[4],"type":["chr"],"align":["left"]}],"data":[{"1":"72.79373","2":"75.53277","3":"69.74805","4":"AZOX + BENZ"},{"1":"76.80444","2":"78.98764","3":"74.39440","4":"BIXF + TFLX + PROT"},{"1":"74.02956","2":"76.54620","3":"71.24289","4":"PICO + BENZ"},{"1":"56.25731","2":"59.06503","3":"53.25701","4":"PICO + CYPR"},{"1":"66.01778","2":"68.69276","3":"63.11424","4":"PICO + TEBU"},{"1":"72.23047","2":"74.66472","3":"69.56232","4":"PYRA + EPOX + FLUX"},{"1":"57.89799","2":"60.88004","3":"54.68862","4":"TFLX + CYPR"},{"1":"71.96954","2":"74.39555","3":"69.31367","4":"TFLX + PROT"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<pre class="r"><code>#write_csv(efficacy_index, &quot;data/efficacy_index.csv&quot;)
+openxlsx::write.xlsx(efficacy_sev, here(&quot;data&quot;,&quot;efficacy_sev.xlsx&quot;), colNames = TRUE)</code></pre>
+</div>
+<div id="contrasts" class="section level2">
+<h2>Contrasts</h2>
+<p>We can set linear contrasts between treatments of interest and get the P-value using the <code>anova</code> function.</p>
+<pre class="r"><code>anova(mv_sev_HCS, L = rbind(
+  c(0, 1, -1, 0, 0, 0, 0, 0, 0),
+  c(0, 1, 0, -1, 0, 0, 0, 0, 0),
+  c(0, 1, 0, 0, -1, 0, 0, 0, 0),
+  c(0, 1, 0, 0, 0, -1, 0, 0, 0),
+  c(0, 1, 0, 0, 0, 0, -1, 0, 0),
+  c(0, 1, 0, 0, 0, 0, 0, -1, 0),
+  c(0, 1, 0, 0, 0, 0, 0, 0, -1),
+  c(0, 0, 1, -1, 0, 0, 0, 0, 0),
+  c(0, 0, 1, 0, -1, 0, 0, 0, 0),
+  c(0, 0, 1, 0, 0, -1, 0, 0, 0),
+  c(0, 0, 1, 0, 0, 0, -1, 0, 0),
+  c(0, 0, 1, 0, 0, 0, 0, -1, 0),
+  c(0, 0, 1, 0, 0, 0, 0, 0, -1),
+  c(0, 0, 0, 1, -1, 0, 0, 0, 0),
+  c(0, 0, 0, 1, 0, -1, 0, 0, 0),
+  c(0, 0, 0, 1, 0, 0, -1, 0, 0),
+  c(0, 0, 0, 1, 0, 0, 0, -1, 0),
+  c(0, 0, 0, 1, 0, 0, 0, 0, -1),
+  c(0, 0, 0, 0, 1, -1, 0, 0, 0),
+  c(0, 0, 0, 0, 1, 0, -1, 0, 0),
+  c(0, 0, 0, 0, 1, 0, 0, -1, 0),
+  c(0, 0, 0, 0, 1, 0, 0, 0, -1),
+  c(0, 0, 0, 0, 0, 1, -1, 0, 0),
+  c(0, 0, 0, 0, 0, 1, 0, -1, 0),
+  c(0, 0, 0, 0, 0, 1, 0, 0, -1),
+  c(0, 0, 0, 0, 0, 0, 1, -1, 0),
+  c(0, 0, 0, 0, 0, 0, 1, 0, -1),
+  c(0, 0, 0, 0, 0, 0, 0, 1, -1)
+  ))</code></pre>
+<pre><code>## 
+## Hypotheses:                                                                    
+## 1:         brand_nameAZOX + BENZ - brand_nameBIXF + TFLX + PROT = 0 
+## 2:                brand_nameAZOX + BENZ - brand_namePICO + BENZ = 0 
+## 3:                brand_nameAZOX + BENZ - brand_namePICO + CYPR = 0 
+## 4:                brand_nameAZOX + BENZ - brand_namePICO + TEBU = 0 
+## 5:         brand_nameAZOX + BENZ - brand_namePYRA + EPOX + FLUX = 0 
+## 6:                brand_nameAZOX + BENZ - brand_nameTFLX + CYPR = 0 
+## 7:                brand_nameAZOX + BENZ - brand_nameTFLX + PROT = 0 
+## 8:         brand_nameBIXF + TFLX + PROT - brand_namePICO + BENZ = 0 
+## 9:         brand_nameBIXF + TFLX + PROT - brand_namePICO + CYPR = 0 
+## 10:        brand_nameBIXF + TFLX + PROT - brand_namePICO + TEBU = 0 
+## 11: brand_nameBIXF + TFLX + PROT - brand_namePYRA + EPOX + FLUX = 0 
+## 12:        brand_nameBIXF + TFLX + PROT - brand_nameTFLX + CYPR = 0 
+## 13:        brand_nameBIXF + TFLX + PROT - brand_nameTFLX + PROT = 0 
+## 14:               brand_namePICO + BENZ - brand_namePICO + CYPR = 0 
+## 15:               brand_namePICO + BENZ - brand_namePICO + TEBU = 0 
+## 16:        brand_namePICO + BENZ - brand_namePYRA + EPOX + FLUX = 0 
+## 17:               brand_namePICO + BENZ - brand_nameTFLX + CYPR = 0 
+## 18:               brand_namePICO + BENZ - brand_nameTFLX + PROT = 0 
+## 19:               brand_namePICO + CYPR - brand_namePICO + TEBU = 0 
+## 20:        brand_namePICO + CYPR - brand_namePYRA + EPOX + FLUX = 0 
+## 21:               brand_namePICO + CYPR - brand_nameTFLX + CYPR = 0 
+## 22:               brand_namePICO + CYPR - brand_nameTFLX + PROT = 0 
+## 23:        brand_namePICO + TEBU - brand_namePYRA + EPOX + FLUX = 0 
+## 24:               brand_namePICO + TEBU - brand_nameTFLX + CYPR = 0 
+## 25:               brand_namePICO + TEBU - brand_nameTFLX + PROT = 0 
+## 26:        brand_namePYRA + EPOX + FLUX - brand_nameTFLX + CYPR = 0 
+## 27:        brand_namePYRA + EPOX + FLUX - brand_nameTFLX + PROT = 0 
+## 28:               brand_nameTFLX + CYPR - brand_nameTFLX + PROT = 0 
+## 
+## Results:
+##     estimate     se     zval   pval 
+## 1:    0.1595 0.0523   3.0509 0.0023 
+## 2:    0.0465 0.0523   0.8897 0.3736 
+## 3:   -0.4749 0.0466 -10.1977 &lt;.0001 
+## 4:   -0.2224 0.0475  -4.6805 &lt;.0001 
+## 5:   -0.0205 0.0508  -0.4036 0.6865 
+## 6:   -0.4366 0.0474  -9.2085 &lt;.0001 
+## 7:   -0.0298 0.0472  -0.6320 0.5274 
+## 8:   -0.1130 0.0511  -2.2100 0.0271 
+## 9:   -0.6344 0.0451 -14.0788 &lt;.0001 
+## 10:  -0.3819 0.0471  -8.1070 &lt;.0001 
+## 11:  -0.1800 0.0491  -3.6676 0.0002 
+## 12:  -0.5961 0.0457 -13.0346 &lt;.0001 
+## 13:  -0.1893 0.0476  -3.9808 &lt;.0001 
+## 14:  -0.5214 0.0460 -11.3453 &lt;.0001 
+## 15:  -0.2689 0.0476  -5.6430 &lt;.0001 
+## 16:  -0.0670 0.0495  -1.3534 0.1759 
+## 17:  -0.4831 0.0465 -10.3887 &lt;.0001 
+## 18:  -0.0763 0.0480  -1.5908 0.1117 
+## 19:   0.2525 0.0375   6.7311 &lt;.0001 
+## 20:   0.4544 0.0422  10.7548 &lt;.0001 
+## 21:   0.0382 0.0352   1.0855 0.2777 
+## 22:   0.4450 0.0399  11.1566 &lt;.0001 
+## 23:   0.2019 0.0449   4.5001 &lt;.0001 
+## 24:  -0.2143 0.0393  -5.4510 &lt;.0001 
+## 25:   0.1925 0.0419   4.5916 &lt;.0001 
+## 26:  -0.4162 0.0432  -9.6415 &lt;.0001 
+## 27:  -0.0094 0.0457  -0.2046 0.8379 
+## 28:   0.4068 0.0412   9.8724 &lt;.0001</code></pre>
+<div id="mods-year" class="section level3">
+<h3>Mods: year</h3>
+<pre class="r"><code>library(metafor)
+
+mv_sev_year &lt;- rma.mv(log_sev, vi_sev,
+  mods = ~brand_name*year,
+  random = list(~brand_name | factor(study)),
+  struct = &quot;HCS&quot;,
+  method = &quot;ML&quot;,
+  control = list(optimizer = &quot;nlm&quot;),
+  data = rust_sev %&gt;% mutate(year= year - 2015))
+
+mv_sev_year</code></pre>
+<pre><code>## 
+## Multivariate Meta-Analysis Model (k = 1266; method: ML)
+## 
+## Variance Components:
+## 
+## outer factor: factor(study) (nlvls = 174)
+## inner factor: brand_name    (nlvls = 9)
+## 
+##             estim    sqrt  k.lvl  fixed               level 
+## tau^2.1    0.2167  0.4655    149     no             AACHECK 
+## tau^2.2    0.8939  0.9455    144     no         AZOX + BENZ 
+## tau^2.3    0.8120  0.9011    115     no  BIXF + TFLX + PROT 
+## tau^2.4    0.8253  0.9085    116     no         PICO + BENZ 
+## tau^2.5    0.5510  0.7423    169     no         PICO + CYPR 
+## tau^2.6    0.7126  0.8441    149     no         PICO + TEBU 
+## tau^2.7    0.7464  0.8639    115     no  PYRA + EPOX + FLUX 
+## tau^2.8    0.6011  0.7753    143     no         TFLX + CYPR 
+## tau^2.9    0.8342  0.9134    166     no         TFLX + PROT 
+## rho        0.8612                    no                     
+## 
+## Test for Residual Heterogeneity:
+## QE(df = 1248) = 284314.6611, p-val &lt; .0001
+## 
+## Test of Moderators (coefficients 2:18):
+## QM(df = 17) = 1369.5916, p-val &lt; .0001
+## 
+## Model Results:
+## 
+##                                    estimate      se      zval    pval    ci.lb 
+## intrcpt                              4.1151  0.0643   64.0318  &lt;.0001   3.9892 
+## brand_nameAZOX + BENZ               -1.8080  0.0887  -20.3895  &lt;.0001  -1.9818 
+## brand_nameBIXF + TFLX + PROT        -1.4326  0.1338  -10.7044  &lt;.0001  -1.6949 
+## brand_namePICO + BENZ               -1.9013  0.1355  -14.0350  &lt;.0001  -2.1668 
+## brand_namePICO + CYPR               -0.8418  0.0607  -13.8781  &lt;.0001  -0.9607 
+## brand_namePICO + TEBU               -1.1064  0.0758  -14.6045  &lt;.0001  -1.2549 
+## brand_namePYRA + EPOX + FLUX        -1.4365  0.1251  -11.4825  &lt;.0001  -1.6816 
+## brand_nameTFLX + CYPR               -0.9171  0.0794  -11.5487  &lt;.0001  -1.0727 
+## brand_nameTFLX + PROT               -1.3617  0.0826  -16.4858  &lt;.0001  -1.5235 
+## year                                 0.0094  0.0224    0.4167  0.6769  -0.0346 
+## brand_nameAZOX + BENZ:year           0.2295  0.0319    7.1976  &lt;.0001   0.1670 
+## brand_nameBIXF + TFLX + PROT:year    0.0039  0.0401    0.0982  0.9217  -0.0747 
+## brand_namePICO + BENZ:year           0.1812  0.0406    4.4657  &lt;.0001   0.1017 
+## brand_namePICO + CYPR:year           0.0069  0.0209    0.3292  0.7420  -0.0342 
+## brand_namePICO + TEBU:year           0.0044  0.0284    0.1531  0.8783  -0.0513 
+## brand_namePYRA + EPOX + FLUX:year    0.0584  0.0375    1.5572  0.1194  -0.0151 
+## brand_nameTFLX + CYPR:year           0.0240  0.0259    0.9268  0.3541  -0.0268 
+## brand_nameTFLX + PROT:year           0.0375  0.0287    1.3092  0.1905  -0.0187 
+##                                      ci.ub 
+## intrcpt                             4.2411  *** 
+## brand_nameAZOX + BENZ              -1.6342  *** 
+## brand_nameBIXF + TFLX + PROT       -1.1703  *** 
+## brand_namePICO + BENZ              -1.6358  *** 
+## brand_namePICO + CYPR              -0.7229  *** 
+## brand_namePICO + TEBU              -0.9580  *** 
+## brand_namePYRA + EPOX + FLUX       -1.1913  *** 
+## brand_nameTFLX + CYPR              -0.7614  *** 
+## brand_nameTFLX + PROT              -1.1998  *** 
+## year                                0.0533      
+## brand_nameAZOX + BENZ:year          0.2920  *** 
+## brand_nameBIXF + TFLX + PROT:year   0.0826      
+## brand_namePICO + BENZ:year          0.2608  *** 
+## brand_namePICO + CYPR:year          0.0479      
+## brand_namePICO + TEBU:year          0.0600      
+## brand_namePYRA + EPOX + FLUX:year   0.1320      
+## brand_nameTFLX + CYPR:year          0.0748      
+## brand_nameTFLX + PROT:year          0.0938      
+## 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre class="r"><code>anova(mv_sev_year, btt = 11:18)</code></pre>
+<pre><code>## 
+## Test of Moderators (coefficients 11:18):
+## QM(df = 8) = 93.6212, p-val &lt; .0001</code></pre>
+</div>
+<div id="decline-efficacy" class="section level3">
+<h3>Decline efficacy</h3>
+<pre class="r"><code>reg1 = data.frame(mv_sev_year$beta, mv_sev_year$ci.lb, mv_sev_year$ci.ub) %&gt;%
+  rownames_to_column(&quot;trat&quot;) %&gt;%
+  separate(trat, into = c(&quot;lado1&quot;, &quot;lado2&quot;), sep = &quot;:&quot;) %&gt;%
+  separate(lado1, into = c(&quot;lixo&quot;, &quot;lado3&quot;),sep = &quot;brand_name&quot;) %&gt;%
+  select(-lixo) %&gt;%
+  filter(lado3 != &quot;NA&quot;) %&gt;%
+  mutate(mod = c(rep(&quot;intercept&quot;, 8), rep(&quot;slope&quot;, 8))) %&gt;% 
+  select(-lado2)
+names(reg1) = c(&quot;fungicide&quot;, &quot;mean&quot;, &quot;ci.lb&quot;, &quot;ci.ub&quot;, &quot;mod&quot;) 
+
+mean = reg1 %&gt;%
+  group_by(fungicide) %&gt;%
+  select(1:2,5) %&gt;%
+  spread(mod, mean) 
+names(mean) = c(&quot;fungicide&quot;, &quot;intercept_mean&quot;, &quot;slope_mean&quot;)
+
+upper = reg1 %&gt;%
+  group_by(fungicide) %&gt;%
+  select(1,3,5) %&gt;%
+  spread(mod, ci.lb)
+names(upper) = c(&quot;fungicide&quot;, &quot;intercept_upper&quot;, &quot;slope_upper&quot;)
+
+lower = reg1 %&gt;%
+  group_by(fungicide) %&gt;%
+  select(1,4:5) %&gt;%
+  spread(mod, ci.ub)
+names(lower) = c(&quot;fungicide&quot;, &quot;intercept_lower&quot;, &quot;slope_lower&quot;)
+
+data_model = left_join(mean, lower, by= c(&quot;fungicide&quot;)) %&gt;% 
+  left_join(upper, by = c(&quot;fungicide&quot;))
+
+library(tidyverse)
+rust_sev &lt;- read_csv(&quot;data/dat-sev.csv&quot;)</code></pre>
+<pre><code>## 
+## -- Column specification --------------------------------------------------------
+## cols(
+##   study = col_double(),
+##   year = col_double(),
+##   location = col_character(),
+##   state = col_character(),
+##   n_spray = col_double(),
+##   brand_name = col_character(),
+##   mean_sev = col_double(),
+##   mean_yld = col_double(),
+##   v_sev = col_double(),
+##   v_yld = col_double(),
+##   yld_check = col_double(),
+##   v_yld_check = col_double(),
+##   sev_check = col_double(),
+##   v_sev_check = col_double(),
+##   log_sev = col_double(),
+##   vi_sev = col_double(),
+##   n2 = col_double(),
+##   n3 = col_double(),
+##   design = col_double()
+## )</code></pre>
+<pre class="r"><code>sbr_effic &lt;- rust_sev %&gt;%
+  mutate(efficacy = (1-(mean_sev/sev_check))) %&gt;% 
+  mutate(efficacy1 = efficacy*100) %&gt;% 
+  filter(brand_name!= &quot;AACHECK&quot;)  
+  
+
+year = seq(0,6, by = 0.1) 
+fungicide = NULL
+year_col = NULL
+for(i in 1:length(data_model$fungicide)){
+data_cache = sbr_effic %&gt;% 
+    filter(brand_name == data_model$fungicide[i]) 
+years = unique(data_cache$year)-2015
+year = sort(years)
+year = seq(first(year), last(year), by = 0.1)   
+  year_col = c(year_col,year) 
+  fungicide = c(fungicide, rep(data_model$fungicide[i], length(year)))
+}
+ 
+
+predicted = data.frame(year_col, fungicide) %&gt;%
+  mutate(year = year_col) %&gt;%
+  right_join(data_model, by = &quot;fungicide&quot;) %&gt;%
+  mutate(mean_efficacy = (1-exp(intercept_mean + slope_mean*year))*100,
+         CIL = (1-exp(intercept_lower + slope_lower*year))*100,
+         CIU = (1-exp(intercept_upper + slope_upper*year))*100,
+         year = year+2015) %&gt;% 
+  mutate(brand_name = fungicide) %&gt;% 
+  filter(year &lt;2020.2) %&gt;% 
+  dplyr::select(-fungicide)
+predicted</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["year_col"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["year"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["intercept_mean"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["slope_mean"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["intercept_lower"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["slope_lower"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["intercept_upper"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["slope_upper"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["mean_efficacy"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["CIL"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["CIU"],"name":[11],"type":["dbl"],"align":["right"]},{"label":["brand_name"],"name":[12],"type":["chr"],"align":["left"]}],"data":[{"1":"0.0","2":"2015.0","3":"-1.8079929","4":"0.229526845","5":"-1.6341977","6":"0.29202875","7":"-1.981788","8":"0.16702495","9":"83.60171","10":"80.48912","11":"86.21774","12":"AZOX + BENZ"},{"1":"0.1","2":"2015.1","3":"-1.8079929","4":"0.229526845","5":"-1.6341977","6":"0.29202875","7":"-1.981788","8":"0.16702495","9":"83.22097","10":"79.91094","11":"85.98561","12":"AZOX + BENZ"},{"1":"0.2","2":"2015.2","3":"-1.8079929","4":"0.229526845","5":"-1.6341977","6":"0.29202875","7":"-1.981788","8":"0.16702495","9":"82.83139","10":"79.31563","11":"85.74957","12":"AZOX + BENZ"},{"1":"0.3","2":"2015.3","3":"-1.8079929","4":"0.229526845","5":"-1.6341977","6":"0.29202875","7":"-1.981788","8":"0.16702495","9":"82.43277","10":"78.70268","11":"85.50955","12":"AZOX + BENZ"},{"1":"0.4","2":"2015.4","3":"-1.8079929","4":"0.229526845","5":"-1.6341977","6":"0.29202875","7":"-1.981788","8":"0.16702495","9":"82.02489","10":"78.07157","11":"85.26549","12":"AZOX + BENZ"},{"1":"0.5","2":"2015.5","3":"-1.8079929","4":"0.229526845","5":"-1.6341977","6":"0.29202875","7":"-1.981788","8":"0.16702495","9":"81.60754","10":"77.42175","11":"85.01732","12":"AZOX + BENZ"},{"1":"0.6","2":"2015.6","3":"-1.8079929","4":"0.229526845","5":"-1.6341977","6":"0.29202875","7":"-1.981788","8":"0.16702495","9":"81.18050","10":"76.75268","11":"84.76497","12":"AZOX + BENZ"},{"1":"0.7","2":"2015.7","3":"-1.8079929","4":"0.229526845","5":"-1.6341977","6":"0.29202875","7":"-1.981788","8":"0.16702495","9":"80.74355","10":"76.06379","11":"84.50837","12":"AZOX + BENZ"},{"1":"0.8","2":"2015.8","3":"-1.8079929","4":"0.229526845","5":"-1.6341977","6":"0.29202875","7":"-1.981788","8":"0.16702495","9":"80.29645","10":"75.35447","11":"84.24745","12":"AZOX + BENZ"},{"1":"0.9","2":"2015.9","3":"-1.8079929","4":"0.229526845","5":"-1.6341977","6":"0.29202875","7":"-1.981788","8":"0.16702495","9":"79.83897","10":"74.62414","11":"83.98214","12":"AZOX + BENZ"},{"1":"1.0","2":"2016.0","3":"-1.8079929","4":"0.229526845","5":"-1.6341977","6":"0.29202875","7":"-1.981788","8":"0.16702495","9":"79.37087","10":"73.87217","11":"83.71235","12":"AZOX + BENZ"},{"1":"1.1","2":"2016.1","3":"-1.8079929","4":"0.229526845","5":"-1.6341977","6":"0.29202875","7":"-1.981788","8":"0.16702495","9":"78.89190","10":"73.09791","11":"83.43802","12":"AZOX + BENZ"},{"1":"1.2","2":"2016.2","3":"-1.8079929","4":"0.229526845","5":"-1.6341977","6":"0.29202875","7":"-1.981788","8":"0.16702495","9":"78.40181","10":"72.30071","11":"83.15907","12":"AZOX + BENZ"},{"1":"1.3","2":"2016.3","3":"-1.8079929","4":"0.229526845","5":"-1.6341977","6":"0.29202875","7":"-1.981788","8":"0.16702495","9":"77.90034","10":"71.47988","11":"82.87542","12":"AZOX + BENZ"},{"1":"1.4","2":"2016.4","3":"-1.8079929","4":"0.229526845","5":"-1.6341977","6":"0.29202875","7":"-1.981788","8":"0.16702495","9":"77.38723","10":"70.63473","11":"82.58700","12":"AZOX + BENZ"},{"1":"1.5","2":"2016.5","3":"-1.8079929","4":"0.229526845","5":"-1.6341977","6":"0.29202875","7":"-1.981788","8":"0.16702495","9":"76.86220","10":"69.76453","11":"82.29372","12":"AZOX + BENZ"},{"1":"1.6","2":"2016.6","3":"-1.8079929","4":"0.229526845","5":"-1.6341977","6":"0.29202875","7":"-1.981788","8":"0.16702495","9":"76.32499","10":"68.86855","11":"81.99549","12":"AZOX + BENZ"},{"1":"1.7","2":"2016.7","3":"-1.8079929","4":"0.229526845","5":"-1.6341977","6":"0.29202875","7":"-1.981788","8":"0.16702495","9":"75.77530","10":"67.94602","11":"81.69225","12":"AZOX + BENZ"},{"1":"1.8","2":"2016.8","3":"-1.8079929","4":"0.229526845","5":"-1.6341977","6":"0.29202875","7":"-1.981788","8":"0.16702495","9":"75.21284","10":"66.99615","11":"81.38390","12":"AZOX + BENZ"},{"1":"1.9","2":"2016.9","3":"-1.8079929","4":"0.229526845","5":"-1.6341977","6":"0.29202875","7":"-1.981788","8":"0.16702495","9":"74.63733","10":"66.01813","11":"81.07035","12":"AZOX + BENZ"},{"1":"2.0","2":"2017.0","3":"-1.8079929","4":"0.229526845","5":"-1.6341977","6":"0.29202875","7":"-1.981788","8":"0.16702495","9":"74.04846","10":"65.01113","11":"80.75152","12":"AZOX + BENZ"},{"1":"2.1","2":"2017.1","3":"-1.8079929","4":"0.229526845","5":"-1.6341977","6":"0.29202875","7":"-1.981788","8":"0.16702495","9":"73.44591","10":"63.97429","11":"80.42732","12":"AZOX + BENZ"},{"1":"2.2","2":"2017.2","3":"-1.8079929","4":"0.229526845","5":"-1.6341977","6":"0.29202875","7":"-1.981788","8":"0.16702495","9":"72.82938","10":"62.90672","11":"80.09767","12":"AZOX + BENZ"},{"1":"2.3","2":"2017.3","3":"-1.8079929","4":"0.229526845","5":"-1.6341977","6":"0.29202875","7":"-1.981788","8":"0.16702495","9":"72.19853","10":"61.80752","11":"79.76246","12":"AZOX + BENZ"},{"1":"2.4","2":"2017.4","3":"-1.8079929","4":"0.229526845","5":"-1.6341977","6":"0.29202875","7":"-1.981788","8":"0.16702495","9":"71.55303","10":"60.67575","11":"79.42160","12":"AZOX + BENZ"},{"1":"2.5","2":"2017.5","3":"-1.8079929","4":"0.229526845","5":"-1.6341977","6":"0.29202875","7":"-1.981788","8":"0.16702495","9":"70.89254","10":"59.51043","11":"79.07500","12":"AZOX + BENZ"},{"1":"2.6","2":"2017.6","3":"-1.8079929","4":"0.229526845","5":"-1.6341977","6":"0.29202875","7":"-1.981788","8":"0.16702495","9":"70.21672","10":"58.31059","11":"78.72257","12":"AZOX + BENZ"},{"1":"2.7","2":"2017.7","3":"-1.8079929","4":"0.229526845","5":"-1.6341977","6":"0.29202875","7":"-1.981788","8":"0.16702495","9":"69.52521","10":"57.07519","11":"78.36420","12":"AZOX + BENZ"},{"1":"2.8","2":"2017.8","3":"-1.8079929","4":"0.229526845","5":"-1.6341977","6":"0.29202875","7":"-1.981788","8":"0.16702495","9":"68.81764","10":"55.80318","11":"77.99979","12":"AZOX + BENZ"},{"1":"2.9","2":"2017.9","3":"-1.8079929","4":"0.229526845","5":"-1.6341977","6":"0.29202875","7":"-1.981788","8":"0.16702495","9":"68.09365","10":"54.49347","11":"77.62925","12":"AZOX + BENZ"},{"1":"3.0","2":"2018.0","3":"-1.8079929","4":"0.229526845","5":"-1.6341977","6":"0.29202875","7":"-1.981788","8":"0.16702495","9":"67.35284","10":"53.14495","11":"77.25246","12":"AZOX + BENZ"},{"1":"3.1","2":"2018.1","3":"-1.8079929","4":"0.229526845","5":"-1.6341977","6":"0.29202875","7":"-1.981788","8":"0.16702495","9":"66.59483","10":"51.75648","11":"76.86933","12":"AZOX + BENZ"},{"1":"3.2","2":"2018.2","3":"-1.8079929","4":"0.229526845","5":"-1.6341977","6":"0.29202875","7":"-1.981788","8":"0.16702495","9":"65.81923","10":"50.32685","11":"76.47974","12":"AZOX + BENZ"},{"1":"3.3","2":"2018.3","3":"-1.8079929","4":"0.229526845","5":"-1.6341977","6":"0.29202875","7":"-1.981788","8":"0.16702495","9":"65.02562","10":"48.85487","11":"76.08360","12":"AZOX + BENZ"},{"1":"3.4","2":"2018.4","3":"-1.8079929","4":"0.229526845","5":"-1.6341977","6":"0.29202875","7":"-1.981788","8":"0.16702495","9":"64.21358","10":"47.33926","11":"75.68078","12":"AZOX + BENZ"},{"1":"3.5","2":"2018.5","3":"-1.8079929","4":"0.229526845","5":"-1.6341977","6":"0.29202875","7":"-1.981788","8":"0.16702495","9":"63.38268","10":"45.77874","11":"75.27118","12":"AZOX + BENZ"},{"1":"3.6","2":"2018.6","3":"-1.8079929","4":"0.229526845","5":"-1.6341977","6":"0.29202875","7":"-1.981788","8":"0.16702495","9":"62.53250","10":"44.17198","11":"74.85468","12":"AZOX + BENZ"},{"1":"3.7","2":"2018.7","3":"-1.8079929","4":"0.229526845","5":"-1.6341977","6":"0.29202875","7":"-1.981788","8":"0.16702495","9":"61.66257","10":"42.51760","11":"74.43116","12":"AZOX + BENZ"},{"1":"3.8","2":"2018.8","3":"-1.8079929","4":"0.229526845","5":"-1.6341977","6":"0.29202875","7":"-1.981788","8":"0.16702495","9":"60.77245","10":"40.81420","11":"74.00051","12":"AZOX + BENZ"},{"1":"3.9","2":"2018.9","3":"-1.8079929","4":"0.229526845","5":"-1.6341977","6":"0.29202875","7":"-1.981788","8":"0.16702495","9":"59.86166","10":"39.06032","11":"73.56261","12":"AZOX + BENZ"},{"1":"4.0","2":"2019.0","3":"-1.8079929","4":"0.229526845","5":"-1.6341977","6":"0.29202875","7":"-1.981788","8":"0.16702495","9":"58.92972","10":"37.25446","11":"73.11733","12":"AZOX + BENZ"},{"1":"4.1","2":"2019.1","3":"-1.8079929","4":"0.229526845","5":"-1.6341977","6":"0.29202875","7":"-1.981788","8":"0.16702495","9":"57.97615","10":"35.39510","11":"72.66455","12":"AZOX + BENZ"},{"1":"4.2","2":"2019.2","3":"-1.8079929","4":"0.229526845","5":"-1.6341977","6":"0.29202875","7":"-1.981788","8":"0.16702495","9":"57.00043","10":"33.48063","11":"72.20414","12":"AZOX + BENZ"},{"1":"4.3","2":"2019.3","3":"-1.8079929","4":"0.229526845","5":"-1.6341977","6":"0.29202875","7":"-1.981788","8":"0.16702495","9":"56.00206","10":"31.50943","11":"71.73599","12":"AZOX + BENZ"},{"1":"4.4","2":"2019.4","3":"-1.8079929","4":"0.229526845","5":"-1.6341977","6":"0.29202875","7":"-1.981788","8":"0.16702495","9":"54.98051","10":"29.47982","11":"71.25994","12":"AZOX + BENZ"},{"1":"4.5","2":"2019.5","3":"-1.8079929","4":"0.229526845","5":"-1.6341977","6":"0.29202875","7":"-1.981788","8":"0.16702495","9":"53.93525","10":"27.39006","11":"70.77588","12":"AZOX + BENZ"},{"1":"4.6","2":"2019.6","3":"-1.8079929","4":"0.229526845","5":"-1.6341977","6":"0.29202875","7":"-1.981788","8":"0.16702495","9":"52.86571","10":"25.23838","11":"70.28366","12":"AZOX + BENZ"},{"1":"4.7","2":"2019.7","3":"-1.8079929","4":"0.229526845","5":"-1.6341977","6":"0.29202875","7":"-1.981788","8":"0.16702495","9":"51.77134","10":"23.02293","11":"69.78316","12":"AZOX + BENZ"},{"1":"4.8","2":"2019.8","3":"-1.8079929","4":"0.229526845","5":"-1.6341977","6":"0.29202875","7":"-1.981788","8":"0.16702495","9":"50.65156","10":"20.74183","11":"69.27422","12":"AZOX + BENZ"},{"1":"4.9","2":"2019.9","3":"-1.8079929","4":"0.229526845","5":"-1.6341977","6":"0.29202875","7":"-1.981788","8":"0.16702495","9":"49.50578","10":"18.39314","11":"68.75672","12":"AZOX + BENZ"},{"1":"5.0","2":"2020.0","3":"-1.8079929","4":"0.229526845","5":"-1.6341977","6":"0.29202875","7":"-1.981788","8":"0.16702495","9":"48.33340","10":"15.97485","11":"68.23049","12":"AZOX + BENZ"},{"1":"2.0","2":"2017.0","3":"-1.4325605","4":"0.003942986","5":"-1.1702596","6":"0.08260450","7":"-1.694861","8":"-0.07471853","9":"75.94132","10":"63.39739","11":"84.18638","12":"BIXF + TFLX + PROT"},{"1":"2.1","2":"2017.1","3":"-1.4325605","4":"0.003942986","5":"-1.1702596","6":"0.08260450","7":"-1.694861","8":"-0.07471853","9":"75.93184","10":"63.09378","11":"84.30409","12":"BIXF + TFLX + PROT"},{"1":"2.2","2":"2017.2","3":"-1.4325605","4":"0.003942986","5":"-1.1702596","6":"0.08260450","7":"-1.694861","8":"-0.07471853","9":"75.92234","10":"62.78766","11":"84.42093","12":"BIXF + TFLX + PROT"},{"1":"2.3","2":"2017.3","3":"-1.4325605","4":"0.003942986","5":"-1.1702596","6":"0.08260450","7":"-1.694861","8":"-0.07471853","9":"75.91285","10":"62.47899","11":"84.53690","12":"BIXF + TFLX + PROT"},{"1":"2.4","2":"2017.4","3":"-1.4325605","4":"0.003942986","5":"-1.1702596","6":"0.08260450","7":"-1.694861","8":"-0.07471853","9":"75.90335","10":"62.16777","11":"84.65201","12":"BIXF + TFLX + PROT"},{"1":"2.5","2":"2017.5","3":"-1.4325605","4":"0.003942986","5":"-1.1702596","6":"0.08260450","7":"-1.694861","8":"-0.07471853","9":"75.89385","10":"61.85396","11":"84.76626","12":"BIXF + TFLX + PROT"},{"1":"2.6","2":"2017.6","3":"-1.4325605","4":"0.003942986","5":"-1.1702596","6":"0.08260450","7":"-1.694861","8":"-0.07471853","9":"75.88434","10":"61.53756","11":"84.87966","12":"BIXF + TFLX + PROT"},{"1":"2.7","2":"2017.7","3":"-1.4325605","4":"0.003942986","5":"-1.1702596","6":"0.08260450","7":"-1.694861","8":"-0.07471853","9":"75.87483","10":"61.21852","11":"84.99222","12":"BIXF + TFLX + PROT"},{"1":"2.8","2":"2017.8","3":"-1.4325605","4":"0.003942986","5":"-1.1702596","6":"0.08260450","7":"-1.694861","8":"-0.07471853","9":"75.86531","10":"60.89684","11":"85.10394","12":"BIXF + TFLX + PROT"},{"1":"2.9","2":"2017.9","3":"-1.4325605","4":"0.003942986","5":"-1.1702596","6":"0.08260450","7":"-1.694861","8":"-0.07471853","9":"75.85579","10":"60.57250","11":"85.21482","12":"BIXF + TFLX + PROT"},{"1":"3.0","2":"2018.0","3":"-1.4325605","4":"0.003942986","5":"-1.1702596","6":"0.08260450","7":"-1.694861","8":"-0.07471853","9":"75.84627","10":"60.24546","11":"85.32488","12":"BIXF + TFLX + PROT"},{"1":"3.1","2":"2018.1","3":"-1.4325605","4":"0.003942986","5":"-1.1702596","6":"0.08260450","7":"-1.694861","8":"-0.07471853","9":"75.83675","10":"59.91571","11":"85.43413","12":"BIXF + TFLX + PROT"},{"1":"3.2","2":"2018.2","3":"-1.4325605","4":"0.003942986","5":"-1.1702596","6":"0.08260450","7":"-1.694861","8":"-0.07471853","9":"75.82722","10":"59.58322","11":"85.54255","12":"BIXF + TFLX + PROT"},{"1":"3.3","2":"2018.3","3":"-1.4325605","4":"0.003942986","5":"-1.1702596","6":"0.08260450","7":"-1.694861","8":"-0.07471853","9":"75.81768","10":"59.24798","11":"85.65017","12":"BIXF + TFLX + PROT"},{"1":"3.4","2":"2018.4","3":"-1.4325605","4":"0.003942986","5":"-1.1702596","6":"0.08260450","7":"-1.694861","8":"-0.07471853","9":"75.80815","10":"58.90996","11":"85.75700","12":"BIXF + TFLX + PROT"},{"1":"3.5","2":"2018.5","3":"-1.4325605","4":"0.003942986","5":"-1.1702596","6":"0.08260450","7":"-1.694861","8":"-0.07471853","9":"75.79861","10":"58.56913","11":"85.86302","12":"BIXF + TFLX + PROT"},{"1":"3.6","2":"2018.6","3":"-1.4325605","4":"0.003942986","5":"-1.1702596","6":"0.08260450","7":"-1.694861","8":"-0.07471853","9":"75.78906","10":"58.22547","11":"85.96826","12":"BIXF + TFLX + PROT"},{"1":"3.7","2":"2018.7","3":"-1.4325605","4":"0.003942986","5":"-1.1702596","6":"0.08260450","7":"-1.694861","8":"-0.07471853","9":"75.77951","10":"57.87897","11":"86.07271","12":"BIXF + TFLX + PROT"},{"1":"3.8","2":"2018.8","3":"-1.4325605","4":"0.003942986","5":"-1.1702596","6":"0.08260450","7":"-1.694861","8":"-0.07471853","9":"75.76996","10":"57.52959","11":"86.17638","12":"BIXF + TFLX + PROT"},{"1":"3.9","2":"2018.9","3":"-1.4325605","4":"0.003942986","5":"-1.1702596","6":"0.08260450","7":"-1.694861","8":"-0.07471853","9":"75.76041","10":"57.17731","11":"86.27929","12":"BIXF + TFLX + PROT"},{"1":"4.0","2":"2019.0","3":"-1.4325605","4":"0.003942986","5":"-1.1702596","6":"0.08260450","7":"-1.694861","8":"-0.07471853","9":"75.75085","10":"56.82211","11":"86.38142","12":"BIXF + TFLX + PROT"},{"1":"4.1","2":"2019.1","3":"-1.4325605","4":"0.003942986","5":"-1.1702596","6":"0.08260450","7":"-1.694861","8":"-0.07471853","9":"75.74128","10":"56.46396","11":"86.48280","12":"BIXF + TFLX + PROT"},{"1":"4.2","2":"2019.2","3":"-1.4325605","4":"0.003942986","5":"-1.1702596","6":"0.08260450","7":"-1.694861","8":"-0.07471853","9":"75.73172","10":"56.10285","11":"86.58342","12":"BIXF + TFLX + PROT"},{"1":"4.3","2":"2019.3","3":"-1.4325605","4":"0.003942986","5":"-1.1702596","6":"0.08260450","7":"-1.694861","8":"-0.07471853","9":"75.72215","10":"55.73873","11":"86.68330","12":"BIXF + TFLX + PROT"},{"1":"4.4","2":"2019.4","3":"-1.4325605","4":"0.003942986","5":"-1.1702596","6":"0.08260450","7":"-1.694861","8":"-0.07471853","9":"75.71257","10":"55.37160","11":"86.78243","12":"BIXF + TFLX + PROT"},{"1":"4.5","2":"2019.5","3":"-1.4325605","4":"0.003942986","5":"-1.1702596","6":"0.08260450","7":"-1.694861","8":"-0.07471853","9":"75.70299","10":"55.00143","11":"86.88082","12":"BIXF + TFLX + PROT"},{"1":"4.6","2":"2019.6","3":"-1.4325605","4":"0.003942986","5":"-1.1702596","6":"0.08260450","7":"-1.694861","8":"-0.07471853","9":"75.69341","10":"54.62818","11":"86.97848","12":"BIXF + TFLX + PROT"},{"1":"4.7","2":"2019.7","3":"-1.4325605","4":"0.003942986","5":"-1.1702596","6":"0.08260450","7":"-1.694861","8":"-0.07471853","9":"75.68382","10":"54.25183","11":"87.07541","12":"BIXF + TFLX + PROT"},{"1":"4.8","2":"2019.8","3":"-1.4325605","4":"0.003942986","5":"-1.1702596","6":"0.08260450","7":"-1.694861","8":"-0.07471853","9":"75.67424","10":"53.87237","11":"87.17162","12":"BIXF + TFLX + PROT"},{"1":"4.9","2":"2019.9","3":"-1.4325605","4":"0.003942986","5":"-1.1702596","6":"0.08260450","7":"-1.694861","8":"-0.07471853","9":"75.66464","10":"53.48975","11":"87.26711","12":"BIXF + TFLX + PROT"},{"1":"5.0","2":"2020.0","3":"-1.4325605","4":"0.003942986","5":"-1.1702596","6":"0.08260450","7":"-1.694861","8":"-0.07471853","9":"75.65504","10":"53.10397","11":"87.36190","12":"BIXF + TFLX + PROT"},{"1":"2.0","2":"2017.0","3":"-1.9012965","4":"0.181219189","5":"-1.6357844","6":"0.26075440","7":"-2.166809","8":"0.10168398","9":"78.53740","10":"67.18471","11":"85.96254","12":"PICO + BENZ"},{"1":"2.1","2":"2017.1","3":"-1.9012965","4":"0.181219189","5":"-1.6357844","6":"0.26075440","7":"-2.166809","8":"0.10168398","9":"78.14491","10":"66.31778","11":"85.81907","12":"PICO + BENZ"},{"1":"2.2","2":"2017.2","3":"-1.9012965","4":"0.181219189","5":"-1.6357844","6":"0.26075440","7":"-2.166809","8":"0.10168398","9":"77.74524","10":"65.42795","11":"85.67414","12":"PICO + BENZ"},{"1":"2.3","2":"2017.3","3":"-1.9012965","4":"0.181219189","5":"-1.6357844","6":"0.26075440","7":"-2.166809","8":"0.10168398","9":"77.33826","10":"64.51461","11":"85.52772","12":"PICO + BENZ"},{"1":"2.4","2":"2017.4","3":"-1.9012965","4":"0.181219189","5":"-1.6357844","6":"0.26075440","7":"-2.166809","8":"0.10168398","9":"76.92385","10":"63.57715","11":"85.37981","12":"PICO + BENZ"},{"1":"2.5","2":"2017.5","3":"-1.9012965","4":"0.181219189","5":"-1.6357844","6":"0.26075440","7":"-2.166809","8":"0.10168398","9":"76.50185","10":"62.61492","11":"85.23039","12":"PICO + BENZ"},{"1":"2.6","2":"2017.6","3":"-1.9012965","4":"0.181219189","5":"-1.6357844","6":"0.26075440","7":"-2.166809","8":"0.10168398","9":"76.07214","10":"61.62726","11":"85.07944","12":"PICO + BENZ"},{"1":"2.7","2":"2017.7","3":"-1.9012965","4":"0.181219189","5":"-1.6357844","6":"0.26075440","7":"-2.166809","8":"0.10168398","9":"75.63456","10":"60.61352","11":"84.92695","12":"PICO + BENZ"},{"1":"2.8","2":"2017.8","3":"-1.9012965","4":"0.181219189","5":"-1.6357844","6":"0.26075440","7":"-2.166809","8":"0.10168398","9":"75.18899","10":"59.57299","11":"84.77290","12":"PICO + BENZ"},{"1":"2.9","2":"2017.9","3":"-1.9012965","4":"0.181219189","5":"-1.6357844","6":"0.26075440","7":"-2.166809","8":"0.10168398","9":"74.73527","10":"58.50497","11":"84.61727","12":"PICO + BENZ"},{"1":"3.0","2":"2018.0","3":"-1.9012965","4":"0.181219189","5":"-1.6357844","6":"0.26075440","7":"-2.166809","8":"0.10168398","9":"74.27325","10":"57.40874","11":"84.46006","12":"PICO + BENZ"},{"1":"3.1","2":"2018.1","3":"-1.9012965","4":"0.181219189","5":"-1.6357844","6":"0.26075440","7":"-2.166809","8":"0.10168398","9":"73.80278","10":"56.28355","11":"84.30124","12":"PICO + BENZ"},{"1":"3.2","2":"2018.2","3":"-1.9012965","4":"0.181219189","5":"-1.6357844","6":"0.26075440","7":"-2.166809","8":"0.10168398","9":"73.32371","10":"55.12863","11":"84.14079","12":"PICO + BENZ"},{"1":"3.3","2":"2018.3","3":"-1.9012965","4":"0.181219189","5":"-1.6357844","6":"0.26075440","7":"-2.166809","8":"0.10168398","9":"72.83588","10":"53.94320","11":"83.97871","12":"PICO + BENZ"},{"1":"3.4","2":"2018.4","3":"-1.9012965","4":"0.181219189","5":"-1.6357844","6":"0.26075440","7":"-2.166809","8":"0.10168398","9":"72.33912","10":"52.72646","11":"83.81496","12":"PICO + BENZ"},{"1":"3.5","2":"2018.5","3":"-1.9012965","4":"0.181219189","5":"-1.6357844","6":"0.26075440","7":"-2.166809","8":"0.10168398","9":"71.83329","10":"51.47757","11":"83.64955","12":"PICO + BENZ"},{"1":"3.6","2":"2018.6","3":"-1.9012965","4":"0.181219189","5":"-1.6357844","6":"0.26075440","7":"-2.166809","8":"0.10168398","9":"71.31820","10":"50.19568","11":"83.48244","12":"PICO + BENZ"},{"1":"3.7","2":"2018.7","3":"-1.9012965","4":"0.181219189","5":"-1.6357844","6":"0.26075440","7":"-2.166809","8":"0.10168398","9":"70.79369","10":"48.87993","11":"83.31363","12":"PICO + BENZ"},{"1":"3.8","2":"2018.8","3":"-1.9012965","4":"0.181219189","5":"-1.6357844","6":"0.26075440","7":"-2.166809","8":"0.10168398","9":"70.25959","10":"47.52943","11":"83.14309","12":"PICO + BENZ"},{"1":"3.9","2":"2018.9","3":"-1.9012965","4":"0.181219189","5":"-1.6357844","6":"0.26075440","7":"-2.166809","8":"0.10168398","9":"69.71573","10":"46.14324","11":"82.97081","12":"PICO + BENZ"},{"1":"4.0","2":"2019.0","3":"-1.9012965","4":"0.181219189","5":"-1.6357844","6":"0.26075440","7":"-2.166809","8":"0.10168398","9":"69.16191","10":"44.72043","11":"82.79676","12":"PICO + BENZ"},{"1":"4.1","2":"2019.1","3":"-1.9012965","4":"0.181219189","5":"-1.6357844","6":"0.26075440","7":"-2.166809","8":"0.10168398","9":"68.59797","10":"43.26003","11":"82.62094","12":"PICO + BENZ"},{"1":"4.2","2":"2019.2","3":"-1.9012965","4":"0.181219189","5":"-1.6357844","6":"0.26075440","7":"-2.166809","8":"0.10168398","9":"68.02372","10":"41.76105","11":"82.44332","12":"PICO + BENZ"},{"1":"4.3","2":"2019.3","3":"-1.9012965","4":"0.181219189","5":"-1.6357844","6":"0.26075440","7":"-2.166809","8":"0.10168398","9":"67.43897","10":"40.22248","11":"82.26389","12":"PICO + BENZ"},{"1":"4.4","2":"2019.4","3":"-1.9012965","4":"0.181219189","5":"-1.6357844","6":"0.26075440","7":"-2.166809","8":"0.10168398","9":"66.84352","10":"38.64325","11":"82.08262","12":"PICO + BENZ"},{"1":"4.5","2":"2019.5","3":"-1.9012965","4":"0.181219189","5":"-1.6357844","6":"0.26075440","7":"-2.166809","8":"0.10168398","9":"66.23718","10":"37.02231","11":"81.89950","12":"PICO + BENZ"},{"1":"4.6","2":"2019.6","3":"-1.9012965","4":"0.181219189","5":"-1.6357844","6":"0.26075440","7":"-2.166809","8":"0.10168398","9":"65.61976","10":"35.35854","11":"81.71451","12":"PICO + BENZ"},{"1":"4.7","2":"2019.7","3":"-1.9012965","4":"0.181219189","5":"-1.6357844","6":"0.26075440","7":"-2.166809","8":"0.10168398","9":"64.99104","10":"33.65081","11":"81.52763","12":"PICO + BENZ"},{"1":"4.8","2":"2019.8","3":"-1.9012965","4":"0.181219189","5":"-1.6357844","6":"0.26075440","7":"-2.166809","8":"0.10168398","9":"64.35083","10":"31.89798","11":"81.33883","12":"PICO + BENZ"},{"1":"4.9","2":"2019.9","3":"-1.9012965","4":"0.181219189","5":"-1.6357844","6":"0.26075440","7":"-2.166809","8":"0.10168398","9":"63.69891","10":"30.09883","11":"81.14811","12":"PICO + BENZ"},{"1":"5.0","2":"2020.0","3":"-1.9012965","4":"0.181219189","5":"-1.6357844","6":"0.26075440","7":"-2.166809","8":"0.10168398","9":"63.03507","10":"28.25216","11":"80.95544","12":"PICO + BENZ"},{"1":"0.0","2":"2015.0","3":"-0.8418227","4":"0.006893600","5":"-0.7229343","6":"0.04794077","7":"-0.960711","8":"-0.03415357","9":"56.90756","10":"51.46739","11":"61.73793","12":"PICO + CYPR"},{"1":"0.1","2":"2015.1","3":"-0.8418227","4":"0.006893600","5":"-0.7229343","6":"0.04794077","7":"-0.960711","8":"-0.03415357","9":"56.87785","10":"51.23417","11":"61.86838","12":"PICO + CYPR"},{"1":"0.2","2":"2015.2","3":"-0.8418227","4":"0.006893600","5":"-0.7229343","6":"0.04794077","7":"-0.960711","8":"-0.03415357","9":"56.84811","10":"50.99982","11":"61.99839","12":"PICO + CYPR"},{"1":"0.3","2":"2015.3","3":"-0.8418227","4":"0.006893600","5":"-0.7229343","6":"0.04794077","7":"-0.960711","8":"-0.03415357","9":"56.81835","10":"50.76434","11":"62.12796","12":"PICO + CYPR"},{"1":"0.4","2":"2015.4","3":"-0.8418227","4":"0.006893600","5":"-0.7229343","6":"0.04794077","7":"-0.960711","8":"-0.03415357","9":"56.78857","10":"50.52774","11":"62.25709","12":"PICO + CYPR"},{"1":"0.5","2":"2015.5","3":"-0.8418227","4":"0.006893600","5":"-0.7229343","6":"0.04794077","7":"-0.960711","8":"-0.03415357","9":"56.75877","10":"50.28999","11":"62.38577","12":"PICO + CYPR"},{"1":"0.6","2":"2015.6","3":"-0.8418227","4":"0.006893600","5":"-0.7229343","6":"0.04794077","7":"-0.960711","8":"-0.03415357","9":"56.72896","10":"50.05111","11":"62.51402","12":"PICO + CYPR"},{"1":"0.7","2":"2015.7","3":"-0.8418227","4":"0.006893600","5":"-0.7229343","6":"0.04794077","7":"-0.960711","8":"-0.03415357","9":"56.69912","10":"49.81107","11":"62.64183","12":"PICO + CYPR"},{"1":"0.8","2":"2015.8","3":"-0.8418227","4":"0.006893600","5":"-0.7229343","6":"0.04794077","7":"-0.960711","8":"-0.03415357","9":"56.66926","10":"49.56989","11":"62.76920","12":"PICO + CYPR"},{"1":"0.9","2":"2015.9","3":"-0.8418227","4":"0.006893600","5":"-0.7229343","6":"0.04794077","7":"-0.960711","8":"-0.03415357","9":"56.63937","10":"49.32754","11":"62.89614","12":"PICO + CYPR"},{"1":"1.0","2":"2016.0","3":"-0.8418227","4":"0.006893600","5":"-0.7229343","6":"0.04794077","7":"-0.960711","8":"-0.03415357","9":"56.60947","10":"49.08403","11":"63.02265","12":"PICO + CYPR"},{"1":"1.1","2":"2016.1","3":"-0.8418227","4":"0.006893600","5":"-0.7229343","6":"0.04794077","7":"-0.960711","8":"-0.03415357","9":"56.57955","10":"48.83935","11":"63.14872","12":"PICO + CYPR"},{"1":"1.2","2":"2016.2","3":"-0.8418227","4":"0.006893600","5":"-0.7229343","6":"0.04794077","7":"-0.960711","8":"-0.03415357","9":"56.54961","10":"48.59349","11":"63.27437","12":"PICO + CYPR"},{"1":"1.3","2":"2016.3","3":"-0.8418227","4":"0.006893600","5":"-0.7229343","6":"0.04794077","7":"-0.960711","8":"-0.03415357","9":"56.51965","10":"48.34645","11":"63.39959","12":"PICO + CYPR"},{"1":"1.4","2":"2016.4","3":"-0.8418227","4":"0.006893600","5":"-0.7229343","6":"0.04794077","7":"-0.960711","8":"-0.03415357","9":"56.48966","10":"48.09823","11":"63.52438","12":"PICO + CYPR"},{"1":"1.5","2":"2016.5","3":"-0.8418227","4":"0.006893600","5":"-0.7229343","6":"0.04794077","7":"-0.960711","8":"-0.03415357","9":"56.45966","10":"47.84881","11":"63.64874","12":"PICO + CYPR"},{"1":"1.6","2":"2016.6","3":"-0.8418227","4":"0.006893600","5":"-0.7229343","6":"0.04794077","7":"-0.960711","8":"-0.03415357","9":"56.42963","10":"47.59819","11":"63.77268","12":"PICO + CYPR"},{"1":"1.7","2":"2016.7","3":"-0.8418227","4":"0.006893600","5":"-0.7229343","6":"0.04794077","7":"-0.960711","8":"-0.03415357","9":"56.39959","10":"47.34637","11":"63.89620","12":"PICO + CYPR"},{"1":"1.8","2":"2016.8","3":"-0.8418227","4":"0.006893600","5":"-0.7229343","6":"0.04794077","7":"-0.960711","8":"-0.03415357","9":"56.36952","10":"47.09334","11":"64.01930","12":"PICO + CYPR"},{"1":"1.9","2":"2016.9","3":"-0.8418227","4":"0.006893600","5":"-0.7229343","6":"0.04794077","7":"-0.960711","8":"-0.03415357","9":"56.33943","10":"46.83909","11":"64.14197","12":"PICO + CYPR"},{"1":"2.0","2":"2017.0","3":"-0.8418227","4":"0.006893600","5":"-0.7229343","6":"0.04794077","7":"-0.960711","8":"-0.03415357","9":"56.30932","10":"46.58362","11":"64.26423","12":"PICO + CYPR"},{"1":"2.1","2":"2017.1","3":"-0.8418227","4":"0.006893600","5":"-0.7229343","6":"0.04794077","7":"-0.960711","8":"-0.03415357","9":"56.27919","10":"46.32692","11":"64.38608","12":"PICO + CYPR"},{"1":"2.2","2":"2017.2","3":"-0.8418227","4":"0.006893600","5":"-0.7229343","6":"0.04794077","7":"-0.960711","8":"-0.03415357","9":"56.24904","10":"46.06899","11":"64.50750","12":"PICO + CYPR"},{"1":"2.3","2":"2017.3","3":"-0.8418227","4":"0.006893600","5":"-0.7229343","6":"0.04794077","7":"-0.960711","8":"-0.03415357","9":"56.21887","10":"45.80982","11":"64.62852","12":"PICO + CYPR"},{"1":"2.4","2":"2017.4","3":"-0.8418227","4":"0.006893600","5":"-0.7229343","6":"0.04794077","7":"-0.960711","8":"-0.03415357","9":"56.18868","10":"45.54941","11":"64.74912","12":"PICO + CYPR"},{"1":"2.5","2":"2017.5","3":"-0.8418227","4":"0.006893600","5":"-0.7229343","6":"0.04794077","7":"-0.960711","8":"-0.03415357","9":"56.15847","10":"45.28774","11":"64.86930","12":"PICO + CYPR"},{"1":"2.6","2":"2017.6","3":"-0.8418227","4":"0.006893600","5":"-0.7229343","6":"0.04794077","7":"-0.960711","8":"-0.03415357","9":"56.12824","10":"45.02482","11":"64.98908","12":"PICO + CYPR"},{"1":"2.7","2":"2017.7","3":"-0.8418227","4":"0.006893600","5":"-0.7229343","6":"0.04794077","7":"-0.960711","8":"-0.03415357","9":"56.09798","10":"44.76063","11":"65.10845","12":"PICO + CYPR"},{"1":"2.8","2":"2017.8","3":"-0.8418227","4":"0.006893600","5":"-0.7229343","6":"0.04794077","7":"-0.960711","8":"-0.03415357","9":"56.06771","10":"44.49517","11":"65.22742","12":"PICO + CYPR"},{"1":"2.9","2":"2017.9","3":"-0.8418227","4":"0.006893600","5":"-0.7229343","6":"0.04794077","7":"-0.960711","8":"-0.03415357","9":"56.03741","10":"44.22844","11":"65.34598","12":"PICO + CYPR"},{"1":"3.0","2":"2018.0","3":"-0.8418227","4":"0.006893600","5":"-0.7229343","6":"0.04794077","7":"-0.960711","8":"-0.03415357","9":"56.00710","10":"43.96042","11":"65.46413","12":"PICO + CYPR"},{"1":"3.1","2":"2018.1","3":"-0.8418227","4":"0.006893600","5":"-0.7229343","6":"0.04794077","7":"-0.960711","8":"-0.03415357","9":"55.97676","10":"43.69112","11":"65.58188","12":"PICO + CYPR"},{"1":"3.2","2":"2018.2","3":"-0.8418227","4":"0.006893600","5":"-0.7229343","6":"0.04794077","7":"-0.960711","8":"-0.03415357","9":"55.94640","10":"43.42052","11":"65.69923","12":"PICO + CYPR"},{"1":"3.3","2":"2018.3","3":"-0.8418227","4":"0.006893600","5":"-0.7229343","6":"0.04794077","7":"-0.960711","8":"-0.03415357","9":"55.91602","10":"43.14862","11":"65.81618","12":"PICO + CYPR"},{"1":"3.4","2":"2018.4","3":"-0.8418227","4":"0.006893600","5":"-0.7229343","6":"0.04794077","7":"-0.960711","8":"-0.03415357","9":"55.88562","10":"42.87542","11":"65.93273","12":"PICO + CYPR"},{"1":"3.5","2":"2018.5","3":"-0.8418227","4":"0.006893600","5":"-0.7229343","6":"0.04794077","7":"-0.960711","8":"-0.03415357","9":"55.85520","10":"42.60090","11":"66.04889","12":"PICO + CYPR"},{"1":"3.6","2":"2018.6","3":"-0.8418227","4":"0.006893600","5":"-0.7229343","6":"0.04794077","7":"-0.960711","8":"-0.03415357","9":"55.82476","10":"42.32507","11":"66.16464","12":"PICO + CYPR"},{"1":"3.7","2":"2018.7","3":"-0.8418227","4":"0.006893600","5":"-0.7229343","6":"0.04794077","7":"-0.960711","8":"-0.03415357","9":"55.79429","10":"42.04790","11":"66.28001","12":"PICO + CYPR"},{"1":"3.8","2":"2018.8","3":"-0.8418227","4":"0.006893600","5":"-0.7229343","6":"0.04794077","7":"-0.960711","8":"-0.03415357","9":"55.76381","10":"41.76941","11":"66.39497","12":"PICO + CYPR"},{"1":"3.9","2":"2018.9","3":"-0.8418227","4":"0.006893600","5":"-0.7229343","6":"0.04794077","7":"-0.960711","8":"-0.03415357","9":"55.73331","10":"41.48958","11":"66.50955","12":"PICO + CYPR"},{"1":"4.0","2":"2019.0","3":"-0.8418227","4":"0.006893600","5":"-0.7229343","6":"0.04794077","7":"-0.960711","8":"-0.03415357","9":"55.70278","10":"41.20840","11":"66.62374","12":"PICO + CYPR"},{"1":"4.1","2":"2019.1","3":"-0.8418227","4":"0.006893600","5":"-0.7229343","6":"0.04794077","7":"-0.960711","8":"-0.03415357","9":"55.67223","10":"40.92587","11":"66.73754","12":"PICO + CYPR"},{"1":"4.2","2":"2019.2","3":"-0.8418227","4":"0.006893600","5":"-0.7229343","6":"0.04794077","7":"-0.960711","8":"-0.03415357","9":"55.64166","10":"40.64199","11":"66.85095","12":"PICO + CYPR"},{"1":"4.3","2":"2019.3","3":"-0.8418227","4":"0.006893600","5":"-0.7229343","6":"0.04794077","7":"-0.960711","8":"-0.03415357","9":"55.61107","10":"40.35674","11":"66.96397","12":"PICO + CYPR"},{"1":"4.4","2":"2019.4","3":"-0.8418227","4":"0.006893600","5":"-0.7229343","6":"0.04794077","7":"-0.960711","8":"-0.03415357","9":"55.58046","10":"40.07012","11":"67.07661","12":"PICO + CYPR"},{"1":"4.5","2":"2019.5","3":"-0.8418227","4":"0.006893600","5":"-0.7229343","6":"0.04794077","7":"-0.960711","8":"-0.03415357","9":"55.54983","10":"39.78212","11":"67.18886","12":"PICO + CYPR"},{"1":"4.6","2":"2019.6","3":"-0.8418227","4":"0.006893600","5":"-0.7229343","6":"0.04794077","7":"-0.960711","8":"-0.03415357","9":"55.51918","10":"39.49274","11":"67.30073","12":"PICO + CYPR"},{"1":"4.7","2":"2019.7","3":"-0.8418227","4":"0.006893600","5":"-0.7229343","6":"0.04794077","7":"-0.960711","8":"-0.03415357","9":"55.48851","10":"39.20196","11":"67.41222","12":"PICO + CYPR"},{"1":"4.8","2":"2019.8","3":"-0.8418227","4":"0.006893600","5":"-0.7229343","6":"0.04794077","7":"-0.960711","8":"-0.03415357","9":"55.45781","10":"38.90979","11":"67.52333","12":"PICO + CYPR"},{"1":"4.9","2":"2019.9","3":"-0.8418227","4":"0.006893600","5":"-0.7229343","6":"0.04794077","7":"-0.960711","8":"-0.03415357","9":"55.42709","10":"38.61622","11":"67.63406","12":"PICO + CYPR"},{"1":"5.0","2":"2020.0","3":"-0.8418227","4":"0.006893600","5":"-0.7229343","6":"0.04794077","7":"-0.960711","8":"-0.03415357","9":"55.39636","10":"38.32123","11":"67.74441","12":"PICO + CYPR"},{"1":"0.0","2":"2015.0","3":"-1.1064433","4":"0.004351874","5":"-0.9579551","6":"0.06004820","7":"-1.254931","8":"-0.05134445","9":"66.92668","10":"61.63233","11":"71.49046","12":"PICO + TEBU"},{"1":"0.1","2":"2015.1","3":"-1.1064433","4":"0.004351874","5":"-0.9579551","6":"0.06004820","7":"-1.254931","8":"-0.05134445","9":"66.91228","10":"61.40125","11":"71.63647","12":"PICO + TEBU"},{"1":"0.2","2":"2015.2","3":"-1.1064433","4":"0.004351874","5":"-0.9579551","6":"0.06004820","7":"-1.254931","8":"-0.05134445","9":"66.89788","10":"61.16877","11":"71.78172","12":"PICO + TEBU"},{"1":"0.3","2":"2015.3","3":"-1.1064433","4":"0.004351874","5":"-0.9579551","6":"0.06004820","7":"-1.254931","8":"-0.05134445","9":"66.88347","10":"60.93490","11":"71.92624","12":"PICO + TEBU"},{"1":"0.4","2":"2015.4","3":"-1.1064433","4":"0.004351874","5":"-0.9579551","6":"0.06004820","7":"-1.254931","8":"-0.05134445","9":"66.86906","10":"60.69961","11":"72.07001","12":"PICO + TEBU"},{"1":"0.5","2":"2015.5","3":"-1.1064433","4":"0.004351874","5":"-0.9579551","6":"0.06004820","7":"-1.254931","8":"-0.05134445","9":"66.85464","10":"60.46291","11":"72.21305","12":"PICO + TEBU"},{"1":"0.6","2":"2015.6","3":"-1.1064433","4":"0.004351874","5":"-0.9579551","6":"0.06004820","7":"-1.254931","8":"-0.05134445","9":"66.84021","10":"60.22478","11":"72.35535","12":"PICO + TEBU"},{"1":"0.7","2":"2015.7","3":"-1.1064433","4":"0.004351874","5":"-0.9579551","6":"0.06004820","7":"-1.254931","8":"-0.05134445","9":"66.82578","10":"59.98522","11":"72.49693","12":"PICO + TEBU"},{"1":"0.8","2":"2015.8","3":"-1.1064433","4":"0.004351874","5":"-0.9579551","6":"0.06004820","7":"-1.254931","8":"-0.05134445","9":"66.81134","10":"59.74422","11":"72.63778","12":"PICO + TEBU"},{"1":"0.9","2":"2015.9","3":"-1.1064433","4":"0.004351874","5":"-0.9579551","6":"0.06004820","7":"-1.254931","8":"-0.05134445","9":"66.79689","10":"59.50176","11":"72.77791","12":"PICO + TEBU"},{"1":"1.0","2":"2016.0","3":"-1.1064433","4":"0.004351874","5":"-0.9579551","6":"0.06004820","7":"-1.254931","8":"-0.05134445","9":"66.78244","10":"59.25785","11":"72.91732","12":"PICO + TEBU"},{"1":"1.1","2":"2016.1","3":"-1.1064433","4":"0.004351874","5":"-0.9579551","6":"0.06004820","7":"-1.254931","8":"-0.05134445","9":"66.76798","10":"59.01246","11":"73.05602","12":"PICO + TEBU"},{"1":"1.2","2":"2016.2","3":"-1.1064433","4":"0.004351874","5":"-0.9579551","6":"0.06004820","7":"-1.254931","8":"-0.05134445","9":"66.75351","10":"58.76560","11":"73.19401","12":"PICO + TEBU"},{"1":"1.3","2":"2016.3","3":"-1.1064433","4":"0.004351874","5":"-0.9579551","6":"0.06004820","7":"-1.254931","8":"-0.05134445","9":"66.73904","10":"58.51725","11":"73.33129","12":"PICO + TEBU"},{"1":"1.4","2":"2016.4","3":"-1.1064433","4":"0.004351874","5":"-0.9579551","6":"0.06004820","7":"-1.254931","8":"-0.05134445","9":"66.72456","10":"58.26740","11":"73.46787","12":"PICO + TEBU"},{"1":"1.5","2":"2016.5","3":"-1.1064433","4":"0.004351874","5":"-0.9579551","6":"0.06004820","7":"-1.254931","8":"-0.05134445","9":"66.71008","10":"58.01605","11":"73.60375","12":"PICO + TEBU"},{"1":"1.6","2":"2016.6","3":"-1.1064433","4":"0.004351874","5":"-0.9579551","6":"0.06004820","7":"-1.254931","8":"-0.05134445","9":"66.69559","10":"57.76319","11":"73.73893","12":"PICO + TEBU"},{"1":"1.7","2":"2016.7","3":"-1.1064433","4":"0.004351874","5":"-0.9579551","6":"0.06004820","7":"-1.254931","8":"-0.05134445","9":"66.68109","10":"57.50880","11":"73.87342","12":"PICO + TEBU"},{"1":"1.8","2":"2016.8","3":"-1.1064433","4":"0.004351874","5":"-0.9579551","6":"0.06004820","7":"-1.254931","8":"-0.05134445","9":"66.66659","10":"57.25288","11":"74.00722","12":"PICO + TEBU"},{"1":"1.9","2":"2016.9","3":"-1.1064433","4":"0.004351874","5":"-0.9579551","6":"0.06004820","7":"-1.254931","8":"-0.05134445","9":"66.65208","10":"56.99542","11":"74.14034","12":"PICO + TEBU"},{"1":"2.0","2":"2017.0","3":"-1.1064433","4":"0.004351874","5":"-0.9579551","6":"0.06004820","7":"-1.254931","8":"-0.05134445","9":"66.63756","10":"56.73641","11":"74.27277","12":"PICO + TEBU"},{"1":"2.1","2":"2017.1","3":"-1.1064433","4":"0.004351874","5":"-0.9579551","6":"0.06004820","7":"-1.254931","8":"-0.05134445","9":"66.62304","10":"56.47584","11":"74.40453","12":"PICO + TEBU"},{"1":"2.2","2":"2017.2","3":"-1.1064433","4":"0.004351874","5":"-0.9579551","6":"0.06004820","7":"-1.254931","8":"-0.05134445","9":"66.60851","10":"56.21369","11":"74.53561","12":"PICO + TEBU"},{"1":"2.3","2":"2017.3","3":"-1.1064433","4":"0.004351874","5":"-0.9579551","6":"0.06004820","7":"-1.254931","8":"-0.05134445","9":"66.59398","10":"55.94997","11":"74.66602","12":"PICO + TEBU"},{"1":"2.4","2":"2017.4","3":"-1.1064433","4":"0.004351874","5":"-0.9579551","6":"0.06004820","7":"-1.254931","8":"-0.05134445","9":"66.57944","10":"55.68467","11":"74.79576","12":"PICO + TEBU"},{"1":"2.5","2":"2017.5","3":"-1.1064433","4":"0.004351874","5":"-0.9579551","6":"0.06004820","7":"-1.254931","8":"-0.05134445","9":"66.56489","10":"55.41776","11":"74.92484","12":"PICO + TEBU"},{"1":"2.6","2":"2017.6","3":"-1.1064433","4":"0.004351874","5":"-0.9579551","6":"0.06004820","7":"-1.254931","8":"-0.05134445","9":"66.55034","10":"55.14925","11":"75.05326","12":"PICO + TEBU"},{"1":"2.7","2":"2017.7","3":"-1.1064433","4":"0.004351874","5":"-0.9579551","6":"0.06004820","7":"-1.254931","8":"-0.05134445","9":"66.53578","10":"54.87912","11":"75.18102","12":"PICO + TEBU"},{"1":"2.8","2":"2017.8","3":"-1.1064433","4":"0.004351874","5":"-0.9579551","6":"0.06004820","7":"-1.254931","8":"-0.05134445","9":"66.52121","10":"54.60736","11":"75.30812","12":"PICO + TEBU"},{"1":"2.9","2":"2017.9","3":"-1.1064433","4":"0.004351874","5":"-0.9579551","6":"0.06004820","7":"-1.254931","8":"-0.05134445","9":"66.50664","10":"54.33396","11":"75.43458","12":"PICO + TEBU"},{"1":"3.0","2":"2018.0","3":"-1.1064433","4":"0.004351874","5":"-0.9579551","6":"0.06004820","7":"-1.254931","8":"-0.05134445","9":"66.49206","10":"54.05892","11":"75.56039","12":"PICO + TEBU"},{"1":"3.1","2":"2018.1","3":"-1.1064433","4":"0.004351874","5":"-0.9579551","6":"0.06004820","7":"-1.254931","8":"-0.05134445","9":"66.47747","10":"53.78222","11":"75.68555","12":"PICO + TEBU"},{"1":"3.2","2":"2018.2","3":"-1.1064433","4":"0.004351874","5":"-0.9579551","6":"0.06004820","7":"-1.254931","8":"-0.05134445","9":"66.46288","10":"53.50386","11":"75.81007","12":"PICO + TEBU"},{"1":"3.3","2":"2018.3","3":"-1.1064433","4":"0.004351874","5":"-0.9579551","6":"0.06004820","7":"-1.254931","8":"-0.05134445","9":"66.44828","10":"53.22382","11":"75.93395","12":"PICO + TEBU"},{"1":"3.4","2":"2018.4","3":"-1.1064433","4":"0.004351874","5":"-0.9579551","6":"0.06004820","7":"-1.254931","8":"-0.05134445","9":"66.43368","10":"52.94209","11":"76.05720","12":"PICO + TEBU"},{"1":"3.5","2":"2018.5","3":"-1.1064433","4":"0.004351874","5":"-0.9579551","6":"0.06004820","7":"-1.254931","8":"-0.05134445","9":"66.41907","10":"52.65867","11":"76.17982","12":"PICO + TEBU"},{"1":"3.6","2":"2018.6","3":"-1.1064433","4":"0.004351874","5":"-0.9579551","6":"0.06004820","7":"-1.254931","8":"-0.05134445","9":"66.40445","10":"52.37354","11":"76.30181","12":"PICO + TEBU"},{"1":"3.7","2":"2018.7","3":"-1.1064433","4":"0.004351874","5":"-0.9579551","6":"0.06004820","7":"-1.254931","8":"-0.05134445","9":"66.38983","10":"52.08669","11":"76.42317","12":"PICO + TEBU"},{"1":"3.8","2":"2018.8","3":"-1.1064433","4":"0.004351874","5":"-0.9579551","6":"0.06004820","7":"-1.254931","8":"-0.05134445","9":"66.37520","10":"51.79811","11":"76.54392","12":"PICO + TEBU"},{"1":"3.9","2":"2018.9","3":"-1.1064433","4":"0.004351874","5":"-0.9579551","6":"0.06004820","7":"-1.254931","8":"-0.05134445","9":"66.36056","10":"51.50780","11":"76.66404","12":"PICO + TEBU"},{"1":"4.0","2":"2019.0","3":"-1.1064433","4":"0.004351874","5":"-0.9579551","6":"0.06004820","7":"-1.254931","8":"-0.05134445","9":"66.34592","10":"51.21573","11":"76.78355","12":"PICO + TEBU"},{"1":"2.0","2":"2017.0","3":"-1.4364558","4":"0.058447214","5":"-1.1912653","6":"0.13201035","7":"-1.681646","8":"-0.01511593","9":"73.27475","10":"60.43576","11":"81.94736","12":"PYRA + EPOX + FLUX"},{"1":"2.1","2":"2017.1","3":"-1.4364558","4":"0.058447214","5":"-1.1912653","6":"0.13201035","7":"-1.681646","8":"-0.01511593","9":"73.11809","10":"59.91001","11":"81.97463","12":"PYRA + EPOX + FLUX"},{"1":"2.2","2":"2017.2","3":"-1.4364558","4":"0.058447214","5":"-1.1912653","6":"0.13201035","7":"-1.681646","8":"-0.01511593","9":"72.96051","10":"59.37727","11":"82.00185","12":"PYRA + EPOX + FLUX"},{"1":"2.3","2":"2017.3","3":"-1.4364558","4":"0.058447214","5":"-1.1912653","6":"0.13201035","7":"-1.681646","8":"-0.01511593","9":"72.80201","10":"58.83746","11":"82.02904","12":"PYRA + EPOX + FLUX"},{"1":"2.4","2":"2017.4","3":"-1.4364558","4":"0.058447214","5":"-1.1912653","6":"0.13201035","7":"-1.681646","8":"-0.01511593","9":"72.64258","10":"58.29047","11":"82.05618","12":"PYRA + EPOX + FLUX"},{"1":"2.5","2":"2017.5","3":"-1.4364558","4":"0.058447214","5":"-1.1912653","6":"0.13201035","7":"-1.681646","8":"-0.01511593","9":"72.48222","10":"57.73621","11":"82.08329","12":"PYRA + EPOX + FLUX"},{"1":"2.6","2":"2017.6","3":"-1.4364558","4":"0.058447214","5":"-1.1912653","6":"0.13201035","7":"-1.681646","8":"-0.01511593","9":"72.32091","10":"57.17458","11":"82.11035","12":"PYRA + EPOX + FLUX"},{"1":"2.7","2":"2017.7","3":"-1.4364558","4":"0.058447214","5":"-1.1912653","6":"0.13201035","7":"-1.681646","8":"-0.01511593","9":"72.15866","10":"56.60549","11":"82.13737","12":"PYRA + EPOX + FLUX"},{"1":"2.8","2":"2017.8","3":"-1.4364558","4":"0.058447214","5":"-1.1912653","6":"0.13201035","7":"-1.681646","8":"-0.01511593","9":"71.99546","10":"56.02884","11":"82.16435","12":"PYRA + EPOX + FLUX"},{"1":"2.9","2":"2017.9","3":"-1.4364558","4":"0.058447214","5":"-1.1912653","6":"0.13201035","7":"-1.681646","8":"-0.01511593","9":"71.83130","10":"55.44453","11":"82.19129","12":"PYRA + EPOX + FLUX"},{"1":"3.0","2":"2018.0","3":"-1.4364558","4":"0.058447214","5":"-1.1912653","6":"0.13201035","7":"-1.681646","8":"-0.01511593","9":"71.66618","10":"54.85245","11":"82.21819","12":"PYRA + EPOX + FLUX"},{"1":"3.1","2":"2018.1","3":"-1.4364558","4":"0.058447214","5":"-1.1912653","6":"0.13201035","7":"-1.681646","8":"-0.01511593","9":"71.50010","10":"54.25251","11":"82.24505","12":"PYRA + EPOX + FLUX"},{"1":"3.2","2":"2018.2","3":"-1.4364558","4":"0.058447214","5":"-1.1912653","6":"0.13201035","7":"-1.681646","8":"-0.01511593","9":"71.33303","10":"53.64459","11":"82.27187","12":"PYRA + EPOX + FLUX"},{"1":"3.3","2":"2018.3","3":"-1.4364558","4":"0.058447214","5":"-1.1912653","6":"0.13201035","7":"-1.681646","8":"-0.01511593","9":"71.16499","10":"53.02859","11":"82.29864","12":"PYRA + EPOX + FLUX"},{"1":"3.4","2":"2018.4","3":"-1.4364558","4":"0.058447214","5":"-1.1912653","6":"0.13201035","7":"-1.681646","8":"-0.01511593","9":"70.99597","10":"52.40441","11":"82.32538","12":"PYRA + EPOX + FLUX"},{"1":"3.5","2":"2018.5","3":"-1.4364558","4":"0.058447214","5":"-1.1912653","6":"0.13201035","7":"-1.681646","8":"-0.01511593","9":"70.82595","10":"51.77193","11":"82.35208","12":"PYRA + EPOX + FLUX"},{"1":"3.6","2":"2018.6","3":"-1.4364558","4":"0.058447214","5":"-1.1912653","6":"0.13201035","7":"-1.681646","8":"-0.01511593","9":"70.65494","10":"51.13105","11":"82.37873","12":"PYRA + EPOX + FLUX"},{"1":"3.7","2":"2018.7","3":"-1.4364558","4":"0.058447214","5":"-1.1912653","6":"0.13201035","7":"-1.681646","8":"-0.01511593","9":"70.48292","10":"50.48166","11":"82.40535","12":"PYRA + EPOX + FLUX"},{"1":"3.8","2":"2018.8","3":"-1.4364558","4":"0.058447214","5":"-1.1912653","6":"0.13201035","7":"-1.681646","8":"-0.01511593","9":"70.30990","10":"49.82363","11":"82.43193","12":"PYRA + EPOX + FLUX"},{"1":"3.9","2":"2018.9","3":"-1.4364558","4":"0.058447214","5":"-1.1912653","6":"0.13201035","7":"-1.681646","8":"-0.01511593","9":"70.13586","10":"49.15686","11":"82.45846","12":"PYRA + EPOX + FLUX"},{"1":"4.0","2":"2019.0","3":"-1.4364558","4":"0.058447214","5":"-1.1912653","6":"0.13201035","7":"-1.681646","8":"-0.01511593","9":"69.96080","10":"48.48123","11":"82.48496","12":"PYRA + EPOX + FLUX"},{"1":"4.1","2":"2019.1","3":"-1.4364558","4":"0.058447214","5":"-1.1912653","6":"0.13201035","7":"-1.681646","8":"-0.01511593","9":"69.78472","10":"47.79662","11":"82.51141","12":"PYRA + EPOX + FLUX"},{"1":"4.2","2":"2019.2","3":"-1.4364558","4":"0.058447214","5":"-1.1912653","6":"0.13201035","7":"-1.681646","8":"-0.01511593","9":"69.60760","10":"47.10291","11":"82.53783","12":"PYRA + EPOX + FLUX"},{"1":"4.3","2":"2019.3","3":"-1.4364558","4":"0.058447214","5":"-1.1912653","6":"0.13201035","7":"-1.681646","8":"-0.01511593","9":"69.42944","10":"46.39998","11":"82.56420","12":"PYRA + EPOX + FLUX"},{"1":"4.4","2":"2019.4","3":"-1.4364558","4":"0.058447214","5":"-1.1912653","6":"0.13201035","7":"-1.681646","8":"-0.01511593","9":"69.25024","10":"45.68772","11":"82.59054","12":"PYRA + EPOX + FLUX"},{"1":"4.5","2":"2019.5","3":"-1.4364558","4":"0.058447214","5":"-1.1912653","6":"0.13201035","7":"-1.681646","8":"-0.01511593","9":"69.06999","10":"44.96598","11":"82.61684","12":"PYRA + EPOX + FLUX"},{"1":"4.6","2":"2019.6","3":"-1.4364558","4":"0.058447214","5":"-1.1912653","6":"0.13201035","7":"-1.681646","8":"-0.01511593","9":"68.88869","10":"44.23466","11":"82.64309","12":"PYRA + EPOX + FLUX"},{"1":"4.7","2":"2019.7","3":"-1.4364558","4":"0.058447214","5":"-1.1912653","6":"0.13201035","7":"-1.681646","8":"-0.01511593","9":"68.70632","10":"43.49362","11":"82.66931","12":"PYRA + EPOX + FLUX"},{"1":"4.8","2":"2019.8","3":"-1.4364558","4":"0.058447214","5":"-1.1912653","6":"0.13201035","7":"-1.681646","8":"-0.01511593","9":"68.52288","10":"42.74273","11":"82.69549","12":"PYRA + EPOX + FLUX"},{"1":"4.9","2":"2019.9","3":"-1.4364558","4":"0.058447214","5":"-1.1912653","6":"0.13201035","7":"-1.681646","8":"-0.01511593","9":"68.33837","10":"41.98187","11":"82.72162","12":"PYRA + EPOX + FLUX"},{"1":"5.0","2":"2020.0","3":"-1.4364558","4":"0.058447214","5":"-1.1912653","6":"0.13201035","7":"-1.681646","8":"-0.01511593","9":"68.15277","10":"41.21089","11":"82.74772","12":"PYRA + EPOX + FLUX"},{"1":"1.0","2":"2016.0","3":"-0.9170512","4":"0.024027379","5":"-0.7614158","6":"0.07484187","7":"-1.072687","8":"-0.02678712","9":"59.05841","10":"49.67025","11":"66.69537","12":"TFLX + CYPR"},{"1":"1.1","2":"2016.1","3":"-0.9170512","4":"0.024027379","5":"-0.7614158","6":"0.07484187","7":"-1.072687","8":"-0.02678712","9":"58.95992","10":"49.29216","11":"66.78446","12":"TFLX + CYPR"},{"1":"1.2","2":"2016.2","3":"-0.9170512","4":"0.024027379","5":"-0.7614158","6":"0.07484187","7":"-1.072687","8":"-0.02678712","9":"58.86119","10":"48.91123","11":"66.87332","12":"TFLX + CYPR"},{"1":"1.3","2":"2016.3","3":"-0.9170512","4":"0.024027379","5":"-0.7614158","6":"0.07484187","7":"-1.072687","8":"-0.02678712","9":"58.76223","10":"48.52744","11":"66.96194","12":"TFLX + CYPR"},{"1":"1.4","2":"2016.4","3":"-0.9170512","4":"0.024027379","5":"-0.7614158","6":"0.07484187","7":"-1.072687","8":"-0.02678712","9":"58.66303","10":"48.14076","11":"67.05032","12":"TFLX + CYPR"},{"1":"1.5","2":"2016.5","3":"-0.9170512","4":"0.024027379","5":"-0.7614158","6":"0.07484187","7":"-1.072687","8":"-0.02678712","9":"58.56359","10":"47.75118","11":"67.13846","12":"TFLX + CYPR"},{"1":"1.6","2":"2016.6","3":"-0.9170512","4":"0.024027379","5":"-0.7614158","6":"0.07484187","7":"-1.072687","8":"-0.02678712","9":"58.46390","10":"47.35868","11":"67.22637","12":"TFLX + CYPR"},{"1":"1.7","2":"2016.7","3":"-0.9170512","4":"0.024027379","5":"-0.7614158","6":"0.07484187","7":"-1.072687","8":"-0.02678712","9":"58.36398","10":"46.96322","11":"67.31404","12":"TFLX + CYPR"},{"1":"1.8","2":"2016.8","3":"-0.9170512","4":"0.024027379","5":"-0.7614158","6":"0.07484187","7":"-1.072687","8":"-0.02678712","9":"58.26382","10":"46.56480","11":"67.40148","12":"TFLX + CYPR"},{"1":"1.9","2":"2016.9","3":"-0.9170512","4":"0.024027379","5":"-0.7614158","6":"0.07484187","7":"-1.072687","8":"-0.02678712","9":"58.16342","10":"46.16338","11":"67.48869","12":"TFLX + CYPR"},{"1":"2.0","2":"2017.0","3":"-0.9170512","4":"0.024027379","5":"-0.7614158","6":"0.07484187","7":"-1.072687","8":"-0.02678712","9":"58.06278","10":"45.75894","11":"67.57566","12":"TFLX + CYPR"},{"1":"2.1","2":"2017.1","3":"-0.9170512","4":"0.024027379","5":"-0.7614158","6":"0.07484187","7":"-1.072687","8":"-0.02678712","9":"57.96189","10":"45.35147","11":"67.66240","12":"TFLX + CYPR"},{"1":"2.2","2":"2017.2","3":"-0.9170512","4":"0.024027379","5":"-0.7614158","6":"0.07484187","7":"-1.072687","8":"-0.02678712","9":"57.86077","10":"44.94093","11":"67.74891","12":"TFLX + CYPR"},{"1":"2.3","2":"2017.3","3":"-0.9170512","4":"0.024027379","5":"-0.7614158","6":"0.07484187","7":"-1.072687","8":"-0.02678712","9":"57.75939","10":"44.52732","11":"67.83518","12":"TFLX + CYPR"},{"1":"2.4","2":"2017.4","3":"-0.9170512","4":"0.024027379","5":"-0.7614158","6":"0.07484187","7":"-1.072687","8":"-0.02678712","9":"57.65778","10":"44.11059","11":"67.92123","12":"TFLX + CYPR"},{"1":"2.5","2":"2017.5","3":"-0.9170512","4":"0.024027379","5":"-0.7614158","6":"0.07484187","7":"-1.072687","8":"-0.02678712","9":"57.55592","10":"43.69073","11":"68.00704","12":"TFLX + CYPR"},{"1":"2.6","2":"2017.6","3":"-0.9170512","4":"0.024027379","5":"-0.7614158","6":"0.07484187","7":"-1.072687","8":"-0.02678712","9":"57.45381","10":"43.26772","11":"68.09263","12":"TFLX + CYPR"},{"1":"2.7","2":"2017.7","3":"-0.9170512","4":"0.024027379","5":"-0.7614158","6":"0.07484187","7":"-1.072687","8":"-0.02678712","9":"57.35146","10":"42.84154","11":"68.17798","12":"TFLX + CYPR"},{"1":"2.8","2":"2017.8","3":"-0.9170512","4":"0.024027379","5":"-0.7614158","6":"0.07484187","7":"-1.072687","8":"-0.02678712","9":"57.24887","10":"42.41215","11":"68.26311","12":"TFLX + CYPR"},{"1":"2.9","2":"2017.9","3":"-0.9170512","4":"0.024027379","5":"-0.7614158","6":"0.07484187","7":"-1.072687","8":"-0.02678712","9":"57.14602","10":"41.97953","11":"68.34801","12":"TFLX + CYPR"},{"1":"3.0","2":"2018.0","3":"-0.9170512","4":"0.024027379","5":"-0.7614158","6":"0.07484187","7":"-1.072687","8":"-0.02678712","9":"57.04293","10":"41.54367","11":"68.43268","12":"TFLX + CYPR"},{"1":"3.1","2":"2018.1","3":"-0.9170512","4":"0.024027379","5":"-0.7614158","6":"0.07484187","7":"-1.072687","8":"-0.02678712","9":"56.93960","10":"41.10453","11":"68.51713","12":"TFLX + CYPR"},{"1":"3.2","2":"2018.2","3":"-0.9170512","4":"0.024027379","5":"-0.7614158","6":"0.07484187","7":"-1.072687","8":"-0.02678712","9":"56.83601","10":"40.66209","11":"68.60135","12":"TFLX + CYPR"},{"1":"3.3","2":"2018.3","3":"-0.9170512","4":"0.024027379","5":"-0.7614158","6":"0.07484187","7":"-1.072687","8":"-0.02678712","9":"56.73217","10":"40.21633","11":"68.68535","12":"TFLX + CYPR"},{"1":"3.4","2":"2018.4","3":"-0.9170512","4":"0.024027379","5":"-0.7614158","6":"0.07484187","7":"-1.072687","8":"-0.02678712","9":"56.62809","10":"39.76722","11":"68.76912","12":"TFLX + CYPR"},{"1":"3.5","2":"2018.5","3":"-0.9170512","4":"0.024027379","5":"-0.7614158","6":"0.07484187","7":"-1.072687","8":"-0.02678712","9":"56.52375","10":"39.31473","11":"68.85266","12":"TFLX + CYPR"},{"1":"3.6","2":"2018.6","3":"-0.9170512","4":"0.024027379","5":"-0.7614158","6":"0.07484187","7":"-1.072687","8":"-0.02678712","9":"56.41916","10":"38.85885","11":"68.93599","12":"TFLX + CYPR"},{"1":"3.7","2":"2018.7","3":"-0.9170512","4":"0.024027379","5":"-0.7614158","6":"0.07484187","7":"-1.072687","8":"-0.02678712","9":"56.31432","10":"38.39954","11":"69.01909","12":"TFLX + CYPR"},{"1":"3.8","2":"2018.8","3":"-0.9170512","4":"0.024027379","5":"-0.7614158","6":"0.07484187","7":"-1.072687","8":"-0.02678712","9":"56.20923","10":"37.93678","11":"69.10197","12":"TFLX + CYPR"},{"1":"3.9","2":"2018.9","3":"-0.9170512","4":"0.024027379","5":"-0.7614158","6":"0.07484187","7":"-1.072687","8":"-0.02678712","9":"56.10389","10":"37.47054","11":"69.18462","12":"TFLX + CYPR"},{"1":"4.0","2":"2019.0","3":"-0.9170512","4":"0.024027379","5":"-0.7614158","6":"0.07484187","7":"-1.072687","8":"-0.02678712","9":"55.99829","10":"37.00081","11":"69.26706","12":"TFLX + CYPR"},{"1":"4.1","2":"2019.1","3":"-0.9170512","4":"0.024027379","5":"-0.7614158","6":"0.07484187","7":"-1.072687","8":"-0.02678712","9":"55.89244","10":"36.52754","11":"69.34927","12":"TFLX + CYPR"},{"1":"4.2","2":"2019.2","3":"-0.9170512","4":"0.024027379","5":"-0.7614158","6":"0.07484187","7":"-1.072687","8":"-0.02678712","9":"55.78633","10":"36.05072","11":"69.43127","12":"TFLX + CYPR"},{"1":"4.3","2":"2019.3","3":"-0.9170512","4":"0.024027379","5":"-0.7614158","6":"0.07484187","7":"-1.072687","8":"-0.02678712","9":"55.67997","10":"35.57031","11":"69.51304","12":"TFLX + CYPR"},{"1":"4.4","2":"2019.4","3":"-0.9170512","4":"0.024027379","5":"-0.7614158","6":"0.07484187","7":"-1.072687","8":"-0.02678712","9":"55.57335","10":"35.08630","11":"69.59460","12":"TFLX + CYPR"},{"1":"4.5","2":"2019.5","3":"-0.9170512","4":"0.024027379","5":"-0.7614158","6":"0.07484187","7":"-1.072687","8":"-0.02678712","9":"55.46648","10":"34.59865","11":"69.67594","12":"TFLX + CYPR"},{"1":"4.6","2":"2019.6","3":"-0.9170512","4":"0.024027379","5":"-0.7614158","6":"0.07484187","7":"-1.072687","8":"-0.02678712","9":"55.35935","10":"34.10734","11":"69.75706","12":"TFLX + CYPR"},{"1":"4.7","2":"2019.7","3":"-0.9170512","4":"0.024027379","5":"-0.7614158","6":"0.07484187","7":"-1.072687","8":"-0.02678712","9":"55.25196","10":"33.61234","11":"69.83796","12":"TFLX + CYPR"},{"1":"4.8","2":"2019.8","3":"-0.9170512","4":"0.024027379","5":"-0.7614158","6":"0.07484187","7":"-1.072687","8":"-0.02678712","9":"55.14431","10":"33.11362","11":"69.91865","12":"TFLX + CYPR"},{"1":"4.9","2":"2019.9","3":"-0.9170512","4":"0.024027379","5":"-0.7614158","6":"0.07484187","7":"-1.072687","8":"-0.02678712","9":"55.03640","10":"32.61115","11":"69.99912","12":"TFLX + CYPR"},{"1":"5.0","2":"2020.0","3":"-0.9170512","4":"0.024027379","5":"-0.7614158","6":"0.07484187","7":"-1.072687","8":"-0.02678712","9":"54.92824","10":"32.10491","11":"70.07938","12":"TFLX + CYPR"},{"1":"0.0","2":"2015.0","3":"-1.3616543","4":"0.037549712","5":"-1.1997695","6":"0.09376592","7":"-1.523539","8":"-0.01866650","9":"74.37635","10":"69.87364","11":"78.20608","12":"TFLX + PROT"},{"1":"0.1","2":"2015.1","3":"-1.3616543","4":"0.037549712","5":"-1.1997695","6":"0.09376592","7":"-1.523539","8":"-0.01866650","9":"74.27995","10":"69.58982","11":"78.24672","12":"TFLX + PROT"},{"1":"0.2","2":"2015.2","3":"-1.3616543","4":"0.037549712","5":"-1.1997695","6":"0.09376592","7":"-1.523539","8":"-0.01866650","9":"74.18319","10":"69.30334","11":"78.28729","12":"TFLX + PROT"},{"1":"0.3","2":"2015.3","3":"-1.3616543","4":"0.037549712","5":"-1.1997695","6":"0.09376592","7":"-1.523539","8":"-0.01866650","9":"74.08607","10":"69.01416","11":"78.32778","12":"TFLX + PROT"},{"1":"0.4","2":"2015.4","3":"-1.3616543","4":"0.037549712","5":"-1.1997695","6":"0.09376592","7":"-1.523539","8":"-0.01866650","9":"73.98858","10":"68.72225","11":"78.36820","12":"TFLX + PROT"},{"1":"0.5","2":"2015.5","3":"-1.3616543","4":"0.037549712","5":"-1.1997695","6":"0.09376592","7":"-1.523539","8":"-0.01866650","9":"73.89072","10":"68.42759","11":"78.40854","12":"TFLX + PROT"},{"1":"0.6","2":"2015.6","3":"-1.3616543","4":"0.037549712","5":"-1.1997695","6":"0.09376592","7":"-1.523539","8":"-0.01866650","9":"73.79250","10":"68.13016","11":"78.44881","12":"TFLX + PROT"},{"1":"0.7","2":"2015.7","3":"-1.3616543","4":"0.037549712","5":"-1.1997695","6":"0.09376592","7":"-1.523539","8":"-0.01866650","9":"73.69390","10":"67.82992","11":"78.48900","12":"TFLX + PROT"},{"1":"0.8","2":"2015.8","3":"-1.3616543","4":"0.037549712","5":"-1.1997695","6":"0.09376592","7":"-1.523539","8":"-0.01866650","9":"73.59494","10":"67.52686","11":"78.52911","12":"TFLX + PROT"},{"1":"0.9","2":"2015.9","3":"-1.3616543","4":"0.037549712","5":"-1.1997695","6":"0.09376592","7":"-1.523539","8":"-0.01866650","9":"73.49560","10":"67.22094","11":"78.56915","12":"TFLX + PROT"},{"1":"1.0","2":"2016.0","3":"-1.3616543","4":"0.037549712","5":"-1.1997695","6":"0.09376592","7":"-1.523539","8":"-0.01866650","9":"73.39589","10":"66.91213","11":"78.60912","12":"TFLX + PROT"},{"1":"1.1","2":"2016.1","3":"-1.3616543","4":"0.037549712","5":"-1.1997695","6":"0.09376592","7":"-1.523539","8":"-0.01866650","9":"73.29581","10":"66.60042","11":"78.64901","12":"TFLX + PROT"},{"1":"1.2","2":"2016.2","3":"-1.3616543","4":"0.037549712","5":"-1.1997695","6":"0.09376592","7":"-1.523539","8":"-0.01866650","9":"73.19535","10":"66.28578","11":"78.68883","12":"TFLX + PROT"},{"1":"1.3","2":"2016.3","3":"-1.3616543","4":"0.037549712","5":"-1.1997695","6":"0.09376592","7":"-1.523539","8":"-0.01866650","9":"73.09451","10":"65.96817","11":"78.72857","12":"TFLX + PROT"},{"1":"1.4","2":"2016.4","3":"-1.3616543","4":"0.037549712","5":"-1.1997695","6":"0.09376592","7":"-1.523539","8":"-0.01866650","9":"72.99329","10":"65.64756","11":"78.76824","12":"TFLX + PROT"},{"1":"1.5","2":"2016.5","3":"-1.3616543","4":"0.037549712","5":"-1.1997695","6":"0.09376592","7":"-1.523539","8":"-0.01866650","9":"72.89169","10":"65.32394","11":"78.80784","12":"TFLX + PROT"},{"1":"1.6","2":"2016.6","3":"-1.3616543","4":"0.037549712","5":"-1.1997695","6":"0.09376592","7":"-1.523539","8":"-0.01866650","9":"72.78970","10":"64.99727","11":"78.84736","12":"TFLX + PROT"},{"1":"1.7","2":"2016.7","3":"-1.3616543","4":"0.037549712","5":"-1.1997695","6":"0.09376592","7":"-1.523539","8":"-0.01866650","9":"72.68734","10":"64.66752","11":"78.88681","12":"TFLX + PROT"},{"1":"1.8","2":"2016.8","3":"-1.3616543","4":"0.037549712","5":"-1.1997695","6":"0.09376592","7":"-1.523539","8":"-0.01866650","9":"72.58459","10":"64.33466","11":"78.92618","12":"TFLX + PROT"},{"1":"1.9","2":"2016.9","3":"-1.3616543","4":"0.037549712","5":"-1.1997695","6":"0.09376592","7":"-1.523539","8":"-0.01866650","9":"72.48145","10":"63.99867","11":"78.96548","12":"TFLX + PROT"},{"1":"2.0","2":"2017.0","3":"-1.3616543","4":"0.037549712","5":"-1.1997695","6":"0.09376592","7":"-1.523539","8":"-0.01866650","9":"72.37792","10":"63.65951","11":"79.00471","12":"TFLX + PROT"},{"1":"2.1","2":"2017.1","3":"-1.3616543","4":"0.037549712","5":"-1.1997695","6":"0.09376592","7":"-1.523539","8":"-0.01866650","9":"72.27401","10":"63.31716","11":"79.04386","12":"TFLX + PROT"},{"1":"2.2","2":"2017.2","3":"-1.3616543","4":"0.037549712","5":"-1.1997695","6":"0.09376592","7":"-1.523539","8":"-0.01866650","9":"72.16970","10":"62.97158","11":"79.08295","12":"TFLX + PROT"},{"1":"2.3","2":"2017.3","3":"-1.3616543","4":"0.037549712","5":"-1.1997695","6":"0.09376592","7":"-1.523539","8":"-0.01866650","9":"72.06500","10":"62.62275","11":"79.12195","12":"TFLX + PROT"},{"1":"2.4","2":"2017.4","3":"-1.3616543","4":"0.037549712","5":"-1.1997695","6":"0.09376592","7":"-1.523539","8":"-0.01866650","9":"71.95991","10":"62.27063","11":"79.16089","12":"TFLX + PROT"},{"1":"2.5","2":"2017.5","3":"-1.3616543","4":"0.037549712","5":"-1.1997695","6":"0.09376592","7":"-1.523539","8":"-0.01866650","9":"71.85442","10":"61.91519","11":"79.19975","12":"TFLX + PROT"},{"1":"2.6","2":"2017.6","3":"-1.3616543","4":"0.037549712","5":"-1.1997695","6":"0.09376592","7":"-1.523539","8":"-0.01866650","9":"71.74854","10":"61.55641","11":"79.23854","12":"TFLX + PROT"},{"1":"2.7","2":"2017.7","3":"-1.3616543","4":"0.037549712","5":"-1.1997695","6":"0.09376592","7":"-1.523539","8":"-0.01866650","9":"71.64226","10":"61.19424","11":"79.27726","12":"TFLX + PROT"},{"1":"2.8","2":"2017.8","3":"-1.3616543","4":"0.037549712","5":"-1.1997695","6":"0.09376592","7":"-1.523539","8":"-0.01866650","9":"71.53557","10":"60.82866","11":"79.31591","12":"TFLX + PROT"},{"1":"2.9","2":"2017.9","3":"-1.3616543","4":"0.037549712","5":"-1.1997695","6":"0.09376592","7":"-1.523539","8":"-0.01866650","9":"71.42849","10":"60.45964","11":"79.35448","12":"TFLX + PROT"},{"1":"3.0","2":"2018.0","3":"-1.3616543","4":"0.037549712","5":"-1.1997695","6":"0.09376592","7":"-1.523539","8":"-0.01866650","9":"71.32100","10":"60.08715","11":"79.39298","12":"TFLX + PROT"},{"1":"3.1","2":"2018.1","3":"-1.3616543","4":"0.037549712","5":"-1.1997695","6":"0.09376592","7":"-1.523539","8":"-0.01866650","9":"71.21311","10":"59.71114","11":"79.43141","12":"TFLX + PROT"},{"1":"3.2","2":"2018.2","3":"-1.3616543","4":"0.037549712","5":"-1.1997695","6":"0.09376592","7":"-1.523539","8":"-0.01866650","9":"71.10482","10":"59.33159","11":"79.46977","12":"TFLX + PROT"},{"1":"3.3","2":"2018.3","3":"-1.3616543","4":"0.037549712","5":"-1.1997695","6":"0.09376592","7":"-1.523539","8":"-0.01866650","9":"70.99611","10":"58.94847","11":"79.50806","12":"TFLX + PROT"},{"1":"3.4","2":"2018.4","3":"-1.3616543","4":"0.037549712","5":"-1.1997695","6":"0.09376592","7":"-1.523539","8":"-0.01866650","9":"70.88700","10":"58.56173","11":"79.54628","12":"TFLX + PROT"},{"1":"3.5","2":"2018.5","3":"-1.3616543","4":"0.037549712","5":"-1.1997695","6":"0.09376592","7":"-1.523539","8":"-0.01866650","9":"70.77747","10":"58.17135","11":"79.58442","12":"TFLX + PROT"},{"1":"3.6","2":"2018.6","3":"-1.3616543","4":"0.037549712","5":"-1.1997695","6":"0.09376592","7":"-1.523539","8":"-0.01866650","9":"70.66754","10":"57.77730","11":"79.62249","12":"TFLX + PROT"},{"1":"3.7","2":"2018.7","3":"-1.3616543","4":"0.037549712","5":"-1.1997695","6":"0.09376592","7":"-1.523539","8":"-0.01866650","9":"70.55719","10":"57.37953","11":"79.66049","12":"TFLX + PROT"},{"1":"3.8","2":"2018.8","3":"-1.3616543","4":"0.037549712","5":"-1.1997695","6":"0.09376592","7":"-1.523539","8":"-0.01866650","9":"70.44642","10":"56.97802","11":"79.69843","12":"TFLX + PROT"},{"1":"3.9","2":"2018.9","3":"-1.3616543","4":"0.037549712","5":"-1.1997695","6":"0.09376592","7":"-1.523539","8":"-0.01866650","9":"70.33524","10":"56.57272","11":"79.73629","12":"TFLX + PROT"},{"1":"4.0","2":"2019.0","3":"-1.3616543","4":"0.037549712","5":"-1.1997695","6":"0.09376592","7":"-1.523539","8":"-0.01866650","9":"70.22364","10":"56.16361","11":"79.77408","12":"TFLX + PROT"},{"1":"4.1","2":"2019.1","3":"-1.3616543","4":"0.037549712","5":"-1.1997695","6":"0.09376592","7":"-1.523539","8":"-0.01866650","9":"70.11162","10":"55.75064","11":"79.81180","12":"TFLX + PROT"},{"1":"4.2","2":"2019.2","3":"-1.3616543","4":"0.037549712","5":"-1.1997695","6":"0.09376592","7":"-1.523539","8":"-0.01866650","9":"69.99918","10":"55.33378","11":"79.84945","12":"TFLX + PROT"},{"1":"4.3","2":"2019.3","3":"-1.3616543","4":"0.037549712","5":"-1.1997695","6":"0.09376592","7":"-1.523539","8":"-0.01866650","9":"69.88632","10":"54.91299","11":"79.88702","12":"TFLX + PROT"},{"1":"4.4","2":"2019.4","3":"-1.3616543","4":"0.037549712","5":"-1.1997695","6":"0.09376592","7":"-1.523539","8":"-0.01866650","9":"69.77303","10":"54.48824","11":"79.92453","12":"TFLX + PROT"},{"1":"4.5","2":"2019.5","3":"-1.3616543","4":"0.037549712","5":"-1.1997695","6":"0.09376592","7":"-1.523539","8":"-0.01866650","9":"69.65931","10":"54.05949","11":"79.96197","12":"TFLX + PROT"},{"1":"4.6","2":"2019.6","3":"-1.3616543","4":"0.037549712","5":"-1.1997695","6":"0.09376592","7":"-1.523539","8":"-0.01866650","9":"69.54517","10":"53.62670","11":"79.99934","12":"TFLX + PROT"},{"1":"4.7","2":"2019.7","3":"-1.3616543","4":"0.037549712","5":"-1.1997695","6":"0.09376592","7":"-1.523539","8":"-0.01866650","9":"69.43060","10":"53.18983","11":"80.03664","12":"TFLX + PROT"},{"1":"4.8","2":"2019.8","3":"-1.3616543","4":"0.037549712","5":"-1.1997695","6":"0.09376592","7":"-1.523539","8":"-0.01866650","9":"69.31560","10":"52.74884","11":"80.07387","12":"TFLX + PROT"},{"1":"4.9","2":"2019.9","3":"-1.3616543","4":"0.037549712","5":"-1.1997695","6":"0.09376592","7":"-1.523539","8":"-0.01866650","9":"69.20016","10":"52.30371","11":"80.11103","12":"TFLX + PROT"},{"1":"5.0","2":"2020.0","3":"-1.3616543","4":"0.037549712","5":"-1.1997695","6":"0.09376592","7":"-1.523539","8":"-0.01866650","9":"69.08429","10":"51.85437","11":"80.14812","12":"TFLX + PROT"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<pre class="r"><code>openxlsx::write.xlsx(predicted, here(&quot;data&quot;,&quot;predicted_efficacy.xlsx&quot;), colNames = TRUE)</code></pre>
+</div>
+<div id="mods-region" class="section level3">
+<h3>Mods: region</h3>
+<pre class="r"><code>library(metafor)
+
+rust_sev1 &lt;- rust_sev %&gt;% 
+mutate(region = case_when(
+    state == &quot;MT&quot; ~ &quot;North&quot;,
+    state == &quot;BA&quot; ~ &quot;North&quot;,
+    state == &quot;DF&quot; ~ &quot;North&quot;,
+    state == &quot;MS&quot; ~ &quot;North&quot;,
+    state == &quot;GO&quot; ~ &quot;North&quot;,
+    state == &quot;TO&quot; ~ &quot;North&quot;,
+    state == &quot;PR&quot; ~ &quot;South&quot;,
+    state == &quot;MG&quot; ~ &quot;North&quot;,
+    state == &quot;SP&quot; ~ &quot;South&quot;,
+    state == &quot;RS&quot; ~ &quot;South&quot;)) 
+
+
+rust_sev1 %&gt;%
+  group_by(study,region) %&gt;% 
+  summarise() %&gt;% 
+  tabyl(region) </code></pre>
+<pre><code>## `summarise()` regrouping output by &#39;study&#39; (override with `.groups` argument)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["region"],"name":[1],"type":["chr"],"align":["left"]},{"label":["n"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["percent"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"North","2":"128","3":"0.7231638"},{"1":"South","2":"49","3":"0.2768362"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<pre class="r"><code>rust_sev1 %&gt;%
+tabyl(brand_name, region)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["brand_name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["North"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["South"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"AACHECK","2":"128","3":"49"},{"1":"AZOX + BENZ","2":"106","3":"41"},{"1":"BIXF + TFLX + PROT","2":"90","3":"28"},{"1":"PICO + BENZ","2":"90","3":"30"},{"1":"PICO + CYPR","2":"128","3":"49"},{"1":"PICO + TEBU","2":"110","3":"46"},{"1":"PYRA + EPOX + FLUX","2":"90","3":"28"},{"1":"TFLX + CYPR","2":"109","3":"39"},{"1":"TFLX + PROT","2":"123","3":"47"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<pre class="r"><code>mv_sev_reg &lt;- rma.mv(log_sev, vi_sev,
+  mods = ~brand_name * as.factor(region),
+  random = list(~brand_name | factor(study)),
+  struct = &quot;HCS&quot;,
+  method = &quot;ML&quot;,
+  #control = list(optimizer = &quot;nlm&quot;),
+  data = rust_sev1)
+
+
+mv_sev_reg</code></pre>
+<pre><code>## 
+## Multivariate Meta-Analysis Model (k = 1331; method: ML)
+## 
+## Variance Components:
+## 
+## outer factor: factor(study) (nlvls = 177)
+## inner factor: brand_name    (nlvls = 9)
+## 
+##             estim    sqrt  k.lvl  fixed               level 
+## tau^2.1    0.2187  0.4676    177     no             AACHECK 
+## tau^2.2    1.0512  1.0253    147     no         AZOX + BENZ 
+## tau^2.3    0.7709  0.8780    118     no  BIXF + TFLX + PROT 
+## tau^2.4    0.9004  0.9489    120     no         PICO + BENZ 
+## tau^2.5    0.5318  0.7293    177     no         PICO + CYPR 
+## tau^2.6    0.7015  0.8376    156     no         PICO + TEBU 
+## tau^2.7    0.7461  0.8638    118     no  PYRA + EPOX + FLUX 
+## tau^2.8    0.5622  0.7498    148     no         TFLX + CYPR 
+## tau^2.9    0.7690  0.8769    170     no         TFLX + PROT 
+## rho        0.8344                    no                     
+## 
+## Test for Residual Heterogeneity:
+## QE(df = 1313) = 776986.9790, p-val &lt; .0001
+## 
+## Test of Moderators (coefficients 2:18):
+## QM(df = 17) = 1443.4894, p-val &lt; .0001
+## 
+## Model Results:
+## 
+##                                                      estimate      se      zval 
+## intrcpt                                                4.1704  0.0414  100.6735 
+## brand_nameAZOX + BENZ                                 -1.3092  0.0658  -19.9061 
+## brand_nameBIXF + TFLX + PROT                          -1.3821  0.0557  -24.8045 
+## brand_namePICO + BENZ                                 -1.3343  0.0618  -21.5902 
+## brand_namePICO + CYPR                                 -0.7415  0.0385  -19.2592 
+## brand_namePICO + TEBU                                 -1.0025  0.0487  -20.5784 
+## brand_namePYRA + EPOX + FLUX                          -1.2480  0.0542  -23.0389 
+## brand_nameTFLX + CYPR                                 -0.7779  0.0418  -18.6131 
+## brand_nameTFLX + PROT                                 -1.1836  0.0509  -23.2557 
+## as.factor(region)South                                -0.0055  0.0788   -0.0694 
+## brand_nameAZOX + BENZ:as.factor(region)South          -0.0958  0.1254   -0.7645 
+## brand_nameBIXF + TFLX + PROT:as.factor(region)South   -0.3855  0.1167   -3.3036 
+## brand_namePICO + BENZ:as.factor(region)South          -0.0852  0.1213   -0.7024 
+## brand_namePICO + CYPR:as.factor(region)South          -0.3295  0.0738   -4.4631 
+## brand_namePICO + TEBU:as.factor(region)South          -0.3486  0.0922   -3.7798 
+## brand_namePYRA + EPOX + FLUX:as.factor(region)South   -0.1397  0.1092   -1.2792 
+## brand_nameTFLX + CYPR:as.factor(region)South          -0.3846  0.0815   -4.7187 
+## brand_nameTFLX + PROT:as.factor(region)South          -0.4251  0.0987   -4.3077 
+##                                                        pval    ci.lb    ci.ub 
+## intrcpt                                              &lt;.0001   4.0892   4.2516 
+## brand_nameAZOX + BENZ                                &lt;.0001  -1.4381  -1.1803 
+## brand_nameBIXF + TFLX + PROT                         &lt;.0001  -1.4913  -1.2728 
+## brand_namePICO + BENZ                                &lt;.0001  -1.4555  -1.2132 
+## brand_namePICO + CYPR                                &lt;.0001  -0.8170  -0.6660 
+## brand_namePICO + TEBU                                &lt;.0001  -1.0980  -0.9071 
+## brand_namePYRA + EPOX + FLUX                         &lt;.0001  -1.3541  -1.1418 
+## brand_nameTFLX + CYPR                                &lt;.0001  -0.8598  -0.6960 
+## brand_nameTFLX + PROT                                &lt;.0001  -1.2833  -1.0838 
+## as.factor(region)South                               0.9447  -0.1598   0.1489 
+## brand_nameAZOX + BENZ:as.factor(region)South         0.4446  -0.3416   0.1499 
+## brand_nameBIXF + TFLX + PROT:as.factor(region)South  0.0010  -0.6142  -0.1568 
+## brand_namePICO + BENZ:as.factor(region)South         0.4825  -0.3229   0.1525 
+## brand_namePICO + CYPR:as.factor(region)South         &lt;.0001  -0.4742  -0.1848 
+## brand_namePICO + TEBU:as.factor(region)South         0.0002  -0.5294  -0.1678 
+## brand_namePYRA + EPOX + FLUX:as.factor(region)South  0.2008  -0.3538   0.0744 
+## brand_nameTFLX + CYPR:as.factor(region)South         &lt;.0001  -0.5444  -0.2249 
+## brand_nameTFLX + PROT:as.factor(region)South         &lt;.0001  -0.6186  -0.2317 
+##  
+## intrcpt                                              *** 
+## brand_nameAZOX + BENZ                                *** 
+## brand_nameBIXF + TFLX + PROT                         *** 
+## brand_namePICO + BENZ                                *** 
+## brand_namePICO + CYPR                                *** 
+## brand_namePICO + TEBU                                *** 
+## brand_namePYRA + EPOX + FLUX                         *** 
+## brand_nameTFLX + CYPR                                *** 
+## brand_nameTFLX + PROT                                *** 
+## as.factor(region)South 
+## brand_nameAZOX + BENZ:as.factor(region)South 
+## brand_nameBIXF + TFLX + PROT:as.factor(region)South  *** 
+## brand_namePICO + BENZ:as.factor(region)South 
+## brand_namePICO + CYPR:as.factor(region)South         *** 
+## brand_namePICO + TEBU:as.factor(region)South         *** 
+## brand_namePYRA + EPOX + FLUX:as.factor(region)South 
+## brand_nameTFLX + CYPR:as.factor(region)South         *** 
+## brand_nameTFLX + PROT:as.factor(region)South         *** 
+## 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre class="r"><code>anova(mv_sev_reg, btt = 11:18)</code></pre>
+<pre><code>## 
+## Test of Moderators (coefficients 11:18):
+## QM(df = 8) = 54.2877, p-val &lt; .0001</code></pre>
+<pre class="r"><code>reg1 = data.frame(mv_sev_reg$beta, mv_sev_reg$ci.lb, mv_sev_reg$ci.ub, mv_sev_reg$se) %&gt;%
+  rownames_to_column(&quot;trat&quot;) %&gt;%
+  separate(trat, into = c(&quot;lado1&quot;, &quot;lado2&quot;), sep = &quot;:&quot;) %&gt;%
+  separate(lado2, into = c(&quot;lixo&quot;,&quot;lado3&quot;),sep = &quot;region&quot; ) %&gt;% 
+  select(-lixo) %&gt;%
+  separate(lado1, into = c(&quot;lixo&quot;,&quot;lado1&quot;),sep = &quot;brand_name&quot;) %&gt;%
+  select(-lixo) %&gt;%
+  filter(lado1 != &quot;NA&quot;) %&gt;%
+  mutate(n = seq(1:16))
+names(reg1) = c(&quot;fungicide&quot;, &quot;region&quot;, &quot;mean_log&quot;, &quot;ci.lb_log&quot;, &quot;ci.ub_log&quot;, &quot;SE_eff&quot;,&quot;n&quot;) 
+
+reg2 = reg1 %&gt;% 
+  filter(n &lt; 9) %&gt;% 
+  mutate(region = rep(&quot;North&quot;, length(fungicide)))
+
+reg3 = reg1 %&gt;% 
+  filter(n &gt; 8) %&gt;% 
+  mutate(region = rep(&quot;South&quot;, length(fungicide)))
+
+reg4 = rbind(reg2,reg3) %&gt;% 
+  select(-&quot;n&quot;)
+
+openxlsx::write.xlsx(reg4, here(&quot;data&quot;,&quot;eff_log_region.xlsx&quot;), colNames = TRUE)</code></pre>
+<div id="region-effect" class="section level4">
+<h4>Region effect</h4>
+<pre class="r"><code>reg1 = data.frame(mv_sev_reg$beta, mv_sev_reg$ci.lb, mv_sev_reg$ci.ub) %&gt;%
+  rownames_to_column(&quot;trat&quot;) %&gt;%
+  separate(trat, into = c(&quot;lado1&quot;, &quot;lado2&quot;), sep = &quot;:&quot;) %&gt;%
+  separate(lado2, into = c(&quot;lixo&quot;,&quot;lado3&quot;),sep = &quot;region&quot; ) %&gt;% 
+  select(-lixo) %&gt;%
+  separate(lado1, into = c(&quot;lixo&quot;,&quot;lado1&quot;),sep = &quot;brand_name&quot;) %&gt;%
+  select(-lixo) %&gt;%
+  filter(lado1 != &quot;NA&quot;) %&gt;%
+  mutate(n = seq(1:16))
+names(reg1) = c(&quot;fungicide&quot;, &quot;region&quot;, &quot;mean&quot;, &quot;ci.lb&quot;, &quot;ci.ub&quot;, &quot;n&quot;) 
+
+reg2 = reg1 %&gt;% 
+  filter(n &lt; 9) %&gt;% 
+  mutate(region = rep(&quot;North&quot;, length(fungicide)))
+
+reg3 = reg1 %&gt;% 
+  filter(n &gt; 8) %&gt;% 
+  mutate(region = rep(&quot;South&quot;, length(fungicide)))
+
+reg4 = rbind(reg2,reg3)  
+
+mean = reg4%&gt;% 
+  group_by(fungicide) %&gt;% 
+  select(1:3) %&gt;% 
+  spread(region, mean) %&gt;% 
+  mutate(mean = (1-exp((North + South)))*100) %&gt;% 
+  select(1,4)
+
+upper = reg4%&gt;% 
+  group_by(fungicide) %&gt;% 
+  select(1,2,4) %&gt;% 
+  spread(region, ci.lb) %&gt;% 
+  mutate(upper = (1-exp((North + South)))*100) %&gt;%  
+  select(1,4)
+
+lower = reg4%&gt;% 
+  group_by(fungicide) %&gt;% 
+  select(1,2,5) %&gt;% 
+  spread(region, ci.ub) %&gt;% 
+  mutate(lower = (1-exp((North + South)))*100) %&gt;% 
+  select(1,4)
+
+reg5 = left_join(mean, lower, by= c(&quot;fungicide&quot;)) %&gt;% 
+  left_join(upper, by = c(&quot;fungicide&quot;)) %&gt;% 
+  mutate(region = rep(&quot;South&quot;, length(&quot;fungicide&quot;))) %&gt;% 
+  select(&quot;fungicide&quot;, &quot;region&quot;, &quot;mean&quot;, &quot;lower&quot;, &quot;upper&quot;)
+
+
+North = reg4 %&gt;% 
+  filter(region == &quot;North&quot;) %&gt;% 
+  select(1:5) %&gt;% 
+  group_by(fungicide, region) %&gt;%
+  summarise(mean = (1-exp(mean))*100,
+            lower = (1-exp(ci.ub))*100,
+            upper = (1-exp(ci.lb))*100)</code></pre>
+<pre><code>## `summarise()` regrouping output by &#39;fungicide&#39; (override with `.groups` argument)</code></pre>
+<pre class="r"><code>names(North) = c(&quot;fungicide&quot;, &quot;region&quot;, &quot;mean&quot;, &quot;lower&quot;, &quot;upper&quot;) 
+
+
+reg6 = full_join(North,reg5)</code></pre>
+<pre><code>## Joining, by = c(&quot;fungicide&quot;, &quot;region&quot;, &quot;mean&quot;, &quot;lower&quot;, &quot;upper&quot;)</code></pre>
+<pre class="r"><code>reg6</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["fungicide"],"name":[1],"type":["chr"],"align":["left"]},{"label":["region"],"name":[2],"type":["chr"],"align":["left"]},{"label":["mean"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["lower"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["upper"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"AZOX + BENZ","2":"North","3":"72.99644","4":"69.28126","5":"76.26231"},{"1":"BIXF + TFLX + PROT","2":"North","3":"74.89377","4":"71.99674","5":"77.49110"},{"1":"PICO + BENZ","2":"North","3":"73.66700","4":"70.27599","5":"76.67116"},{"1":"PICO + CYPR","2":"North","3":"52.36047","4":"48.62641","5":"55.82312"},{"1":"PICO + TEBU","2":"North","3":"63.30542","4":"59.62887","5":"66.64715"},{"1":"PYRA + EPOX + FLUX","2":"North","3":"71.29119","4":"68.07559","5":"74.18290"},{"1":"TFLX + CYPR","2":"North","3":"54.06182","4":"50.14060","5":"57.67465"},{"1":"TFLX + PROT","2":"North","3":"69.38201","4":"66.17032","5":"72.28880"},{"1":"AZOX + BENZ","2":"South","3":"75.46442","4":"64.31415","5":"83.13072"},{"1":"BIXF + TFLX + PROT","2":"South","3":"82.92464","4":"76.06025","5":"87.82076"},{"1":"PICO + BENZ","2":"South","3":"75.81729","4":"65.37821","5":"83.10880"},{"1":"PICO + CYPR","2":"South","3":"65.73415","4":"57.29496","5":"72.50562"},{"1":"PICO + TEBU","2":"South","3":"74.10608","4":"65.86689","5":"80.35646"},{"1":"PYRA + EPOX + FLUX","2":"South","3":"75.03510","4":"65.61112","5":"81.87651"},{"1":"TFLX + CYPR","2":"South","3":"68.72954","4":"60.18115","5":"75.44275"},{"1":"TFLX + PROT","2":"South","3":"79.98549","4":"73.16678","5":"85.07147"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<pre class="r"><code>openxlsx::write.xlsx(reg6, here(&quot;data&quot;,&quot;eff_region.xlsx&quot;), colNames = TRUE)</code></pre>
+</div>
+</div>
+<div id="inconsistency" class="section level3">
+<h3>Inconsistency</h3>
+<p>We used a factorial-type ANOVA model to determine the significance of the <em>treatment x design</em> interaction, evaluated based on the Wald test statistic.</p>
+<pre class="r"><code>mv_sev_design &lt;- rma.mv(log_sev, vi_sev,
+  mods = ~brand_name * design,
+  random = list(~ 1 | study / design / brand_name),
+  struct = &quot;HCS&quot;,
+  method = &quot;ML&quot;,
+  control = list(optimizer = &quot;nlm&quot;),
+  data = rust_sev)
+
+mv_sev_design</code></pre>
+<pre><code>## 
+## Multivariate Meta-Analysis Model (k = 1331; method: ML)
+## 
+## Variance Components:
+## 
+##             estim    sqrt  nlvls  fixed                   factor 
+## sigma^2.1  0.2365  0.4863    177     no                    study 
+## sigma^2.2  0.2365  0.4863    177     no             study/design 
+## sigma^2.3  0.1171  0.3423   1331     no  study/design/brand_name 
+## 
+## Test for Residual Heterogeneity:
+## QE(df = 1313) = 967012.5011, p-val &lt; .0001
+## 
+## Test of Moderators (coefficients 2:18):
+## QM(df = 17) = 2080.1453, p-val &lt; .0001
+## 
+## Model Results:
+## 
+##                                      estimate      se      zval    pval 
+## intrcpt                                4.1825  0.0966   43.2977  &lt;.0001 
+## brand_nameAZOX + BENZ                 -1.0430  0.0649  -16.0801  &lt;.0001 
+## brand_nameBIXF + TFLX + PROT          -1.5484  0.0769  -20.1269  &lt;.0001 
+## brand_namePICO + BENZ                 -1.6047  0.0764  -21.0079  &lt;.0001 
+## brand_namePICO + CYPR                 -0.8693  0.0620  -14.0103  &lt;.0001 
+## brand_namePICO + TEBU                 -1.1680  0.0648  -18.0172  &lt;.0001 
+## brand_namePYRA + EPOX + FLUX          -1.4054  0.0760  -18.4929  &lt;.0001 
+## brand_nameTFLX + CYPR                 -0.9127  0.0643  -14.2038  &lt;.0001 
+## brand_nameTFLX + PROT                 -1.2438  0.0640  -19.4381  &lt;.0001 
+## design                                -0.0039  0.0180   -0.2137  0.8308 
+## brand_nameAZOX + BENZ:design          -0.0683  0.0125   -5.4553  &lt;.0001 
+## brand_nameBIXF + TFLX + PROT:design    0.0475  0.0248    1.9105  0.0561 
+## brand_namePICO + BENZ:design           0.1242  0.0241    5.1473  &lt;.0001 
+## brand_namePICO + CYPR:design           0.0092  0.0117    0.7824  0.4340 
+## brand_namePICO + TEBU:design           0.0205  0.0120    1.7099  0.0873 
+## brand_namePYRA + EPOX + FLUX:design    0.0622  0.0247    2.5205  0.0117 
+## brand_nameTFLX + CYPR:design           0.0118  0.0140    0.8441  0.3986 
+## brand_nameTFLX + PROT:design          -0.0080  0.0123   -0.6509  0.5151 
+##                                        ci.lb    ci.ub 
+## intrcpt                               3.9931   4.3718  *** 
+## brand_nameAZOX + BENZ                -1.1701  -0.9159  *** 
+## brand_nameBIXF + TFLX + PROT         -1.6992  -1.3977  *** 
+## brand_namePICO + BENZ                -1.7544  -1.4550  *** 
+## brand_namePICO + CYPR                -0.9909  -0.7477  *** 
+## brand_namePICO + TEBU                -1.2950  -1.0409  *** 
+## brand_namePYRA + EPOX + FLUX         -1.5544  -1.2565  *** 
+## brand_nameTFLX + CYPR                -1.0387  -0.7868  *** 
+## brand_nameTFLX + PROT                -1.3692  -1.1184  *** 
+## design                               -0.0392   0.0315      
+## brand_nameAZOX + BENZ:design         -0.0929  -0.0438  *** 
+## brand_nameBIXF + TFLX + PROT:design  -0.0012   0.0961    . 
+## brand_namePICO + BENZ:design          0.0769   0.1715  *** 
+## brand_namePICO + CYPR:design         -0.0138   0.0321      
+## brand_namePICO + TEBU:design         -0.0030   0.0440    . 
+## brand_namePYRA + EPOX + FLUX:design   0.0138   0.1106    * 
+## brand_nameTFLX + CYPR:design         -0.0157   0.0393      
+## brand_nameTFLX + PROT:design         -0.0320   0.0161      
+## 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre class="r"><code>anova(mv_sev_design, btt = 11:18)</code></pre>
+<pre><code>## 
+## Test of Moderators (coefficients 11:18):
+## QM(df = 8) = 94.2196, p-val &lt; .0001</code></pre>
+</div>
+</div>
+</div>
+
+
+
+Copyright 2017 Emerson Del Ponte
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = false;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

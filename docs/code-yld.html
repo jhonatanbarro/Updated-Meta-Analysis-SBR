@@ -1,0 +1,1898 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Code</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Updated Meta - analysis SBR</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa fa fa-home"></span>
+     
+    About
+  </a>
+</li>
+<li>
+  <a href="data.html">
+    <span class="fa fa fa fa-table"></span>
+     
+    Data
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa fa fa-file-code-o"></span>
+     
+    Documented analysis
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="code-sev.html">SBR Severity</a>
+    </li>
+    <li>
+      <a href="code-yld.html">Soybean yield</a>
+    </li>
+    <li>
+      <a href="simulations.html">Economic Analysis</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="plots.html">
+    <span class="fas fa-bar-chart"></span>
+     
+    Publication-ready plots
+  </a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Code</h1>
+
+</div>
+
+
+<div id="data" class="section level1">
+<h1>Data</h1>
+<pre class="r"><code>library(readr)
+library(metafor)
+library(tidyverse)
+library(here)
+rust_yld &lt;- read_csv(&quot;data/dat-yld.csv&quot;)</code></pre>
+<pre><code>## 
+## -- Column specification --------------------------------------------------------
+## cols(
+##   study = col_double(),
+##   year = col_double(),
+##   location = col_character(),
+##   state = col_character(),
+##   n_spray = col_double(),
+##   brand_name = col_character(),
+##   mean_sev = col_double(),
+##   mean_yld = col_double(),
+##   v_sev = col_double(),
+##   v_yld = col_double(),
+##   yld_check = col_double(),
+##   v_yld_check = col_double(),
+##   sev_check = col_double(),
+##   v_sev_check = col_double(),
+##   vi_yld = col_double(),
+##   n2 = col_double(),
+##   n3 = col_double(),
+##   design = col_double()
+## )</code></pre>
+<div id="absolute-yield" class="section level2">
+<h2>Absolute yield</h2>
+<pre class="r"><code>library(metafor)
+
+mv_yld &lt;- rma.mv(mean_yld, vi_yld,
+  mods = ~brand_name,
+  random = list(~brand_name | study),
+  struct = &quot;UN&quot;,
+  method = &quot;ML&quot;,
+  control = list(optimizer = &quot;nlm&quot;),
+  data = rust_yld
+)
+
+summary(mv_yld)</code></pre>
+<pre><code>## 
+## Multivariate Meta-Analysis Model (k = 1314; method: ML)
+## 
+##     logLik    Deviance         AIC         BIC        AICc 
+## -9215.4624   4054.2612  18538.9248  18818.6897  18543.6429   
+## 
+## Variance Components:
+## 
+## outer factor: study      (nlvls = 175)
+## inner factor: brand_name (nlvls = 9)
+## 
+##                  estim      sqrt  k.lvl  fixed               level 
+## tau^2.1    636726.0927  797.9512    175     no             AACHECK 
+## tau^2.2    645330.4099  803.3246    145     no         AZOX + BENZ 
+## tau^2.3    779999.1995  883.1756    116     no  BIXF + TFLX + PROT 
+## tau^2.4    676953.2688  822.7717    118     no         PICO + BENZ 
+## tau^2.5    716365.1912  846.3836    175     no         PICO + CYPR 
+## tau^2.6    717892.6609  847.2855    154     no         PICO + TEBU 
+## tau^2.7    745271.0498  863.2908    116     no  PYRA + EPOX + FLUX 
+## tau^2.8    726161.0416  852.1508    146     no         TFLX + CYPR 
+## tau^2.9    703865.3637  838.9668    169     no         TFLX + PROT 
+## 
+##                     rho.AACH  rho.AZ+B  rho.B+T+P  rho.PI+B  rho.PI+C  rho.PI+T 
+## AACHECK                    1    0.8246     0.8342    0.8355    0.9335    0.9119 
+## AZOX + BENZ           0.8246         1     0.9116    0.9743    0.9132    0.9103 
+## BIXF + TFLX + PROT    0.8342    0.9116          1    0.9205    0.9393    0.9322 
+## PICO + BENZ           0.8355    0.9743     0.9205         1    0.9281    0.9263 
+## PICO + CYPR           0.9335    0.9132     0.9393    0.9281         1    0.9860 
+## PICO + TEBU           0.9119    0.9103     0.9322    0.9263    0.9860         1 
+## PYRA + EPOX + FLUX    0.8470    0.9540     0.9744    0.9590    0.9357    0.9312 
+## TFLX + CYPR           0.9357    0.9216     0.9427    0.9268    0.9958    0.9834 
+## TFLX + PROT           0.8834    0.9209     0.9703    0.9306    0.9767    0.9670 
+##                     rho.P+E+F  rho.TF+C  rho.TF+P    AACH  AZ+B  B+T+P  PI+B 
+## AACHECK                0.8470    0.9357    0.8834       -    no     no    no 
+## AZOX + BENZ            0.9540    0.9216    0.9209     145     -     no    no 
+## BIXF + TFLX + PROT     0.9744    0.9427    0.9703     116    87      -    no 
+## PICO + BENZ            0.9590    0.9268    0.9306     118    88    116     - 
+## PICO + CYPR            0.9357    0.9958    0.9767     175   145    116   118 
+## PICO + TEBU            0.9312    0.9834    0.9670     154   124     95    97 
+## PYRA + EPOX + FLUX          1    0.9455    0.9475     116    87    114   116 
+## TFLX + CYPR            0.9455         1    0.9755     146   116    116   118 
+## TFLX + PROT            0.9475    0.9755         1     169   145    110   112 
+##                     PI+C  PI+T  P+E+F  TF+C  TF+P 
+## AACHECK               no    no     no    no    no 
+## AZOX + BENZ           no    no     no    no    no 
+## BIXF + TFLX + PROT    no    no     no    no    no 
+## PICO + BENZ           no    no     no    no    no 
+## PICO + CYPR            -    no     no    no    no 
+## PICO + TEBU          154     -     no    no    no 
+## PYRA + EPOX + FLUX   116    95      -    no    no 
+## TFLX + CYPR          146   125    116     -    no 
+## TFLX + PROT          169   148    111   140     - 
+## 
+## Test for Residual Heterogeneity:
+## QE(df = 1305) = 173239.6764, p-val &lt; .0001
+## 
+## Test of Moderators (coefficients 2:9):
+## QM(df = 8) = 906.6343, p-val &lt; .0001
+## 
+## Model Results:
+## 
+##                                estimate       se     zval    pval      ci.lb 
+## intrcpt                       2460.9764  60.8511  40.4426  &lt;.0001  2341.7103 
+## brand_nameAZOX + BENZ          910.6261  38.2758  23.7912  &lt;.0001   835.6070 
+## brand_nameBIXF + TFLX + PROT  1080.0092  40.9167  26.3953  &lt;.0001   999.8139 
+## brand_namePICO + BENZ         1010.9269  38.5883  26.1978  &lt;.0001   935.2953 
+## brand_namePICO + CYPR          600.3912  25.2691  23.7599  &lt;.0001   550.8646 
+## brand_namePICO + TEBU          682.1111  28.9720  23.5438  &lt;.0001   625.3270 
+## brand_namePYRA + EPOX + FLUX   981.5161  38.9349  25.2092  &lt;.0001   905.2050 
+## brand_nameTFLX + CYPR          646.4323  25.3750  25.4752  &lt;.0001   596.6983 
+## brand_nameTFLX + PROT          891.0381  32.0831  27.7728  &lt;.0001   828.1563 
+##                                   ci.ub 
+## intrcpt                       2580.2424  *** 
+## brand_nameAZOX + BENZ          985.6452  *** 
+## brand_nameBIXF + TFLX + PROT  1160.2044  *** 
+## brand_namePICO + BENZ         1086.5585  *** 
+## brand_namePICO + CYPR          649.9178  *** 
+## brand_namePICO + TEBU          738.8952  *** 
+## brand_namePYRA + EPOX + FLUX  1057.8271  *** 
+## brand_nameTFLX + CYPR          696.1663  *** 
+## brand_nameTFLX + PROT          953.9199  *** 
+## 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre class="r"><code>yield_res&lt;- data.frame(cbind(mv_yld$b, 
+                             mv_yld$ci.lb,
+                             mv_yld$ci.ub)) %&gt;% 
+  mutate(fungicide = c(&quot;check&quot;, &quot;AZOX + BENZ&quot;, &quot;BIXF + TFLX + PROT&quot;, &quot;PICO + BENZ&quot;, &quot;PICO + CYPR&quot;,&quot;PICO + TEBU&quot;, &quot;PYRA + EPOX + FLUX&quot;, &quot;TFLX + CYPR&quot;, &quot;TFLX + PROT&quot;)) %&gt;% 
+  filter(fungicide != &quot;check&quot;)
+
+
+names (yield_res) = c(&quot;yld&quot;, &quot;yld_lower&quot;, &quot;yld_upper&quot;, &quot;fungicide&quot;)
+  
+yield_res</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["yld"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["yld_lower"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["yld_upper"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["fungicide"],"name":[4],"type":["chr"],"align":["left"]}],"data":[{"1":"910.6261","2":"835.6070","3":"985.6452","4":"AZOX + BENZ"},{"1":"1080.0092","2":"999.8139","3":"1160.2044","4":"BIXF + TFLX + PROT"},{"1":"1010.9269","2":"935.2953","3":"1086.5585","4":"PICO + BENZ"},{"1":"600.3912","2":"550.8646","3":"649.9178","4":"PICO + CYPR"},{"1":"682.1111","2":"625.3270","3":"738.8952","4":"PICO + TEBU"},{"1":"981.5161","2":"905.2050","3":"1057.8271","4":"PYRA + EPOX + FLUX"},{"1":"646.4323","2":"596.6983","3":"696.1663","4":"TFLX + CYPR"},{"1":"891.0381","2":"828.1563","3":"953.9199","4":"TFLX + PROT"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<pre class="r"><code>#write_csv(yield_res, &quot;data/yld_kg.csv&quot;)
+openxlsx::write.xlsx(yield_res, here(&quot;data&quot;,&quot;yld_kg.xlsx&quot;), colNames = TRUE)</code></pre>
+<div id="contrasts" class="section level3">
+<h3>Contrasts</h3>
+<p>We can set linear contrasts between treatments of interest and get the P-valued using the <code>anova</code> function.</p>
+<pre class="r"><code>anova(mv_yld, L = rbind(
+  c(0, 1, -1, 0, 0, 0, 0, 0, 0),
+  c(0, 1, 0, -1, 0, 0, 0, 0, 0),
+  c(0, 1, 0, 0, -1, 0, 0, 0, 0),
+  c(0, 1, 0, 0, 0, -1, 0, 0, 0),
+  c(0, 1, 0, 0, 0, 0, -1, 0, 0),
+  c(0, 1, 0, 0, 0, 0, 0, -1, 0),
+  c(0, 1, 0, 0, 0, 0, 0, 0, -1),
+  c(0, 0, 1, -1, 0, 0, 0, 0, 0),
+  c(0, 0, 1, 0, -1, 0, 0, 0, 0),
+  c(0, 0, 1, 0, 0, -1, 0, 0, 0),
+  c(0, 0, 1, 0, 0, 0, -1, 0, 0),
+  c(0, 0, 1, 0, 0, 0, 0, -1, 0),
+  c(0, 0, 1, 0, 0, 0, 0, 0, -1),
+  c(0, 0, 0, 1, -1, 0, 0, 0, 0),
+  c(0, 0, 0, 1, 0, -1, 0, 0, 0),
+  c(0, 0, 0, 1, 0, 0, -1, 0, 0),
+  c(0, 0, 0, 1, 0, 0, 0, -1, 0),
+  c(0, 0, 0, 1, 0, 0, 0, 0, -1),
+  c(0, 0, 0, 0, 1, -1, 0, 0, 0),
+  c(0, 0, 0, 0, 1, 0, -1, 0, 0),
+  c(0, 0, 0, 0, 1, 0, 0, -1, 0),
+  c(0, 0, 0, 0, 1, 0, 0, 0, -1),
+  c(0, 0, 0, 0, 0, 1, -1, 0, 0),
+  c(0, 0, 0, 0, 0, 1, 0, -1, 0),
+  c(0, 0, 0, 0, 0, 1, 0, 0, -1),
+  c(0, 0, 0, 0, 0, 0, 1, -1, 0),
+  c(0, 0, 0, 0, 0, 0, 1, 0, -1),
+  c(0, 0, 0, 0, 0, 0, 0, 1, -1)
+  ))</code></pre>
+<pre><code>## 
+## Hypotheses:                                                                    
+## 1:         brand_nameAZOX + BENZ - brand_nameBIXF + TFLX + PROT = 0 
+## 2:                brand_nameAZOX + BENZ - brand_namePICO + BENZ = 0 
+## 3:                brand_nameAZOX + BENZ - brand_namePICO + CYPR = 0 
+## 4:                brand_nameAZOX + BENZ - brand_namePICO + TEBU = 0 
+## 5:         brand_nameAZOX + BENZ - brand_namePYRA + EPOX + FLUX = 0 
+## 6:                brand_nameAZOX + BENZ - brand_nameTFLX + CYPR = 0 
+## 7:                brand_nameAZOX + BENZ - brand_nameTFLX + PROT = 0 
+## 8:         brand_nameBIXF + TFLX + PROT - brand_namePICO + BENZ = 0 
+## 9:         brand_nameBIXF + TFLX + PROT - brand_namePICO + CYPR = 0 
+## 10:        brand_nameBIXF + TFLX + PROT - brand_namePICO + TEBU = 0 
+## 11: brand_nameBIXF + TFLX + PROT - brand_namePYRA + EPOX + FLUX = 0 
+## 12:        brand_nameBIXF + TFLX + PROT - brand_nameTFLX + CYPR = 0 
+## 13:        brand_nameBIXF + TFLX + PROT - brand_nameTFLX + PROT = 0 
+## 14:               brand_namePICO + BENZ - brand_namePICO + CYPR = 0 
+## 15:               brand_namePICO + BENZ - brand_namePICO + TEBU = 0 
+## 16:        brand_namePICO + BENZ - brand_namePYRA + EPOX + FLUX = 0 
+## 17:               brand_namePICO + BENZ - brand_nameTFLX + CYPR = 0 
+## 18:               brand_namePICO + BENZ - brand_nameTFLX + PROT = 0 
+## 19:               brand_namePICO + CYPR - brand_namePICO + TEBU = 0 
+## 20:        brand_namePICO + CYPR - brand_namePYRA + EPOX + FLUX = 0 
+## 21:               brand_namePICO + CYPR - brand_nameTFLX + CYPR = 0 
+## 22:               brand_namePICO + CYPR - brand_nameTFLX + PROT = 0 
+## 23:        brand_namePICO + TEBU - brand_namePYRA + EPOX + FLUX = 0 
+## 24:               brand_namePICO + TEBU - brand_nameTFLX + CYPR = 0 
+## 25:               brand_namePICO + TEBU - brand_nameTFLX + PROT = 0 
+## 26:        brand_namePYRA + EPOX + FLUX - brand_nameTFLX + CYPR = 0 
+## 27:        brand_namePYRA + EPOX + FLUX - brand_nameTFLX + PROT = 0 
+## 28:               brand_nameTFLX + CYPR - brand_nameTFLX + PROT = 0 
+## 
+## Results:
+##      estimate      se     zval   pval 
+## 1:  -169.3830 33.3077  -5.0854 &lt;.0001 
+## 2:  -100.3007 22.8112  -4.3970 &lt;.0001 
+## 3:   310.2349 29.1941  10.6266 &lt;.0001 
+## 4:   228.5151 30.0648   7.6008 &lt;.0001 
+## 5:   -70.8899 27.2375  -2.6027 0.0093 
+## 6:   264.1939 28.4203   9.2959 &lt;.0001 
+## 7:    19.5880 28.1047   0.6970 0.4858 
+## 8:    69.0823 32.6511   2.1158 0.0344 
+## 9:   479.6179 28.4152  16.8789 &lt;.0001 
+## 10:  397.8981 30.0046  13.2612 &lt;.0001 
+## 11:   98.4931 21.0235   4.6849 &lt;.0001 
+## 12:  433.5769 28.1232  15.4171 &lt;.0001 
+## 13:  188.9710 23.3893   8.0794 &lt;.0001 
+## 14:  410.5357 28.4939  14.4079 &lt;.0001 
+## 15:  328.8158 29.3148  11.2167 &lt;.0001 
+## 16:   29.4108 25.5630   1.1505 0.2499 
+## 17:  364.4946 29.2291  12.4703 &lt;.0001 
+## 18:  119.8888 28.2063   4.2504 &lt;.0001 
+## 19:  -81.7199 15.4180  -5.3003 &lt;.0001 
+## 20: -381.1248 28.5673 -13.3413 &lt;.0001 
+## 21:  -46.0411 11.8314  -3.8914 &lt;.0001 
+## 22: -290.6469 17.2112 -16.8871 &lt;.0001 
+## 23: -299.4050 29.7364 -10.0686 &lt;.0001 
+## 24:   35.6788 16.7421   2.1311 0.0331 
+## 25: -208.9271 20.1956 -10.3452 &lt;.0001 
+## 26:  335.0838 27.1044  12.3627 &lt;.0001 
+## 27:   90.4779 27.0003   3.3510 0.0008 
+## 28: -244.6059 18.0530 -13.5493 &lt;.0001</code></pre>
+</div>
+</div>
+<div id="moderator-analysis" class="section level2">
+<h2>Moderator analysis</h2>
+<div id="mods-year" class="section level3">
+<h3>Mods: year</h3>
+<pre class="r"><code>mv_yld_year &lt;- rma.mv(mean_yld, vi_yld,
+  mods = ~brand_name * as.numeric(year),
+  random = list(~brand_name | study),
+  struct = &quot;UN&quot;,
+  method = &quot;ML&quot;,
+  control = list(optimizer = &quot;nlm&quot;),
+  data = rust_yld %&gt;% mutate(year= year - 2015))
+
+mv_yld_year</code></pre>
+<pre><code>## 
+## Multivariate Meta-Analysis Model (k = 1314; method: ML)
+## 
+## Variance Components:
+## 
+## outer factor: study      (nlvls = 175)
+## inner factor: brand_name (nlvls = 9)
+## 
+##                  estim      sqrt  k.lvl  fixed               level 
+## tau^2.1    620332.6378  787.6120    175     no             AACHECK 
+## tau^2.2    644840.3574  803.0195    145     no         AZOX + BENZ 
+## tau^2.3    766684.4458  875.6052    116     no  BIXF + TFLX + PROT 
+## tau^2.4    675455.2431  821.8608    118     no         PICO + BENZ 
+## tau^2.5    701904.5140  837.7974    175     no         PICO + CYPR 
+## tau^2.6    700466.0081  836.9385    154     no         PICO + TEBU 
+## tau^2.7    741471.5668  861.0874    116     no  PYRA + EPOX + FLUX 
+## tau^2.8    710636.6290  842.9927    146     no         TFLX + CYPR 
+## tau^2.9    693032.8659  832.4860    169     no         TFLX + PROT 
+## 
+##                     rho.AACH  rho.AZ+B  rho.B+T+P  rho.PI+B  rho.PI+C  rho.PI+T 
+## AACHECK                    1    0.8504     0.8305    0.8509    0.9325    0.9139 
+## AZOX + BENZ           0.8504         1     0.9240    0.9770    0.9318    0.9383 
+## BIXF + TFLX + PROT    0.8305    0.9240          1    0.9318    0.9391    0.9304 
+## PICO + BENZ           0.8509    0.9770     0.9318         1    0.9395    0.9477 
+## PICO + CYPR           0.9325    0.9318     0.9391    0.9395         1    0.9878 
+## PICO + TEBU           0.9139    0.9383     0.9304    0.9477    0.9878         1 
+## PYRA + EPOX + FLUX    0.8491    0.9592     0.9759    0.9635    0.9381    0.9365 
+## TFLX + CYPR           0.9345    0.9413     0.9423    0.9389    0.9960    0.9843 
+## TFLX + PROT           0.8818    0.9362     0.9701    0.9415    0.9763    0.9691 
+##                     rho.P+E+F  rho.TF+C  rho.TF+P    AACH  AZ+B  B+T+P  PI+B 
+## AACHECK                0.8491    0.9345    0.8818       -    no     no    no 
+## AZOX + BENZ            0.9592    0.9413    0.9362     145     -     no    no 
+## BIXF + TFLX + PROT     0.9759    0.9423    0.9701     116    87      -    no 
+## PICO + BENZ            0.9635    0.9389    0.9415     118    88    116     - 
+## PICO + CYPR            0.9381    0.9960    0.9763     175   145    116   118 
+## PICO + TEBU            0.9365    0.9843    0.9691     154   124     95    97 
+## PYRA + EPOX + FLUX          1    0.9481    0.9490     116    87    114   116 
+## TFLX + CYPR            0.9481         1    0.9752     146   116    116   118 
+## TFLX + PROT            0.9490    0.9752         1     169   145    110   112 
+##                     PI+C  PI+T  P+E+F  TF+C  TF+P 
+## AACHECK               no    no     no    no    no 
+## AZOX + BENZ           no    no     no    no    no 
+## BIXF + TFLX + PROT    no    no     no    no    no 
+## PICO + BENZ           no    no     no    no    no 
+## PICO + CYPR            -    no     no    no    no 
+## PICO + TEBU          154     -     no    no    no 
+## PYRA + EPOX + FLUX   116    95      -    no    no 
+## TFLX + CYPR          146   125    116     -    no 
+## TFLX + PROT          169   148    111   140     - 
+## 
+## Test for Residual Heterogeneity:
+## QE(df = 1296) = 172423.1537, p-val &lt; .0001
+## 
+## Test of Moderators (coefficients 2:18):
+## QM(df = 17) = 1016.1004, p-val &lt; .0001
+## 
+## Model Results:
+## 
+##                                                 estimate        se     zval 
+## intrcpt                                        2270.5064  107.4955  21.1219 
+## brand_nameAZOX + BENZ                          1161.6923   62.4000  18.6169 
+## brand_nameBIXF + TFLX + PROT                   1025.1549   94.4270  10.8566 
+## brand_namePICO + BENZ                          1336.6621   82.2547  16.2503 
+## brand_namePICO + CYPR                           619.3209   45.1394  13.7202 
+## brand_namePICO + TEBU                           627.3148   50.7278  12.3663 
+## brand_namePYRA + EPOX + FLUX                   1055.0337   91.0230  11.5909 
+## brand_nameTFLX + CYPR                           655.3253   47.8614  13.6922 
+## brand_nameTFLX + PROT                           927.5425   57.2384  16.2049 
+## as.numeric(year)                                 80.0760   37.4522   2.1381 
+## brand_nameAZOX + BENZ:as.numeric(year)         -109.8643   22.3741  -4.9103 
+## brand_nameBIXF + TFLX + PROT:as.numeric(year)     8.8058   29.9421   0.2941 
+## brand_namePICO + BENZ:as.numeric(year)         -119.9367   26.4036  -4.5424 
+## brand_namePICO + CYPR:as.numeric(year)           -7.9894   15.8947  -0.5026 
+## brand_namePICO + TEBU:as.numeric(year)           30.4794   18.5042   1.6472 
+## brand_namePYRA + EPOX + FLUX:as.numeric(year)   -37.8911   28.6793  -1.3212 
+## brand_nameTFLX + CYPR:as.numeric(year)           -4.8123   16.5700  -0.2904 
+## brand_nameTFLX + PROT:as.numeric(year)          -15.6598   20.1060  -0.7789 
+##                                                  pval      ci.lb      ci.ub 
+## intrcpt                                        &lt;.0001  2059.8191  2481.1937 
+## brand_nameAZOX + BENZ                          &lt;.0001  1039.3905  1283.9941 
+## brand_nameBIXF + TFLX + PROT                   &lt;.0001   840.0814  1210.2284 
+## brand_namePICO + BENZ                          &lt;.0001  1175.4459  1497.8783 
+## brand_namePICO + CYPR                          &lt;.0001   530.8492   707.7925 
+## brand_namePICO + TEBU                          &lt;.0001   527.8901   726.7395 
+## brand_namePYRA + EPOX + FLUX                   &lt;.0001   876.6319  1233.4354 
+## brand_nameTFLX + CYPR                          &lt;.0001   561.5187   749.1319 
+## brand_nameTFLX + PROT                          &lt;.0001   815.3573  1039.7278 
+## as.numeric(year)                               0.0325     6.6711   153.4809 
+## brand_nameAZOX + BENZ:as.numeric(year)         &lt;.0001  -153.7168   -66.0119 
+## brand_nameBIXF + TFLX + PROT:as.numeric(year)  0.7687   -49.8797    67.4912 
+## brand_namePICO + BENZ:as.numeric(year)         &lt;.0001  -171.6868   -68.1867 
+## brand_namePICO + CYPR:as.numeric(year)         0.6152   -39.1424    23.1636 
+## brand_namePICO + TEBU:as.numeric(year)         0.0995    -5.7881    66.7470 
+## brand_namePYRA + EPOX + FLUX:as.numeric(year)  0.1864   -94.1015    18.3193 
+## brand_nameTFLX + CYPR:as.numeric(year)         0.7715   -37.2889    27.6643 
+## brand_nameTFLX + PROT:as.numeric(year)         0.4361   -55.0668    23.7473 
+##  
+## intrcpt                                        *** 
+## brand_nameAZOX + BENZ                          *** 
+## brand_nameBIXF + TFLX + PROT                   *** 
+## brand_namePICO + BENZ                          *** 
+## brand_namePICO + CYPR                          *** 
+## brand_namePICO + TEBU                          *** 
+## brand_namePYRA + EPOX + FLUX                   *** 
+## brand_nameTFLX + CYPR                          *** 
+## brand_nameTFLX + PROT                          *** 
+## as.numeric(year)                                 * 
+## brand_nameAZOX + BENZ:as.numeric(year)         *** 
+## brand_nameBIXF + TFLX + PROT:as.numeric(year) 
+## brand_namePICO + BENZ:as.numeric(year)         *** 
+## brand_namePICO + CYPR:as.numeric(year) 
+## brand_namePICO + TEBU:as.numeric(year)           . 
+## brand_namePYRA + EPOX + FLUX:as.numeric(year) 
+## brand_nameTFLX + CYPR:as.numeric(year) 
+## brand_nameTFLX + PROT:as.numeric(year) 
+## 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre class="r"><code>anova(mv_yld_year, btt = 11:18)</code></pre>
+<pre><code>## 
+## Test of Moderators (coefficients 11:18):
+## QM(df = 8) = 85.4079, p-val &lt; .0001</code></pre>
+<div id="decline-yield" class="section level4">
+<h4>Decline yield</h4>
+<pre class="r"><code>yld_gain &lt;- rust_yld %&gt;%
+  mutate(gain = mean_yld - yld_check) %&gt;% 
+  filter(brand_name!= &quot;AACHECK&quot;)  
+  
+
+yld_gain &lt;- yld_gain %&gt;% 
+mutate(region = case_when(
+    state == &quot;MT&quot; ~ &quot;North&quot;,
+    state == &quot;BA&quot; ~ &quot;North&quot;,
+    state == &quot;DF&quot; ~ &quot;North&quot;,
+    state == &quot;MS&quot; ~ &quot;North&quot;,
+    state == &quot;GO&quot; ~ &quot;North&quot;,
+    state == &quot;TO&quot; ~ &quot;North&quot;,
+    state == &quot;PR&quot; ~ &quot;South&quot;,
+    state == &quot;MG&quot; ~ &quot;South&quot;,
+    state == &quot;SP&quot; ~ &quot;South&quot;,
+    state == &quot;RS&quot; ~ &quot;South&quot;)) 
+
+
+reg1 = data.frame(mv_yld_year$beta, mv_yld_year$ci.lb, mv_yld_year$ci.ub) %&gt;%
+  rownames_to_column(&quot;trat&quot;) %&gt;%
+  separate(trat, into = c(&quot;lado1&quot;, &quot;lado2&quot;), sep = &quot;:&quot;) %&gt;%
+  separate(lado1, into = c(&quot;lixo&quot;, &quot;lado3&quot;),sep = &quot;brand_name&quot;) %&gt;%
+  select(-lixo) %&gt;%
+  filter(lado3 != &quot;NA&quot;) %&gt;%
+  mutate(mod = c(rep(&quot;intercept&quot;, 8), rep(&quot;slope&quot;, 8))) %&gt;% 
+  select(-lado2)
+names(reg1) = c(&quot;fungicide&quot;, &quot;mean&quot;, &quot;ci.lb&quot;, &quot;ci.ub&quot;, &quot;mod&quot;) 
+
+mean = reg1 %&gt;%
+  group_by(fungicide) %&gt;%
+  select(1:2,5) %&gt;%
+  spread(mod, mean) 
+names(mean) = c(&quot;fungicide&quot;, &quot;intercept_mean&quot;, &quot;slope_mean&quot;)
+
+upper = reg1 %&gt;%
+  group_by(fungicide) %&gt;%
+  select(1,3,5) %&gt;%
+  spread(mod, ci.lb)
+names(upper) = c(&quot;fungicide&quot;, &quot;intercept_upper&quot;, &quot;slope_upper&quot;)
+
+lower = reg1 %&gt;%
+  group_by(fungicide) %&gt;%
+  select(1,4:5) %&gt;%
+  spread(mod, ci.ub)
+names(lower) = c(&quot;fungicide&quot;, &quot;intercept_lower&quot;, &quot;slope_lower&quot;)
+
+data_model = left_join(mean, lower, by= c(&quot;fungicide&quot;)) %&gt;% 
+  left_join(upper, by = c(&quot;fungicide&quot;))
+
+year = seq(0,6, by = 0.1) 
+fungicide = NULL
+year_col = NULL
+for(i in 1:length(data_model$fungicide)){
+data_cache = yld_gain %&gt;% 
+    filter(brand_name == data_model$fungicide[i]) 
+years = unique(data_cache$year)-2015
+year = sort(years)
+year = seq(first(year), last(year), by = 0.1)   
+  year_col = c(year_col,year) 
+  fungicide = c(fungicide, rep(data_model$fungicide[i], length(year)))
+}
+ 
+predicted = data.frame(year_col, fungicide) %&gt;%
+  mutate(year = year_col) %&gt;%
+  right_join(data_model, by = &quot;fungicide&quot;) %&gt;%
+  mutate(mean_gain = intercept_mean + slope_mean*year,
+         CIL = intercept_lower + slope_lower*year,
+         CIU = intercept_upper + slope_upper*year,
+         year = year+2015) %&gt;% 
+  mutate(brand_name = fungicide) %&gt;% 
+  filter(year &lt;2020.2) %&gt;% 
+  dplyr::select(-fungicide)
+predicted</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["year_col"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["year"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["intercept_mean"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["slope_mean"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["intercept_lower"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["slope_lower"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["intercept_upper"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["slope_upper"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["mean_gain"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["CIL"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["CIU"],"name":[11],"type":["dbl"],"align":["right"]},{"label":["brand_name"],"name":[12],"type":["chr"],"align":["left"]}],"data":[{"1":"0.0","2":"2015.0","3":"1161.6923","4":"-109.864334","5":"1283.9941","6":"-66.01185","7":"1039.3905","8":"-153.716815","9":"1161.6923","10":"1283.9941","11":"1039.3905","12":"AZOX + BENZ"},{"1":"0.1","2":"2015.1","3":"1161.6923","4":"-109.864334","5":"1283.9941","6":"-66.01185","7":"1039.3905","8":"-153.716815","9":"1150.7059","10":"1277.3929","11":"1024.0188","12":"AZOX + BENZ"},{"1":"0.2","2":"2015.2","3":"1161.6923","4":"-109.864334","5":"1283.9941","6":"-66.01185","7":"1039.3905","8":"-153.716815","9":"1139.7194","10":"1270.7917","11":"1008.6472","12":"AZOX + BENZ"},{"1":"0.3","2":"2015.3","3":"1161.6923","4":"-109.864334","5":"1283.9941","6":"-66.01185","7":"1039.3905","8":"-153.716815","9":"1128.7330","10":"1264.1905","11":"993.2755","12":"AZOX + BENZ"},{"1":"0.4","2":"2015.4","3":"1161.6923","4":"-109.864334","5":"1283.9941","6":"-66.01185","7":"1039.3905","8":"-153.716815","9":"1117.7466","10":"1257.5893","11":"977.9038","12":"AZOX + BENZ"},{"1":"0.5","2":"2015.5","3":"1161.6923","4":"-109.864334","5":"1283.9941","6":"-66.01185","7":"1039.3905","8":"-153.716815","9":"1106.7601","10":"1250.9881","11":"962.5321","12":"AZOX + BENZ"},{"1":"0.6","2":"2015.6","3":"1161.6923","4":"-109.864334","5":"1283.9941","6":"-66.01185","7":"1039.3905","8":"-153.716815","9":"1095.7737","10":"1244.3870","11":"947.1604","12":"AZOX + BENZ"},{"1":"0.7","2":"2015.7","3":"1161.6923","4":"-109.864334","5":"1283.9941","6":"-66.01185","7":"1039.3905","8":"-153.716815","9":"1084.7873","10":"1237.7858","11":"931.7887","12":"AZOX + BENZ"},{"1":"0.8","2":"2015.8","3":"1161.6923","4":"-109.864334","5":"1283.9941","6":"-66.01185","7":"1039.3905","8":"-153.716815","9":"1073.8008","10":"1231.1846","11":"916.4171","12":"AZOX + BENZ"},{"1":"0.9","2":"2015.9","3":"1161.6923","4":"-109.864334","5":"1283.9941","6":"-66.01185","7":"1039.3905","8":"-153.716815","9":"1062.8144","10":"1224.5834","11":"901.0454","12":"AZOX + BENZ"},{"1":"1.0","2":"2016.0","3":"1161.6923","4":"-109.864334","5":"1283.9941","6":"-66.01185","7":"1039.3905","8":"-153.716815","9":"1051.8280","10":"1217.9822","11":"885.6737","12":"AZOX + BENZ"},{"1":"1.1","2":"2016.1","3":"1161.6923","4":"-109.864334","5":"1283.9941","6":"-66.01185","7":"1039.3905","8":"-153.716815","9":"1040.8415","10":"1211.3810","11":"870.3020","12":"AZOX + BENZ"},{"1":"1.2","2":"2016.2","3":"1161.6923","4":"-109.864334","5":"1283.9941","6":"-66.01185","7":"1039.3905","8":"-153.716815","9":"1029.8551","10":"1204.7799","11":"854.9303","12":"AZOX + BENZ"},{"1":"1.3","2":"2016.3","3":"1161.6923","4":"-109.864334","5":"1283.9941","6":"-66.01185","7":"1039.3905","8":"-153.716815","9":"1018.8687","10":"1198.1787","11":"839.5587","12":"AZOX + BENZ"},{"1":"1.4","2":"2016.4","3":"1161.6923","4":"-109.864334","5":"1283.9941","6":"-66.01185","7":"1039.3905","8":"-153.716815","9":"1007.8822","10":"1191.5775","11":"824.1870","12":"AZOX + BENZ"},{"1":"1.5","2":"2016.5","3":"1161.6923","4":"-109.864334","5":"1283.9941","6":"-66.01185","7":"1039.3905","8":"-153.716815","9":"996.8958","10":"1184.9763","11":"808.8153","12":"AZOX + BENZ"},{"1":"1.6","2":"2016.6","3":"1161.6923","4":"-109.864334","5":"1283.9941","6":"-66.01185","7":"1039.3905","8":"-153.716815","9":"985.9094","10":"1178.3751","11":"793.4436","12":"AZOX + BENZ"},{"1":"1.7","2":"2016.7","3":"1161.6923","4":"-109.864334","5":"1283.9941","6":"-66.01185","7":"1039.3905","8":"-153.716815","9":"974.9229","10":"1171.7739","11":"778.0719","12":"AZOX + BENZ"},{"1":"1.8","2":"2016.8","3":"1161.6923","4":"-109.864334","5":"1283.9941","6":"-66.01185","7":"1039.3905","8":"-153.716815","9":"963.9365","10":"1165.1727","11":"762.7002","12":"AZOX + BENZ"},{"1":"1.9","2":"2016.9","3":"1161.6923","4":"-109.864334","5":"1283.9941","6":"-66.01185","7":"1039.3905","8":"-153.716815","9":"952.9501","10":"1158.5716","11":"747.3286","12":"AZOX + BENZ"},{"1":"2.0","2":"2017.0","3":"1161.6923","4":"-109.864334","5":"1283.9941","6":"-66.01185","7":"1039.3905","8":"-153.716815","9":"941.9636","10":"1151.9704","11":"731.9569","12":"AZOX + BENZ"},{"1":"2.1","2":"2017.1","3":"1161.6923","4":"-109.864334","5":"1283.9941","6":"-66.01185","7":"1039.3905","8":"-153.716815","9":"930.9772","10":"1145.3692","11":"716.5852","12":"AZOX + BENZ"},{"1":"2.2","2":"2017.2","3":"1161.6923","4":"-109.864334","5":"1283.9941","6":"-66.01185","7":"1039.3905","8":"-153.716815","9":"919.9908","10":"1138.7680","11":"701.2135","12":"AZOX + BENZ"},{"1":"2.3","2":"2017.3","3":"1161.6923","4":"-109.864334","5":"1283.9941","6":"-66.01185","7":"1039.3905","8":"-153.716815","9":"909.0043","10":"1132.1668","11":"685.8418","12":"AZOX + BENZ"},{"1":"2.4","2":"2017.4","3":"1161.6923","4":"-109.864334","5":"1283.9941","6":"-66.01185","7":"1039.3905","8":"-153.716815","9":"898.0179","10":"1125.5656","11":"670.4702","12":"AZOX + BENZ"},{"1":"2.5","2":"2017.5","3":"1161.6923","4":"-109.864334","5":"1283.9941","6":"-66.01185","7":"1039.3905","8":"-153.716815","9":"887.0315","10":"1118.9644","11":"655.0985","12":"AZOX + BENZ"},{"1":"2.6","2":"2017.6","3":"1161.6923","4":"-109.864334","5":"1283.9941","6":"-66.01185","7":"1039.3905","8":"-153.716815","9":"876.0450","10":"1112.3633","11":"639.7268","12":"AZOX + BENZ"},{"1":"2.7","2":"2017.7","3":"1161.6923","4":"-109.864334","5":"1283.9941","6":"-66.01185","7":"1039.3905","8":"-153.716815","9":"865.0586","10":"1105.7621","11":"624.3551","12":"AZOX + BENZ"},{"1":"2.8","2":"2017.8","3":"1161.6923","4":"-109.864334","5":"1283.9941","6":"-66.01185","7":"1039.3905","8":"-153.716815","9":"854.0722","10":"1099.1609","11":"608.9834","12":"AZOX + BENZ"},{"1":"2.9","2":"2017.9","3":"1161.6923","4":"-109.864334","5":"1283.9941","6":"-66.01185","7":"1039.3905","8":"-153.716815","9":"843.0857","10":"1092.5597","11":"593.6118","12":"AZOX + BENZ"},{"1":"3.0","2":"2018.0","3":"1161.6923","4":"-109.864334","5":"1283.9941","6":"-66.01185","7":"1039.3905","8":"-153.716815","9":"832.0993","10":"1085.9585","11":"578.2401","12":"AZOX + BENZ"},{"1":"3.1","2":"2018.1","3":"1161.6923","4":"-109.864334","5":"1283.9941","6":"-66.01185","7":"1039.3905","8":"-153.716815","9":"821.1129","10":"1079.3573","11":"562.8684","12":"AZOX + BENZ"},{"1":"3.2","2":"2018.2","3":"1161.6923","4":"-109.864334","5":"1283.9941","6":"-66.01185","7":"1039.3905","8":"-153.716815","9":"810.1264","10":"1072.7561","11":"547.4967","12":"AZOX + BENZ"},{"1":"3.3","2":"2018.3","3":"1161.6923","4":"-109.864334","5":"1283.9941","6":"-66.01185","7":"1039.3905","8":"-153.716815","9":"799.1400","10":"1066.1550","11":"532.1250","12":"AZOX + BENZ"},{"1":"3.4","2":"2018.4","3":"1161.6923","4":"-109.864334","5":"1283.9941","6":"-66.01185","7":"1039.3905","8":"-153.716815","9":"788.1536","10":"1059.5538","11":"516.7533","12":"AZOX + BENZ"},{"1":"3.5","2":"2018.5","3":"1161.6923","4":"-109.864334","5":"1283.9941","6":"-66.01185","7":"1039.3905","8":"-153.716815","9":"777.1671","10":"1052.9526","11":"501.3817","12":"AZOX + BENZ"},{"1":"3.6","2":"2018.6","3":"1161.6923","4":"-109.864334","5":"1283.9941","6":"-66.01185","7":"1039.3905","8":"-153.716815","9":"766.1807","10":"1046.3514","11":"486.0100","12":"AZOX + BENZ"},{"1":"3.7","2":"2018.7","3":"1161.6923","4":"-109.864334","5":"1283.9941","6":"-66.01185","7":"1039.3905","8":"-153.716815","9":"755.1943","10":"1039.7502","11":"470.6383","12":"AZOX + BENZ"},{"1":"3.8","2":"2018.8","3":"1161.6923","4":"-109.864334","5":"1283.9941","6":"-66.01185","7":"1039.3905","8":"-153.716815","9":"744.2078","10":"1033.1490","11":"455.2666","12":"AZOX + BENZ"},{"1":"3.9","2":"2018.9","3":"1161.6923","4":"-109.864334","5":"1283.9941","6":"-66.01185","7":"1039.3905","8":"-153.716815","9":"733.2214","10":"1026.5478","11":"439.8949","12":"AZOX + BENZ"},{"1":"4.0","2":"2019.0","3":"1161.6923","4":"-109.864334","5":"1283.9941","6":"-66.01185","7":"1039.3905","8":"-153.716815","9":"722.2350","10":"1019.9467","11":"424.5233","12":"AZOX + BENZ"},{"1":"4.1","2":"2019.1","3":"1161.6923","4":"-109.864334","5":"1283.9941","6":"-66.01185","7":"1039.3905","8":"-153.716815","9":"711.2485","10":"1013.3455","11":"409.1516","12":"AZOX + BENZ"},{"1":"4.2","2":"2019.2","3":"1161.6923","4":"-109.864334","5":"1283.9941","6":"-66.01185","7":"1039.3905","8":"-153.716815","9":"700.2621","10":"1006.7443","11":"393.7799","12":"AZOX + BENZ"},{"1":"4.3","2":"2019.3","3":"1161.6923","4":"-109.864334","5":"1283.9941","6":"-66.01185","7":"1039.3905","8":"-153.716815","9":"689.2757","10":"1000.1431","11":"378.4082","12":"AZOX + BENZ"},{"1":"4.4","2":"2019.4","3":"1161.6923","4":"-109.864334","5":"1283.9941","6":"-66.01185","7":"1039.3905","8":"-153.716815","9":"678.2892","10":"993.5419","11":"363.0365","12":"AZOX + BENZ"},{"1":"4.5","2":"2019.5","3":"1161.6923","4":"-109.864334","5":"1283.9941","6":"-66.01185","7":"1039.3905","8":"-153.716815","9":"667.3028","10":"986.9407","11":"347.6648","12":"AZOX + BENZ"},{"1":"4.6","2":"2019.6","3":"1161.6923","4":"-109.864334","5":"1283.9941","6":"-66.01185","7":"1039.3905","8":"-153.716815","9":"656.3164","10":"980.3396","11":"332.2932","12":"AZOX + BENZ"},{"1":"4.7","2":"2019.7","3":"1161.6923","4":"-109.864334","5":"1283.9941","6":"-66.01185","7":"1039.3905","8":"-153.716815","9":"645.3299","10":"973.7384","11":"316.9215","12":"AZOX + BENZ"},{"1":"4.8","2":"2019.8","3":"1161.6923","4":"-109.864334","5":"1283.9941","6":"-66.01185","7":"1039.3905","8":"-153.716815","9":"634.3435","10":"967.1372","11":"301.5498","12":"AZOX + BENZ"},{"1":"4.9","2":"2019.9","3":"1161.6923","4":"-109.864334","5":"1283.9941","6":"-66.01185","7":"1039.3905","8":"-153.716815","9":"623.3571","10":"960.5360","11":"286.1781","12":"AZOX + BENZ"},{"1":"5.0","2":"2020.0","3":"1161.6923","4":"-109.864334","5":"1283.9941","6":"-66.01185","7":"1039.3905","8":"-153.716815","9":"612.3706","10":"953.9348","11":"270.8064","12":"AZOX + BENZ"},{"1":"2.0","2":"2017.0","3":"1025.1549","4":"8.805754","5":"1210.2284","6":"67.49117","7":"840.0814","8":"-49.879662","9":"1042.7664","10":"1345.2108","11":"740.3220","12":"BIXF + TFLX + PROT"},{"1":"2.1","2":"2017.1","3":"1025.1549","4":"8.805754","5":"1210.2284","6":"67.49117","7":"840.0814","8":"-49.879662","9":"1043.6470","10":"1351.9599","11":"735.3341","12":"BIXF + TFLX + PROT"},{"1":"2.2","2":"2017.2","3":"1025.1549","4":"8.805754","5":"1210.2284","6":"67.49117","7":"840.0814","8":"-49.879662","9":"1044.5276","10":"1358.7090","11":"730.3461","12":"BIXF + TFLX + PROT"},{"1":"2.3","2":"2017.3","3":"1025.1549","4":"8.805754","5":"1210.2284","6":"67.49117","7":"840.0814","8":"-49.879662","9":"1045.4081","10":"1365.4581","11":"725.3581","12":"BIXF + TFLX + PROT"},{"1":"2.4","2":"2017.4","3":"1025.1549","4":"8.805754","5":"1210.2284","6":"67.49117","7":"840.0814","8":"-49.879662","9":"1046.2887","10":"1372.2072","11":"720.3702","12":"BIXF + TFLX + PROT"},{"1":"2.5","2":"2017.5","3":"1025.1549","4":"8.805754","5":"1210.2284","6":"67.49117","7":"840.0814","8":"-49.879662","9":"1047.1693","10":"1378.9563","11":"715.3822","12":"BIXF + TFLX + PROT"},{"1":"2.6","2":"2017.6","3":"1025.1549","4":"8.805754","5":"1210.2284","6":"67.49117","7":"840.0814","8":"-49.879662","9":"1048.0499","10":"1385.7055","11":"710.3942","12":"BIXF + TFLX + PROT"},{"1":"2.7","2":"2017.7","3":"1025.1549","4":"8.805754","5":"1210.2284","6":"67.49117","7":"840.0814","8":"-49.879662","9":"1048.9304","10":"1392.4546","11":"705.4063","12":"BIXF + TFLX + PROT"},{"1":"2.8","2":"2017.8","3":"1025.1549","4":"8.805754","5":"1210.2284","6":"67.49117","7":"840.0814","8":"-49.879662","9":"1049.8110","10":"1399.2037","11":"700.4183","12":"BIXF + TFLX + PROT"},{"1":"2.9","2":"2017.9","3":"1025.1549","4":"8.805754","5":"1210.2284","6":"67.49117","7":"840.0814","8":"-49.879662","9":"1050.6916","10":"1405.9528","11":"695.4303","12":"BIXF + TFLX + PROT"},{"1":"3.0","2":"2018.0","3":"1025.1549","4":"8.805754","5":"1210.2284","6":"67.49117","7":"840.0814","8":"-49.879662","9":"1051.5722","10":"1412.7019","11":"690.4424","12":"BIXF + TFLX + PROT"},{"1":"3.1","2":"2018.1","3":"1025.1549","4":"8.805754","5":"1210.2284","6":"67.49117","7":"840.0814","8":"-49.879662","9":"1052.4527","10":"1419.4510","11":"685.4544","12":"BIXF + TFLX + PROT"},{"1":"3.2","2":"2018.2","3":"1025.1549","4":"8.805754","5":"1210.2284","6":"67.49117","7":"840.0814","8":"-49.879662","9":"1053.3333","10":"1426.2002","11":"680.4665","12":"BIXF + TFLX + PROT"},{"1":"3.3","2":"2018.3","3":"1025.1549","4":"8.805754","5":"1210.2284","6":"67.49117","7":"840.0814","8":"-49.879662","9":"1054.2139","10":"1432.9493","11":"675.4785","12":"BIXF + TFLX + PROT"},{"1":"3.4","2":"2018.4","3":"1025.1549","4":"8.805754","5":"1210.2284","6":"67.49117","7":"840.0814","8":"-49.879662","9":"1055.0945","10":"1439.6984","11":"670.4905","12":"BIXF + TFLX + PROT"},{"1":"3.5","2":"2018.5","3":"1025.1549","4":"8.805754","5":"1210.2284","6":"67.49117","7":"840.0814","8":"-49.879662","9":"1055.9750","10":"1446.4475","11":"665.5026","12":"BIXF + TFLX + PROT"},{"1":"3.6","2":"2018.6","3":"1025.1549","4":"8.805754","5":"1210.2284","6":"67.49117","7":"840.0814","8":"-49.879662","9":"1056.8556","10":"1453.1966","11":"660.5146","12":"BIXF + TFLX + PROT"},{"1":"3.7","2":"2018.7","3":"1025.1549","4":"8.805754","5":"1210.2284","6":"67.49117","7":"840.0814","8":"-49.879662","9":"1057.7362","10":"1459.9457","11":"655.5266","12":"BIXF + TFLX + PROT"},{"1":"3.8","2":"2018.8","3":"1025.1549","4":"8.805754","5":"1210.2284","6":"67.49117","7":"840.0814","8":"-49.879662","9":"1058.6168","10":"1466.6949","11":"650.5387","12":"BIXF + TFLX + PROT"},{"1":"3.9","2":"2018.9","3":"1025.1549","4":"8.805754","5":"1210.2284","6":"67.49117","7":"840.0814","8":"-49.879662","9":"1059.4973","10":"1473.4440","11":"645.5507","12":"BIXF + TFLX + PROT"},{"1":"4.0","2":"2019.0","3":"1025.1549","4":"8.805754","5":"1210.2284","6":"67.49117","7":"840.0814","8":"-49.879662","9":"1060.3779","10":"1480.1931","11":"640.5627","12":"BIXF + TFLX + PROT"},{"1":"4.1","2":"2019.1","3":"1025.1549","4":"8.805754","5":"1210.2284","6":"67.49117","7":"840.0814","8":"-49.879662","9":"1061.2585","10":"1486.9422","11":"635.5748","12":"BIXF + TFLX + PROT"},{"1":"4.2","2":"2019.2","3":"1025.1549","4":"8.805754","5":"1210.2284","6":"67.49117","7":"840.0814","8":"-49.879662","9":"1062.1391","10":"1493.6913","11":"630.5868","12":"BIXF + TFLX + PROT"},{"1":"4.3","2":"2019.3","3":"1025.1549","4":"8.805754","5":"1210.2284","6":"67.49117","7":"840.0814","8":"-49.879662","9":"1063.0196","10":"1500.4404","11":"625.5988","12":"BIXF + TFLX + PROT"},{"1":"4.4","2":"2019.4","3":"1025.1549","4":"8.805754","5":"1210.2284","6":"67.49117","7":"840.0814","8":"-49.879662","9":"1063.9002","10":"1507.1896","11":"620.6109","12":"BIXF + TFLX + PROT"},{"1":"4.5","2":"2019.5","3":"1025.1549","4":"8.805754","5":"1210.2284","6":"67.49117","7":"840.0814","8":"-49.879662","9":"1064.7808","10":"1513.9387","11":"615.6229","12":"BIXF + TFLX + PROT"},{"1":"4.6","2":"2019.6","3":"1025.1549","4":"8.805754","5":"1210.2284","6":"67.49117","7":"840.0814","8":"-49.879662","9":"1065.6614","10":"1520.6878","11":"610.6349","12":"BIXF + TFLX + PROT"},{"1":"4.7","2":"2019.7","3":"1025.1549","4":"8.805754","5":"1210.2284","6":"67.49117","7":"840.0814","8":"-49.879662","9":"1066.5419","10":"1527.4369","11":"605.6470","12":"BIXF + TFLX + PROT"},{"1":"4.8","2":"2019.8","3":"1025.1549","4":"8.805754","5":"1210.2284","6":"67.49117","7":"840.0814","8":"-49.879662","9":"1067.4225","10":"1534.1860","11":"600.6590","12":"BIXF + TFLX + PROT"},{"1":"4.9","2":"2019.9","3":"1025.1549","4":"8.805754","5":"1210.2284","6":"67.49117","7":"840.0814","8":"-49.879662","9":"1068.3031","10":"1540.9351","11":"595.6710","12":"BIXF + TFLX + PROT"},{"1":"5.0","2":"2020.0","3":"1025.1549","4":"8.805754","5":"1210.2284","6":"67.49117","7":"840.0814","8":"-49.879662","9":"1069.1837","10":"1547.6843","11":"590.6831","12":"BIXF + TFLX + PROT"},{"1":"2.0","2":"2017.0","3":"1336.6621","4":"-119.936715","5":"1497.8783","6":"-68.18666","7":"1175.4459","8":"-171.686773","9":"1096.7887","10":"1361.5050","11":"832.0723","12":"PICO + BENZ"},{"1":"2.1","2":"2017.1","3":"1336.6621","4":"-119.936715","5":"1497.8783","6":"-68.18666","7":"1175.4459","8":"-171.686773","9":"1084.7950","10":"1354.6863","11":"814.9037","12":"PICO + BENZ"},{"1":"2.2","2":"2017.2","3":"1336.6621","4":"-119.936715","5":"1497.8783","6":"-68.18666","7":"1175.4459","8":"-171.686773","9":"1072.8013","10":"1347.8677","11":"797.7350","12":"PICO + BENZ"},{"1":"2.3","2":"2017.3","3":"1336.6621","4":"-119.936715","5":"1497.8783","6":"-68.18666","7":"1175.4459","8":"-171.686773","9":"1060.8077","10":"1341.0490","11":"780.5663","12":"PICO + BENZ"},{"1":"2.4","2":"2017.4","3":"1336.6621","4":"-119.936715","5":"1497.8783","6":"-68.18666","7":"1175.4459","8":"-171.686773","9":"1048.8140","10":"1334.2303","11":"763.3976","12":"PICO + BENZ"},{"1":"2.5","2":"2017.5","3":"1336.6621","4":"-119.936715","5":"1497.8783","6":"-68.18666","7":"1175.4459","8":"-171.686773","9":"1036.8203","10":"1327.4117","11":"746.2290","12":"PICO + BENZ"},{"1":"2.6","2":"2017.6","3":"1336.6621","4":"-119.936715","5":"1497.8783","6":"-68.18666","7":"1175.4459","8":"-171.686773","9":"1024.8266","10":"1320.5930","11":"729.0603","12":"PICO + BENZ"},{"1":"2.7","2":"2017.7","3":"1336.6621","4":"-119.936715","5":"1497.8783","6":"-68.18666","7":"1175.4459","8":"-171.686773","9":"1012.8330","10":"1313.7743","11":"711.8916","12":"PICO + BENZ"},{"1":"2.8","2":"2017.8","3":"1336.6621","4":"-119.936715","5":"1497.8783","6":"-68.18666","7":"1175.4459","8":"-171.686773","9":"1000.8393","10":"1306.9557","11":"694.7229","12":"PICO + BENZ"},{"1":"2.9","2":"2017.9","3":"1336.6621","4":"-119.936715","5":"1497.8783","6":"-68.18666","7":"1175.4459","8":"-171.686773","9":"988.8456","10":"1300.1370","11":"677.5542","12":"PICO + BENZ"},{"1":"3.0","2":"2018.0","3":"1336.6621","4":"-119.936715","5":"1497.8783","6":"-68.18666","7":"1175.4459","8":"-171.686773","9":"976.8520","10":"1293.3183","11":"660.3856","12":"PICO + BENZ"},{"1":"3.1","2":"2018.1","3":"1336.6621","4":"-119.936715","5":"1497.8783","6":"-68.18666","7":"1175.4459","8":"-171.686773","9":"964.8583","10":"1286.4997","11":"643.2169","12":"PICO + BENZ"},{"1":"3.2","2":"2018.2","3":"1336.6621","4":"-119.936715","5":"1497.8783","6":"-68.18666","7":"1175.4459","8":"-171.686773","9":"952.8646","10":"1279.6810","11":"626.0482","12":"PICO + BENZ"},{"1":"3.3","2":"2018.3","3":"1336.6621","4":"-119.936715","5":"1497.8783","6":"-68.18666","7":"1175.4459","8":"-171.686773","9":"940.8709","10":"1272.8623","11":"608.8795","12":"PICO + BENZ"},{"1":"3.4","2":"2018.4","3":"1336.6621","4":"-119.936715","5":"1497.8783","6":"-68.18666","7":"1175.4459","8":"-171.686773","9":"928.8773","10":"1266.0437","11":"591.7109","12":"PICO + BENZ"},{"1":"3.5","2":"2018.5","3":"1336.6621","4":"-119.936715","5":"1497.8783","6":"-68.18666","7":"1175.4459","8":"-171.686773","9":"916.8836","10":"1259.2250","11":"574.5422","12":"PICO + BENZ"},{"1":"3.6","2":"2018.6","3":"1336.6621","4":"-119.936715","5":"1497.8783","6":"-68.18666","7":"1175.4459","8":"-171.686773","9":"904.8899","10":"1252.4063","11":"557.3735","12":"PICO + BENZ"},{"1":"3.7","2":"2018.7","3":"1336.6621","4":"-119.936715","5":"1497.8783","6":"-68.18666","7":"1175.4459","8":"-171.686773","9":"892.8963","10":"1245.5877","11":"540.2048","12":"PICO + BENZ"},{"1":"3.8","2":"2018.8","3":"1336.6621","4":"-119.936715","5":"1497.8783","6":"-68.18666","7":"1175.4459","8":"-171.686773","9":"880.9026","10":"1238.7690","11":"523.0362","12":"PICO + BENZ"},{"1":"3.9","2":"2018.9","3":"1336.6621","4":"-119.936715","5":"1497.8783","6":"-68.18666","7":"1175.4459","8":"-171.686773","9":"868.9089","10":"1231.9503","11":"505.8675","12":"PICO + BENZ"},{"1":"4.0","2":"2019.0","3":"1336.6621","4":"-119.936715","5":"1497.8783","6":"-68.18666","7":"1175.4459","8":"-171.686773","9":"856.9152","10":"1225.1317","11":"488.6988","12":"PICO + BENZ"},{"1":"4.1","2":"2019.1","3":"1336.6621","4":"-119.936715","5":"1497.8783","6":"-68.18666","7":"1175.4459","8":"-171.686773","9":"844.9216","10":"1218.3130","11":"471.5301","12":"PICO + BENZ"},{"1":"4.2","2":"2019.2","3":"1336.6621","4":"-119.936715","5":"1497.8783","6":"-68.18666","7":"1175.4459","8":"-171.686773","9":"832.9279","10":"1211.4943","11":"454.3614","12":"PICO + BENZ"},{"1":"4.3","2":"2019.3","3":"1336.6621","4":"-119.936715","5":"1497.8783","6":"-68.18666","7":"1175.4459","8":"-171.686773","9":"820.9342","10":"1204.6757","11":"437.1928","12":"PICO + BENZ"},{"1":"4.4","2":"2019.4","3":"1336.6621","4":"-119.936715","5":"1497.8783","6":"-68.18666","7":"1175.4459","8":"-171.686773","9":"808.9406","10":"1197.8570","11":"420.0241","12":"PICO + BENZ"},{"1":"4.5","2":"2019.5","3":"1336.6621","4":"-119.936715","5":"1497.8783","6":"-68.18666","7":"1175.4459","8":"-171.686773","9":"796.9469","10":"1191.0384","11":"402.8554","12":"PICO + BENZ"},{"1":"4.6","2":"2019.6","3":"1336.6621","4":"-119.936715","5":"1497.8783","6":"-68.18666","7":"1175.4459","8":"-171.686773","9":"784.9532","10":"1184.2197","11":"385.6867","12":"PICO + BENZ"},{"1":"4.7","2":"2019.7","3":"1336.6621","4":"-119.936715","5":"1497.8783","6":"-68.18666","7":"1175.4459","8":"-171.686773","9":"772.9595","10":"1177.4010","11":"368.5181","12":"PICO + BENZ"},{"1":"4.8","2":"2019.8","3":"1336.6621","4":"-119.936715","5":"1497.8783","6":"-68.18666","7":"1175.4459","8":"-171.686773","9":"760.9659","10":"1170.5824","11":"351.3494","12":"PICO + BENZ"},{"1":"4.9","2":"2019.9","3":"1336.6621","4":"-119.936715","5":"1497.8783","6":"-68.18666","7":"1175.4459","8":"-171.686773","9":"748.9722","10":"1163.7637","11":"334.1807","12":"PICO + BENZ"},{"1":"5.0","2":"2020.0","3":"1336.6621","4":"-119.936715","5":"1497.8783","6":"-68.18666","7":"1175.4459","8":"-171.686773","9":"736.9785","10":"1156.9450","11":"317.0120","12":"PICO + BENZ"},{"1":"0.0","2":"2015.0","3":"619.3209","4":"-7.989402","5":"707.7925","6":"23.16357","7":"530.8492","8":"-39.142377","9":"619.3209","10":"707.7925","11":"530.8492","12":"PICO + CYPR"},{"1":"0.1","2":"2015.1","3":"619.3209","4":"-7.989402","5":"707.7925","6":"23.16357","7":"530.8492","8":"-39.142377","9":"618.5219","10":"710.1089","11":"526.9349","12":"PICO + CYPR"},{"1":"0.2","2":"2015.2","3":"619.3209","4":"-7.989402","5":"707.7925","6":"23.16357","7":"530.8492","8":"-39.142377","9":"617.7230","10":"712.4253","11":"523.0207","12":"PICO + CYPR"},{"1":"0.3","2":"2015.3","3":"619.3209","4":"-7.989402","5":"707.7925","6":"23.16357","7":"530.8492","8":"-39.142377","9":"616.9240","10":"714.7416","11":"519.1064","12":"PICO + CYPR"},{"1":"0.4","2":"2015.4","3":"619.3209","4":"-7.989402","5":"707.7925","6":"23.16357","7":"530.8492","8":"-39.142377","9":"616.1251","10":"717.0580","11":"515.1922","12":"PICO + CYPR"},{"1":"0.5","2":"2015.5","3":"619.3209","4":"-7.989402","5":"707.7925","6":"23.16357","7":"530.8492","8":"-39.142377","9":"615.3262","10":"719.3743","11":"511.2780","12":"PICO + CYPR"},{"1":"0.6","2":"2015.6","3":"619.3209","4":"-7.989402","5":"707.7925","6":"23.16357","7":"530.8492","8":"-39.142377","9":"614.5272","10":"721.6907","11":"507.3637","12":"PICO + CYPR"},{"1":"0.7","2":"2015.7","3":"619.3209","4":"-7.989402","5":"707.7925","6":"23.16357","7":"530.8492","8":"-39.142377","9":"613.7283","10":"724.0070","11":"503.4495","12":"PICO + CYPR"},{"1":"0.8","2":"2015.8","3":"619.3209","4":"-7.989402","5":"707.7925","6":"23.16357","7":"530.8492","8":"-39.142377","9":"612.9293","10":"726.3234","11":"499.5353","12":"PICO + CYPR"},{"1":"0.9","2":"2015.9","3":"619.3209","4":"-7.989402","5":"707.7925","6":"23.16357","7":"530.8492","8":"-39.142377","9":"612.1304","10":"728.6398","11":"495.6210","12":"PICO + CYPR"},{"1":"1.0","2":"2016.0","3":"619.3209","4":"-7.989402","5":"707.7925","6":"23.16357","7":"530.8492","8":"-39.142377","9":"611.3314","10":"730.9561","11":"491.7068","12":"PICO + CYPR"},{"1":"1.1","2":"2016.1","3":"619.3209","4":"-7.989402","5":"707.7925","6":"23.16357","7":"530.8492","8":"-39.142377","9":"610.5325","10":"733.2725","11":"487.7925","12":"PICO + CYPR"},{"1":"1.2","2":"2016.2","3":"619.3209","4":"-7.989402","5":"707.7925","6":"23.16357","7":"530.8492","8":"-39.142377","9":"609.7336","10":"735.5888","11":"483.8783","12":"PICO + CYPR"},{"1":"1.3","2":"2016.3","3":"619.3209","4":"-7.989402","5":"707.7925","6":"23.16357","7":"530.8492","8":"-39.142377","9":"608.9346","10":"737.9052","11":"479.9641","12":"PICO + CYPR"},{"1":"1.4","2":"2016.4","3":"619.3209","4":"-7.989402","5":"707.7925","6":"23.16357","7":"530.8492","8":"-39.142377","9":"608.1357","10":"740.2215","11":"476.0498","12":"PICO + CYPR"},{"1":"1.5","2":"2016.5","3":"619.3209","4":"-7.989402","5":"707.7925","6":"23.16357","7":"530.8492","8":"-39.142377","9":"607.3367","10":"742.5379","11":"472.1356","12":"PICO + CYPR"},{"1":"1.6","2":"2016.6","3":"619.3209","4":"-7.989402","5":"707.7925","6":"23.16357","7":"530.8492","8":"-39.142377","9":"606.5378","10":"744.8543","11":"468.2214","12":"PICO + CYPR"},{"1":"1.7","2":"2016.7","3":"619.3209","4":"-7.989402","5":"707.7925","6":"23.16357","7":"530.8492","8":"-39.142377","9":"605.7389","10":"747.1706","11":"464.3071","12":"PICO + CYPR"},{"1":"1.8","2":"2016.8","3":"619.3209","4":"-7.989402","5":"707.7925","6":"23.16357","7":"530.8492","8":"-39.142377","9":"604.9399","10":"749.4870","11":"460.3929","12":"PICO + CYPR"},{"1":"1.9","2":"2016.9","3":"619.3209","4":"-7.989402","5":"707.7925","6":"23.16357","7":"530.8492","8":"-39.142377","9":"604.1410","10":"751.8033","11":"456.4786","12":"PICO + CYPR"},{"1":"2.0","2":"2017.0","3":"619.3209","4":"-7.989402","5":"707.7925","6":"23.16357","7":"530.8492","8":"-39.142377","9":"603.3420","10":"754.1197","11":"452.5644","12":"PICO + CYPR"},{"1":"2.1","2":"2017.1","3":"619.3209","4":"-7.989402","5":"707.7925","6":"23.16357","7":"530.8492","8":"-39.142377","9":"602.5431","10":"756.4360","11":"448.6502","12":"PICO + CYPR"},{"1":"2.2","2":"2017.2","3":"619.3209","4":"-7.989402","5":"707.7925","6":"23.16357","7":"530.8492","8":"-39.142377","9":"601.7442","10":"758.7524","11":"444.7359","12":"PICO + CYPR"},{"1":"2.3","2":"2017.3","3":"619.3209","4":"-7.989402","5":"707.7925","6":"23.16357","7":"530.8492","8":"-39.142377","9":"600.9452","10":"761.0688","11":"440.8217","12":"PICO + CYPR"},{"1":"2.4","2":"2017.4","3":"619.3209","4":"-7.989402","5":"707.7925","6":"23.16357","7":"530.8492","8":"-39.142377","9":"600.1463","10":"763.3851","11":"436.9075","12":"PICO + CYPR"},{"1":"2.5","2":"2017.5","3":"619.3209","4":"-7.989402","5":"707.7925","6":"23.16357","7":"530.8492","8":"-39.142377","9":"599.3473","10":"765.7015","11":"432.9932","12":"PICO + CYPR"},{"1":"2.6","2":"2017.6","3":"619.3209","4":"-7.989402","5":"707.7925","6":"23.16357","7":"530.8492","8":"-39.142377","9":"598.5484","10":"768.0178","11":"429.0790","12":"PICO + CYPR"},{"1":"2.7","2":"2017.7","3":"619.3209","4":"-7.989402","5":"707.7925","6":"23.16357","7":"530.8492","8":"-39.142377","9":"597.7495","10":"770.3342","11":"425.1647","12":"PICO + CYPR"},{"1":"2.8","2":"2017.8","3":"619.3209","4":"-7.989402","5":"707.7925","6":"23.16357","7":"530.8492","8":"-39.142377","9":"596.9505","10":"772.6506","11":"421.2505","12":"PICO + CYPR"},{"1":"2.9","2":"2017.9","3":"619.3209","4":"-7.989402","5":"707.7925","6":"23.16357","7":"530.8492","8":"-39.142377","9":"596.1516","10":"774.9669","11":"417.3363","12":"PICO + CYPR"},{"1":"3.0","2":"2018.0","3":"619.3209","4":"-7.989402","5":"707.7925","6":"23.16357","7":"530.8492","8":"-39.142377","9":"595.3526","10":"777.2833","11":"413.4220","12":"PICO + CYPR"},{"1":"3.1","2":"2018.1","3":"619.3209","4":"-7.989402","5":"707.7925","6":"23.16357","7":"530.8492","8":"-39.142377","9":"594.5537","10":"779.5996","11":"409.5078","12":"PICO + CYPR"},{"1":"3.2","2":"2018.2","3":"619.3209","4":"-7.989402","5":"707.7925","6":"23.16357","7":"530.8492","8":"-39.142377","9":"593.7548","10":"781.9160","11":"405.5936","12":"PICO + CYPR"},{"1":"3.3","2":"2018.3","3":"619.3209","4":"-7.989402","5":"707.7925","6":"23.16357","7":"530.8492","8":"-39.142377","9":"592.9558","10":"784.2323","11":"401.6793","12":"PICO + CYPR"},{"1":"3.4","2":"2018.4","3":"619.3209","4":"-7.989402","5":"707.7925","6":"23.16357","7":"530.8492","8":"-39.142377","9":"592.1569","10":"786.5487","11":"397.7651","12":"PICO + CYPR"},{"1":"3.5","2":"2018.5","3":"619.3209","4":"-7.989402","5":"707.7925","6":"23.16357","7":"530.8492","8":"-39.142377","9":"591.3579","10":"788.8651","11":"393.8508","12":"PICO + CYPR"},{"1":"3.6","2":"2018.6","3":"619.3209","4":"-7.989402","5":"707.7925","6":"23.16357","7":"530.8492","8":"-39.142377","9":"590.5590","10":"791.1814","11":"389.9366","12":"PICO + CYPR"},{"1":"3.7","2":"2018.7","3":"619.3209","4":"-7.989402","5":"707.7925","6":"23.16357","7":"530.8492","8":"-39.142377","9":"589.7601","10":"793.4978","11":"386.0224","12":"PICO + CYPR"},{"1":"3.8","2":"2018.8","3":"619.3209","4":"-7.989402","5":"707.7925","6":"23.16357","7":"530.8492","8":"-39.142377","9":"588.9611","10":"795.8141","11":"382.1081","12":"PICO + CYPR"},{"1":"3.9","2":"2018.9","3":"619.3209","4":"-7.989402","5":"707.7925","6":"23.16357","7":"530.8492","8":"-39.142377","9":"588.1622","10":"798.1305","11":"378.1939","12":"PICO + CYPR"},{"1":"4.0","2":"2019.0","3":"619.3209","4":"-7.989402","5":"707.7925","6":"23.16357","7":"530.8492","8":"-39.142377","9":"587.3632","10":"800.4468","11":"374.2796","12":"PICO + CYPR"},{"1":"4.1","2":"2019.1","3":"619.3209","4":"-7.989402","5":"707.7925","6":"23.16357","7":"530.8492","8":"-39.142377","9":"586.5643","10":"802.7632","11":"370.3654","12":"PICO + CYPR"},{"1":"4.2","2":"2019.2","3":"619.3209","4":"-7.989402","5":"707.7925","6":"23.16357","7":"530.8492","8":"-39.142377","9":"585.7654","10":"805.0796","11":"366.4512","12":"PICO + CYPR"},{"1":"4.3","2":"2019.3","3":"619.3209","4":"-7.989402","5":"707.7925","6":"23.16357","7":"530.8492","8":"-39.142377","9":"584.9664","10":"807.3959","11":"362.5369","12":"PICO + CYPR"},{"1":"4.4","2":"2019.4","3":"619.3209","4":"-7.989402","5":"707.7925","6":"23.16357","7":"530.8492","8":"-39.142377","9":"584.1675","10":"809.7123","11":"358.6227","12":"PICO + CYPR"},{"1":"4.5","2":"2019.5","3":"619.3209","4":"-7.989402","5":"707.7925","6":"23.16357","7":"530.8492","8":"-39.142377","9":"583.3685","10":"812.0286","11":"354.7085","12":"PICO + CYPR"},{"1":"4.6","2":"2019.6","3":"619.3209","4":"-7.989402","5":"707.7925","6":"23.16357","7":"530.8492","8":"-39.142377","9":"582.5696","10":"814.3450","11":"350.7942","12":"PICO + CYPR"},{"1":"4.7","2":"2019.7","3":"619.3209","4":"-7.989402","5":"707.7925","6":"23.16357","7":"530.8492","8":"-39.142377","9":"581.7707","10":"816.6613","11":"346.8800","12":"PICO + CYPR"},{"1":"4.8","2":"2019.8","3":"619.3209","4":"-7.989402","5":"707.7925","6":"23.16357","7":"530.8492","8":"-39.142377","9":"580.9717","10":"818.9777","11":"342.9657","12":"PICO + CYPR"},{"1":"4.9","2":"2019.9","3":"619.3209","4":"-7.989402","5":"707.7925","6":"23.16357","7":"530.8492","8":"-39.142377","9":"580.1728","10":"821.2941","11":"339.0515","12":"PICO + CYPR"},{"1":"5.0","2":"2020.0","3":"619.3209","4":"-7.989402","5":"707.7925","6":"23.16357","7":"530.8492","8":"-39.142377","9":"579.3738","10":"823.6104","11":"335.1373","12":"PICO + CYPR"},{"1":"0.0","2":"2015.0","3":"627.3148","4":"30.479424","5":"726.7395","6":"66.74696","7":"527.8901","8":"-5.788115","9":"627.3148","10":"726.7395","11":"527.8901","12":"PICO + TEBU"},{"1":"0.1","2":"2015.1","3":"627.3148","4":"30.479424","5":"726.7395","6":"66.74696","7":"527.8901","8":"-5.788115","9":"630.3627","10":"733.4142","11":"527.3113","12":"PICO + TEBU"},{"1":"0.2","2":"2015.2","3":"627.3148","4":"30.479424","5":"726.7395","6":"66.74696","7":"527.8901","8":"-5.788115","9":"633.4107","10":"740.0888","11":"526.7325","12":"PICO + TEBU"},{"1":"0.3","2":"2015.3","3":"627.3148","4":"30.479424","5":"726.7395","6":"66.74696","7":"527.8901","8":"-5.788115","9":"636.4586","10":"746.7635","11":"526.1537","12":"PICO + TEBU"},{"1":"0.4","2":"2015.4","3":"627.3148","4":"30.479424","5":"726.7395","6":"66.74696","7":"527.8901","8":"-5.788115","9":"639.5065","10":"753.4382","11":"525.5749","12":"PICO + TEBU"},{"1":"0.5","2":"2015.5","3":"627.3148","4":"30.479424","5":"726.7395","6":"66.74696","7":"527.8901","8":"-5.788115","9":"642.5545","10":"760.1129","11":"524.9960","12":"PICO + TEBU"},{"1":"0.6","2":"2015.6","3":"627.3148","4":"30.479424","5":"726.7395","6":"66.74696","7":"527.8901","8":"-5.788115","9":"645.6024","10":"766.7876","11":"524.4172","12":"PICO + TEBU"},{"1":"0.7","2":"2015.7","3":"627.3148","4":"30.479424","5":"726.7395","6":"66.74696","7":"527.8901","8":"-5.788115","9":"648.6504","10":"773.4623","11":"523.8384","12":"PICO + TEBU"},{"1":"0.8","2":"2015.8","3":"627.3148","4":"30.479424","5":"726.7395","6":"66.74696","7":"527.8901","8":"-5.788115","9":"651.6983","10":"780.1370","11":"523.2596","12":"PICO + TEBU"},{"1":"0.9","2":"2015.9","3":"627.3148","4":"30.479424","5":"726.7395","6":"66.74696","7":"527.8901","8":"-5.788115","9":"654.7463","10":"786.8117","11":"522.6808","12":"PICO + TEBU"},{"1":"1.0","2":"2016.0","3":"627.3148","4":"30.479424","5":"726.7395","6":"66.74696","7":"527.8901","8":"-5.788115","9":"657.7942","10":"793.4864","11":"522.1020","12":"PICO + TEBU"},{"1":"1.1","2":"2016.1","3":"627.3148","4":"30.479424","5":"726.7395","6":"66.74696","7":"527.8901","8":"-5.788115","9":"660.8421","10":"800.1611","11":"521.5232","12":"PICO + TEBU"},{"1":"1.2","2":"2016.2","3":"627.3148","4":"30.479424","5":"726.7395","6":"66.74696","7":"527.8901","8":"-5.788115","9":"663.8901","10":"806.8358","11":"520.9444","12":"PICO + TEBU"},{"1":"1.3","2":"2016.3","3":"627.3148","4":"30.479424","5":"726.7395","6":"66.74696","7":"527.8901","8":"-5.788115","9":"666.9380","10":"813.5105","11":"520.3656","12":"PICO + TEBU"},{"1":"1.4","2":"2016.4","3":"627.3148","4":"30.479424","5":"726.7395","6":"66.74696","7":"527.8901","8":"-5.788115","9":"669.9860","10":"820.1852","11":"519.7867","12":"PICO + TEBU"},{"1":"1.5","2":"2016.5","3":"627.3148","4":"30.479424","5":"726.7395","6":"66.74696","7":"527.8901","8":"-5.788115","9":"673.0339","10":"826.8599","11":"519.2079","12":"PICO + TEBU"},{"1":"1.6","2":"2016.6","3":"627.3148","4":"30.479424","5":"726.7395","6":"66.74696","7":"527.8901","8":"-5.788115","9":"676.0819","10":"833.5346","11":"518.6291","12":"PICO + TEBU"},{"1":"1.7","2":"2016.7","3":"627.3148","4":"30.479424","5":"726.7395","6":"66.74696","7":"527.8901","8":"-5.788115","9":"679.1298","10":"840.2093","11":"518.0503","12":"PICO + TEBU"},{"1":"1.8","2":"2016.8","3":"627.3148","4":"30.479424","5":"726.7395","6":"66.74696","7":"527.8901","8":"-5.788115","9":"682.1777","10":"846.8840","11":"517.4715","12":"PICO + TEBU"},{"1":"1.9","2":"2016.9","3":"627.3148","4":"30.479424","5":"726.7395","6":"66.74696","7":"527.8901","8":"-5.788115","9":"685.2257","10":"853.5587","11":"516.8927","12":"PICO + TEBU"},{"1":"2.0","2":"2017.0","3":"627.3148","4":"30.479424","5":"726.7395","6":"66.74696","7":"527.8901","8":"-5.788115","9":"688.2736","10":"860.2334","11":"516.3139","12":"PICO + TEBU"},{"1":"2.1","2":"2017.1","3":"627.3148","4":"30.479424","5":"726.7395","6":"66.74696","7":"527.8901","8":"-5.788115","9":"691.3216","10":"866.9081","11":"515.7351","12":"PICO + TEBU"},{"1":"2.2","2":"2017.2","3":"627.3148","4":"30.479424","5":"726.7395","6":"66.74696","7":"527.8901","8":"-5.788115","9":"694.3695","10":"873.5828","11":"515.1562","12":"PICO + TEBU"},{"1":"2.3","2":"2017.3","3":"627.3148","4":"30.479424","5":"726.7395","6":"66.74696","7":"527.8901","8":"-5.788115","9":"697.4175","10":"880.2575","11":"514.5774","12":"PICO + TEBU"},{"1":"2.4","2":"2017.4","3":"627.3148","4":"30.479424","5":"726.7395","6":"66.74696","7":"527.8901","8":"-5.788115","9":"700.4654","10":"886.9322","11":"513.9986","12":"PICO + TEBU"},{"1":"2.5","2":"2017.5","3":"627.3148","4":"30.479424","5":"726.7395","6":"66.74696","7":"527.8901","8":"-5.788115","9":"703.5133","10":"893.6069","11":"513.4198","12":"PICO + TEBU"},{"1":"2.6","2":"2017.6","3":"627.3148","4":"30.479424","5":"726.7395","6":"66.74696","7":"527.8901","8":"-5.788115","9":"706.5613","10":"900.2816","11":"512.8410","12":"PICO + TEBU"},{"1":"2.7","2":"2017.7","3":"627.3148","4":"30.479424","5":"726.7395","6":"66.74696","7":"527.8901","8":"-5.788115","9":"709.6092","10":"906.9563","11":"512.2622","12":"PICO + TEBU"},{"1":"2.8","2":"2017.8","3":"627.3148","4":"30.479424","5":"726.7395","6":"66.74696","7":"527.8901","8":"-5.788115","9":"712.6572","10":"913.6310","11":"511.6834","12":"PICO + TEBU"},{"1":"2.9","2":"2017.9","3":"627.3148","4":"30.479424","5":"726.7395","6":"66.74696","7":"527.8901","8":"-5.788115","9":"715.7051","10":"920.3056","11":"511.1046","12":"PICO + TEBU"},{"1":"3.0","2":"2018.0","3":"627.3148","4":"30.479424","5":"726.7395","6":"66.74696","7":"527.8901","8":"-5.788115","9":"718.7530","10":"926.9803","11":"510.5258","12":"PICO + TEBU"},{"1":"3.1","2":"2018.1","3":"627.3148","4":"30.479424","5":"726.7395","6":"66.74696","7":"527.8901","8":"-5.788115","9":"721.8010","10":"933.6550","11":"509.9469","12":"PICO + TEBU"},{"1":"3.2","2":"2018.2","3":"627.3148","4":"30.479424","5":"726.7395","6":"66.74696","7":"527.8901","8":"-5.788115","9":"724.8489","10":"940.3297","11":"509.3681","12":"PICO + TEBU"},{"1":"3.3","2":"2018.3","3":"627.3148","4":"30.479424","5":"726.7395","6":"66.74696","7":"527.8901","8":"-5.788115","9":"727.8969","10":"947.0044","11":"508.7893","12":"PICO + TEBU"},{"1":"3.4","2":"2018.4","3":"627.3148","4":"30.479424","5":"726.7395","6":"66.74696","7":"527.8901","8":"-5.788115","9":"730.9448","10":"953.6791","11":"508.2105","12":"PICO + TEBU"},{"1":"3.5","2":"2018.5","3":"627.3148","4":"30.479424","5":"726.7395","6":"66.74696","7":"527.8901","8":"-5.788115","9":"733.9928","10":"960.3538","11":"507.6317","12":"PICO + TEBU"},{"1":"3.6","2":"2018.6","3":"627.3148","4":"30.479424","5":"726.7395","6":"66.74696","7":"527.8901","8":"-5.788115","9":"737.0407","10":"967.0285","11":"507.0529","12":"PICO + TEBU"},{"1":"3.7","2":"2018.7","3":"627.3148","4":"30.479424","5":"726.7395","6":"66.74696","7":"527.8901","8":"-5.788115","9":"740.0886","10":"973.7032","11":"506.4741","12":"PICO + TEBU"},{"1":"3.8","2":"2018.8","3":"627.3148","4":"30.479424","5":"726.7395","6":"66.74696","7":"527.8901","8":"-5.788115","9":"743.1366","10":"980.3779","11":"505.8953","12":"PICO + TEBU"},{"1":"3.9","2":"2018.9","3":"627.3148","4":"30.479424","5":"726.7395","6":"66.74696","7":"527.8901","8":"-5.788115","9":"746.1845","10":"987.0526","11":"505.3165","12":"PICO + TEBU"},{"1":"4.0","2":"2019.0","3":"627.3148","4":"30.479424","5":"726.7395","6":"66.74696","7":"527.8901","8":"-5.788115","9":"749.2325","10":"993.7273","11":"504.7376","12":"PICO + TEBU"},{"1":"2.0","2":"2017.0","3":"1055.0337","4":"-37.891108","5":"1233.4354","6":"18.31929","7":"876.6319","8":"-94.101507","9":"979.2514","10":"1270.0740","11":"688.4289","12":"PYRA + EPOX + FLUX"},{"1":"2.1","2":"2017.1","3":"1055.0337","4":"-37.891108","5":"1233.4354","6":"18.31929","7":"876.6319","8":"-94.101507","9":"975.4623","10":"1271.9059","11":"679.0188","12":"PYRA + EPOX + FLUX"},{"1":"2.2","2":"2017.2","3":"1055.0337","4":"-37.891108","5":"1233.4354","6":"18.31929","7":"876.6319","8":"-94.101507","9":"971.6732","10":"1273.7378","11":"669.6086","12":"PYRA + EPOX + FLUX"},{"1":"2.3","2":"2017.3","3":"1055.0337","4":"-37.891108","5":"1233.4354","6":"18.31929","7":"876.6319","8":"-94.101507","9":"967.8841","10":"1275.5698","11":"660.1984","12":"PYRA + EPOX + FLUX"},{"1":"2.4","2":"2017.4","3":"1055.0337","4":"-37.891108","5":"1233.4354","6":"18.31929","7":"876.6319","8":"-94.101507","9":"964.0950","10":"1277.4017","11":"650.7883","12":"PYRA + EPOX + FLUX"},{"1":"2.5","2":"2017.5","3":"1055.0337","4":"-37.891108","5":"1233.4354","6":"18.31929","7":"876.6319","8":"-94.101507","9":"960.3059","10":"1279.2336","11":"641.3781","12":"PYRA + EPOX + FLUX"},{"1":"2.6","2":"2017.6","3":"1055.0337","4":"-37.891108","5":"1233.4354","6":"18.31929","7":"876.6319","8":"-94.101507","9":"956.5168","10":"1281.0656","11":"631.9680","12":"PYRA + EPOX + FLUX"},{"1":"2.7","2":"2017.7","3":"1055.0337","4":"-37.891108","5":"1233.4354","6":"18.31929","7":"876.6319","8":"-94.101507","9":"952.7277","10":"1282.8975","11":"622.5578","12":"PYRA + EPOX + FLUX"},{"1":"2.8","2":"2017.8","3":"1055.0337","4":"-37.891108","5":"1233.4354","6":"18.31929","7":"876.6319","8":"-94.101507","9":"948.9386","10":"1284.7294","11":"613.1477","12":"PYRA + EPOX + FLUX"},{"1":"2.9","2":"2017.9","3":"1055.0337","4":"-37.891108","5":"1233.4354","6":"18.31929","7":"876.6319","8":"-94.101507","9":"945.1494","10":"1286.5613","11":"603.7375","12":"PYRA + EPOX + FLUX"},{"1":"3.0","2":"2018.0","3":"1055.0337","4":"-37.891108","5":"1233.4354","6":"18.31929","7":"876.6319","8":"-94.101507","9":"941.3603","10":"1288.3933","11":"594.3274","12":"PYRA + EPOX + FLUX"},{"1":"3.1","2":"2018.1","3":"1055.0337","4":"-37.891108","5":"1233.4354","6":"18.31929","7":"876.6319","8":"-94.101507","9":"937.5712","10":"1290.2252","11":"584.9172","12":"PYRA + EPOX + FLUX"},{"1":"3.2","2":"2018.2","3":"1055.0337","4":"-37.891108","5":"1233.4354","6":"18.31929","7":"876.6319","8":"-94.101507","9":"933.7821","10":"1292.0571","11":"575.5071","12":"PYRA + EPOX + FLUX"},{"1":"3.3","2":"2018.3","3":"1055.0337","4":"-37.891108","5":"1233.4354","6":"18.31929","7":"876.6319","8":"-94.101507","9":"929.9930","10":"1293.8891","11":"566.0969","12":"PYRA + EPOX + FLUX"},{"1":"3.4","2":"2018.4","3":"1055.0337","4":"-37.891108","5":"1233.4354","6":"18.31929","7":"876.6319","8":"-94.101507","9":"926.2039","10":"1295.7210","11":"556.6868","12":"PYRA + EPOX + FLUX"},{"1":"3.5","2":"2018.5","3":"1055.0337","4":"-37.891108","5":"1233.4354","6":"18.31929","7":"876.6319","8":"-94.101507","9":"922.4148","10":"1297.5529","11":"547.2766","12":"PYRA + EPOX + FLUX"},{"1":"3.6","2":"2018.6","3":"1055.0337","4":"-37.891108","5":"1233.4354","6":"18.31929","7":"876.6319","8":"-94.101507","9":"918.6257","10":"1299.3848","11":"537.8665","12":"PYRA + EPOX + FLUX"},{"1":"3.7","2":"2018.7","3":"1055.0337","4":"-37.891108","5":"1233.4354","6":"18.31929","7":"876.6319","8":"-94.101507","9":"914.8366","10":"1301.2168","11":"528.4563","12":"PYRA + EPOX + FLUX"},{"1":"3.8","2":"2018.8","3":"1055.0337","4":"-37.891108","5":"1233.4354","6":"18.31929","7":"876.6319","8":"-94.101507","9":"911.0474","10":"1303.0487","11":"519.0462","12":"PYRA + EPOX + FLUX"},{"1":"3.9","2":"2018.9","3":"1055.0337","4":"-37.891108","5":"1233.4354","6":"18.31929","7":"876.6319","8":"-94.101507","9":"907.2583","10":"1304.8806","11":"509.6360","12":"PYRA + EPOX + FLUX"},{"1":"4.0","2":"2019.0","3":"1055.0337","4":"-37.891108","5":"1233.4354","6":"18.31929","7":"876.6319","8":"-94.101507","9":"903.4692","10":"1306.7126","11":"500.2259","12":"PYRA + EPOX + FLUX"},{"1":"4.1","2":"2019.1","3":"1055.0337","4":"-37.891108","5":"1233.4354","6":"18.31929","7":"876.6319","8":"-94.101507","9":"899.6801","10":"1308.5445","11":"490.8157","12":"PYRA + EPOX + FLUX"},{"1":"4.2","2":"2019.2","3":"1055.0337","4":"-37.891108","5":"1233.4354","6":"18.31929","7":"876.6319","8":"-94.101507","9":"895.8910","10":"1310.3764","11":"481.4056","12":"PYRA + EPOX + FLUX"},{"1":"4.3","2":"2019.3","3":"1055.0337","4":"-37.891108","5":"1233.4354","6":"18.31929","7":"876.6319","8":"-94.101507","9":"892.1019","10":"1312.2084","11":"471.9954","12":"PYRA + EPOX + FLUX"},{"1":"4.4","2":"2019.4","3":"1055.0337","4":"-37.891108","5":"1233.4354","6":"18.31929","7":"876.6319","8":"-94.101507","9":"888.3128","10":"1314.0403","11":"462.5853","12":"PYRA + EPOX + FLUX"},{"1":"4.5","2":"2019.5","3":"1055.0337","4":"-37.891108","5":"1233.4354","6":"18.31929","7":"876.6319","8":"-94.101507","9":"884.5237","10":"1315.8722","11":"453.1751","12":"PYRA + EPOX + FLUX"},{"1":"4.6","2":"2019.6","3":"1055.0337","4":"-37.891108","5":"1233.4354","6":"18.31929","7":"876.6319","8":"-94.101507","9":"880.7346","10":"1317.7041","11":"443.7650","12":"PYRA + EPOX + FLUX"},{"1":"4.7","2":"2019.7","3":"1055.0337","4":"-37.891108","5":"1233.4354","6":"18.31929","7":"876.6319","8":"-94.101507","9":"876.9455","10":"1319.5361","11":"434.3548","12":"PYRA + EPOX + FLUX"},{"1":"4.8","2":"2019.8","3":"1055.0337","4":"-37.891108","5":"1233.4354","6":"18.31929","7":"876.6319","8":"-94.101507","9":"873.1563","10":"1321.3680","11":"424.9447","12":"PYRA + EPOX + FLUX"},{"1":"4.9","2":"2019.9","3":"1055.0337","4":"-37.891108","5":"1233.4354","6":"18.31929","7":"876.6319","8":"-94.101507","9":"869.3672","10":"1323.1999","11":"415.5345","12":"PYRA + EPOX + FLUX"},{"1":"5.0","2":"2020.0","3":"1055.0337","4":"-37.891108","5":"1233.4354","6":"18.31929","7":"876.6319","8":"-94.101507","9":"865.5781","10":"1325.0319","11":"406.1244","12":"PYRA + EPOX + FLUX"},{"1":"1.0","2":"2016.0","3":"655.3253","4":"-4.812272","5":"749.1319","6":"27.66431","7":"561.5187","8":"-37.288854","9":"650.5130","10":"776.7962","11":"524.2298","12":"TFLX + CYPR"},{"1":"1.1","2":"2016.1","3":"655.3253","4":"-4.812272","5":"749.1319","6":"27.66431","7":"561.5187","8":"-37.288854","9":"650.0318","10":"779.5626","11":"520.5009","12":"TFLX + CYPR"},{"1":"1.2","2":"2016.2","3":"655.3253","4":"-4.812272","5":"749.1319","6":"27.66431","7":"561.5187","8":"-37.288854","9":"649.5505","10":"782.3290","11":"516.7721","12":"TFLX + CYPR"},{"1":"1.3","2":"2016.3","3":"655.3253","4":"-4.812272","5":"749.1319","6":"27.66431","7":"561.5187","8":"-37.288854","9":"649.0693","10":"785.0955","11":"513.0432","12":"TFLX + CYPR"},{"1":"1.4","2":"2016.4","3":"655.3253","4":"-4.812272","5":"749.1319","6":"27.66431","7":"561.5187","8":"-37.288854","9":"648.5881","10":"787.8619","11":"509.3143","12":"TFLX + CYPR"},{"1":"1.5","2":"2016.5","3":"655.3253","4":"-4.812272","5":"749.1319","6":"27.66431","7":"561.5187","8":"-37.288854","9":"648.1069","10":"790.6283","11":"505.5854","12":"TFLX + CYPR"},{"1":"1.6","2":"2016.6","3":"655.3253","4":"-4.812272","5":"749.1319","6":"27.66431","7":"561.5187","8":"-37.288854","9":"647.6256","10":"793.3947","11":"501.8565","12":"TFLX + CYPR"},{"1":"1.7","2":"2016.7","3":"655.3253","4":"-4.812272","5":"749.1319","6":"27.66431","7":"561.5187","8":"-37.288854","9":"647.1444","10":"796.1612","11":"498.1276","12":"TFLX + CYPR"},{"1":"1.8","2":"2016.8","3":"655.3253","4":"-4.812272","5":"749.1319","6":"27.66431","7":"561.5187","8":"-37.288854","9":"646.6632","10":"798.9276","11":"494.3987","12":"TFLX + CYPR"},{"1":"1.9","2":"2016.9","3":"655.3253","4":"-4.812272","5":"749.1319","6":"27.66431","7":"561.5187","8":"-37.288854","9":"646.1819","10":"801.6940","11":"490.6699","12":"TFLX + CYPR"},{"1":"2.0","2":"2017.0","3":"655.3253","4":"-4.812272","5":"749.1319","6":"27.66431","7":"561.5187","8":"-37.288854","9":"645.7007","10":"804.4605","11":"486.9410","12":"TFLX + CYPR"},{"1":"2.1","2":"2017.1","3":"655.3253","4":"-4.812272","5":"749.1319","6":"27.66431","7":"561.5187","8":"-37.288854","9":"645.2195","10":"807.2269","11":"483.2121","12":"TFLX + CYPR"},{"1":"2.2","2":"2017.2","3":"655.3253","4":"-4.812272","5":"749.1319","6":"27.66431","7":"561.5187","8":"-37.288854","9":"644.7383","10":"809.9933","11":"479.4832","12":"TFLX + CYPR"},{"1":"2.3","2":"2017.3","3":"655.3253","4":"-4.812272","5":"749.1319","6":"27.66431","7":"561.5187","8":"-37.288854","9":"644.2570","10":"812.7598","11":"475.7543","12":"TFLX + CYPR"},{"1":"2.4","2":"2017.4","3":"655.3253","4":"-4.812272","5":"749.1319","6":"27.66431","7":"561.5187","8":"-37.288854","9":"643.7758","10":"815.5262","11":"472.0254","12":"TFLX + CYPR"},{"1":"2.5","2":"2017.5","3":"655.3253","4":"-4.812272","5":"749.1319","6":"27.66431","7":"561.5187","8":"-37.288854","9":"643.2946","10":"818.2926","11":"468.2965","12":"TFLX + CYPR"},{"1":"2.6","2":"2017.6","3":"655.3253","4":"-4.812272","5":"749.1319","6":"27.66431","7":"561.5187","8":"-37.288854","9":"642.8134","10":"821.0591","11":"464.5677","12":"TFLX + CYPR"},{"1":"2.7","2":"2017.7","3":"655.3253","4":"-4.812272","5":"749.1319","6":"27.66431","7":"561.5187","8":"-37.288854","9":"642.3321","10":"823.8255","11":"460.8388","12":"TFLX + CYPR"},{"1":"2.8","2":"2017.8","3":"655.3253","4":"-4.812272","5":"749.1319","6":"27.66431","7":"561.5187","8":"-37.288854","9":"641.8509","10":"826.5919","11":"457.1099","12":"TFLX + CYPR"},{"1":"2.9","2":"2017.9","3":"655.3253","4":"-4.812272","5":"749.1319","6":"27.66431","7":"561.5187","8":"-37.288854","9":"641.3697","10":"829.3584","11":"453.3810","12":"TFLX + CYPR"},{"1":"3.0","2":"2018.0","3":"655.3253","4":"-4.812272","5":"749.1319","6":"27.66431","7":"561.5187","8":"-37.288854","9":"640.8885","10":"832.1248","11":"449.6521","12":"TFLX + CYPR"},{"1":"3.1","2":"2018.1","3":"655.3253","4":"-4.812272","5":"749.1319","6":"27.66431","7":"561.5187","8":"-37.288854","9":"640.4072","10":"834.8912","11":"445.9232","12":"TFLX + CYPR"},{"1":"3.2","2":"2018.2","3":"655.3253","4":"-4.812272","5":"749.1319","6":"27.66431","7":"561.5187","8":"-37.288854","9":"639.9260","10":"837.6576","11":"442.1943","12":"TFLX + CYPR"},{"1":"3.3","2":"2018.3","3":"655.3253","4":"-4.812272","5":"749.1319","6":"27.66431","7":"561.5187","8":"-37.288854","9":"639.4448","10":"840.4241","11":"438.4655","12":"TFLX + CYPR"},{"1":"3.4","2":"2018.4","3":"655.3253","4":"-4.812272","5":"749.1319","6":"27.66431","7":"561.5187","8":"-37.288854","9":"638.9635","10":"843.1905","11":"434.7366","12":"TFLX + CYPR"},{"1":"3.5","2":"2018.5","3":"655.3253","4":"-4.812272","5":"749.1319","6":"27.66431","7":"561.5187","8":"-37.288854","9":"638.4823","10":"845.9569","11":"431.0077","12":"TFLX + CYPR"},{"1":"3.6","2":"2018.6","3":"655.3253","4":"-4.812272","5":"749.1319","6":"27.66431","7":"561.5187","8":"-37.288854","9":"638.0011","10":"848.7234","11":"427.2788","12":"TFLX + CYPR"},{"1":"3.7","2":"2018.7","3":"655.3253","4":"-4.812272","5":"749.1319","6":"27.66431","7":"561.5187","8":"-37.288854","9":"637.5199","10":"851.4898","11":"423.5499","12":"TFLX + CYPR"},{"1":"3.8","2":"2018.8","3":"655.3253","4":"-4.812272","5":"749.1319","6":"27.66431","7":"561.5187","8":"-37.288854","9":"637.0386","10":"854.2562","11":"419.8210","12":"TFLX + CYPR"},{"1":"3.9","2":"2018.9","3":"655.3253","4":"-4.812272","5":"749.1319","6":"27.66431","7":"561.5187","8":"-37.288854","9":"636.5574","10":"857.0227","11":"416.0921","12":"TFLX + CYPR"},{"1":"4.0","2":"2019.0","3":"655.3253","4":"-4.812272","5":"749.1319","6":"27.66431","7":"561.5187","8":"-37.288854","9":"636.0762","10":"859.7891","11":"412.3633","12":"TFLX + CYPR"},{"1":"4.1","2":"2019.1","3":"655.3253","4":"-4.812272","5":"749.1319","6":"27.66431","7":"561.5187","8":"-37.288854","9":"635.5950","10":"862.5555","11":"408.6344","12":"TFLX + CYPR"},{"1":"4.2","2":"2019.2","3":"655.3253","4":"-4.812272","5":"749.1319","6":"27.66431","7":"561.5187","8":"-37.288854","9":"635.1137","10":"865.3220","11":"404.9055","12":"TFLX + CYPR"},{"1":"4.3","2":"2019.3","3":"655.3253","4":"-4.812272","5":"749.1319","6":"27.66431","7":"561.5187","8":"-37.288854","9":"634.6325","10":"868.0884","11":"401.1766","12":"TFLX + CYPR"},{"1":"4.4","2":"2019.4","3":"655.3253","4":"-4.812272","5":"749.1319","6":"27.66431","7":"561.5187","8":"-37.288854","9":"634.1513","10":"870.8548","11":"397.4477","12":"TFLX + CYPR"},{"1":"4.5","2":"2019.5","3":"655.3253","4":"-4.812272","5":"749.1319","6":"27.66431","7":"561.5187","8":"-37.288854","9":"633.6700","10":"873.6213","11":"393.7188","12":"TFLX + CYPR"},{"1":"4.6","2":"2019.6","3":"655.3253","4":"-4.812272","5":"749.1319","6":"27.66431","7":"561.5187","8":"-37.288854","9":"633.1888","10":"876.3877","11":"389.9899","12":"TFLX + CYPR"},{"1":"4.7","2":"2019.7","3":"655.3253","4":"-4.812272","5":"749.1319","6":"27.66431","7":"561.5187","8":"-37.288854","9":"632.7076","10":"879.1541","11":"386.2611","12":"TFLX + CYPR"},{"1":"4.8","2":"2019.8","3":"655.3253","4":"-4.812272","5":"749.1319","6":"27.66431","7":"561.5187","8":"-37.288854","9":"632.2264","10":"881.9205","11":"382.5322","12":"TFLX + CYPR"},{"1":"4.9","2":"2019.9","3":"655.3253","4":"-4.812272","5":"749.1319","6":"27.66431","7":"561.5187","8":"-37.288854","9":"631.7451","10":"884.6870","11":"378.8033","12":"TFLX + CYPR"},{"1":"5.0","2":"2020.0","3":"655.3253","4":"-4.812272","5":"749.1319","6":"27.66431","7":"561.5187","8":"-37.288854","9":"631.2639","10":"887.4534","11":"375.0744","12":"TFLX + CYPR"},{"1":"0.0","2":"2015.0","3":"927.5425","4":"-15.659768","5":"1039.7278","6":"23.74726","7":"815.3573","8":"-55.066797","9":"927.5425","10":"1039.7278","11":"815.3573","12":"TFLX + PROT"},{"1":"0.1","2":"2015.1","3":"927.5425","4":"-15.659768","5":"1039.7278","6":"23.74726","7":"815.3573","8":"-55.066797","9":"925.9766","10":"1042.1025","11":"809.8506","12":"TFLX + PROT"},{"1":"0.2","2":"2015.2","3":"927.5425","4":"-15.659768","5":"1039.7278","6":"23.74726","7":"815.3573","8":"-55.066797","9":"924.4106","10":"1044.4772","11":"804.3439","12":"TFLX + PROT"},{"1":"0.3","2":"2015.3","3":"927.5425","4":"-15.659768","5":"1039.7278","6":"23.74726","7":"815.3573","8":"-55.066797","9":"922.8446","10":"1046.8520","11":"798.8372","12":"TFLX + PROT"},{"1":"0.4","2":"2015.4","3":"927.5425","4":"-15.659768","5":"1039.7278","6":"23.74726","7":"815.3573","8":"-55.066797","9":"921.2786","10":"1049.2267","11":"793.3306","12":"TFLX + PROT"},{"1":"0.5","2":"2015.5","3":"927.5425","4":"-15.659768","5":"1039.7278","6":"23.74726","7":"815.3573","8":"-55.066797","9":"919.7126","10":"1051.6014","11":"787.8239","12":"TFLX + PROT"},{"1":"0.6","2":"2015.6","3":"927.5425","4":"-15.659768","5":"1039.7278","6":"23.74726","7":"815.3573","8":"-55.066797","9":"918.1467","10":"1053.9761","11":"782.3172","12":"TFLX + PROT"},{"1":"0.7","2":"2015.7","3":"927.5425","4":"-15.659768","5":"1039.7278","6":"23.74726","7":"815.3573","8":"-55.066797","9":"916.5807","10":"1056.3509","11":"776.8105","12":"TFLX + PROT"},{"1":"0.8","2":"2015.8","3":"927.5425","4":"-15.659768","5":"1039.7278","6":"23.74726","7":"815.3573","8":"-55.066797","9":"915.0147","10":"1058.7256","11":"771.3038","12":"TFLX + PROT"},{"1":"0.9","2":"2015.9","3":"927.5425","4":"-15.659768","5":"1039.7278","6":"23.74726","7":"815.3573","8":"-55.066797","9":"913.4487","10":"1061.1003","11":"765.7972","12":"TFLX + PROT"},{"1":"1.0","2":"2016.0","3":"927.5425","4":"-15.659768","5":"1039.7278","6":"23.74726","7":"815.3573","8":"-55.066797","9":"911.8828","10":"1063.4750","11":"760.2905","12":"TFLX + PROT"},{"1":"1.1","2":"2016.1","3":"927.5425","4":"-15.659768","5":"1039.7278","6":"23.74726","7":"815.3573","8":"-55.066797","9":"910.3168","10":"1065.8498","11":"754.7838","12":"TFLX + PROT"},{"1":"1.2","2":"2016.2","3":"927.5425","4":"-15.659768","5":"1039.7278","6":"23.74726","7":"815.3573","8":"-55.066797","9":"908.7508","10":"1068.2245","11":"749.2771","12":"TFLX + PROT"},{"1":"1.3","2":"2016.3","3":"927.5425","4":"-15.659768","5":"1039.7278","6":"23.74726","7":"815.3573","8":"-55.066797","9":"907.1848","10":"1070.5992","11":"743.7704","12":"TFLX + PROT"},{"1":"1.4","2":"2016.4","3":"927.5425","4":"-15.659768","5":"1039.7278","6":"23.74726","7":"815.3573","8":"-55.066797","9":"905.6189","10":"1072.9739","11":"738.2638","12":"TFLX + PROT"},{"1":"1.5","2":"2016.5","3":"927.5425","4":"-15.659768","5":"1039.7278","6":"23.74726","7":"815.3573","8":"-55.066797","9":"904.0529","10":"1075.3487","11":"732.7571","12":"TFLX + PROT"},{"1":"1.6","2":"2016.6","3":"927.5425","4":"-15.659768","5":"1039.7278","6":"23.74726","7":"815.3573","8":"-55.066797","9":"902.4869","10":"1077.7234","11":"727.2504","12":"TFLX + PROT"},{"1":"1.7","2":"2016.7","3":"927.5425","4":"-15.659768","5":"1039.7278","6":"23.74726","7":"815.3573","8":"-55.066797","9":"900.9209","10":"1080.0981","11":"721.7437","12":"TFLX + PROT"},{"1":"1.8","2":"2016.8","3":"927.5425","4":"-15.659768","5":"1039.7278","6":"23.74726","7":"815.3573","8":"-55.066797","9":"899.3549","10":"1082.4728","11":"716.2371","12":"TFLX + PROT"},{"1":"1.9","2":"2016.9","3":"927.5425","4":"-15.659768","5":"1039.7278","6":"23.74726","7":"815.3573","8":"-55.066797","9":"897.7890","10":"1084.8476","11":"710.7304","12":"TFLX + PROT"},{"1":"2.0","2":"2017.0","3":"927.5425","4":"-15.659768","5":"1039.7278","6":"23.74726","7":"815.3573","8":"-55.066797","9":"896.2230","10":"1087.2223","11":"705.2237","12":"TFLX + PROT"},{"1":"2.1","2":"2017.1","3":"927.5425","4":"-15.659768","5":"1039.7278","6":"23.74726","7":"815.3573","8":"-55.066797","9":"894.6570","10":"1089.5970","11":"699.7170","12":"TFLX + PROT"},{"1":"2.2","2":"2017.2","3":"927.5425","4":"-15.659768","5":"1039.7278","6":"23.74726","7":"815.3573","8":"-55.066797","9":"893.0910","10":"1091.9717","11":"694.2103","12":"TFLX + PROT"},{"1":"2.3","2":"2017.3","3":"927.5425","4":"-15.659768","5":"1039.7278","6":"23.74726","7":"815.3573","8":"-55.066797","9":"891.5251","10":"1094.3465","11":"688.7037","12":"TFLX + PROT"},{"1":"2.4","2":"2017.4","3":"927.5425","4":"-15.659768","5":"1039.7278","6":"23.74726","7":"815.3573","8":"-55.066797","9":"889.9591","10":"1096.7212","11":"683.1970","12":"TFLX + PROT"},{"1":"2.5","2":"2017.5","3":"927.5425","4":"-15.659768","5":"1039.7278","6":"23.74726","7":"815.3573","8":"-55.066797","9":"888.3931","10":"1099.0959","11":"677.6903","12":"TFLX + PROT"},{"1":"2.6","2":"2017.6","3":"927.5425","4":"-15.659768","5":"1039.7278","6":"23.74726","7":"815.3573","8":"-55.066797","9":"886.8271","10":"1101.4706","11":"672.1836","12":"TFLX + PROT"},{"1":"2.7","2":"2017.7","3":"927.5425","4":"-15.659768","5":"1039.7278","6":"23.74726","7":"815.3573","8":"-55.066797","9":"885.2612","10":"1103.8454","11":"666.6769","12":"TFLX + PROT"},{"1":"2.8","2":"2017.8","3":"927.5425","4":"-15.659768","5":"1039.7278","6":"23.74726","7":"815.3573","8":"-55.066797","9":"883.6952","10":"1106.2201","11":"661.1703","12":"TFLX + PROT"},{"1":"2.9","2":"2017.9","3":"927.5425","4":"-15.659768","5":"1039.7278","6":"23.74726","7":"815.3573","8":"-55.066797","9":"882.1292","10":"1108.5948","11":"655.6636","12":"TFLX + PROT"},{"1":"3.0","2":"2018.0","3":"927.5425","4":"-15.659768","5":"1039.7278","6":"23.74726","7":"815.3573","8":"-55.066797","9":"880.5632","10":"1110.9696","11":"650.1569","12":"TFLX + PROT"},{"1":"3.1","2":"2018.1","3":"927.5425","4":"-15.659768","5":"1039.7278","6":"23.74726","7":"815.3573","8":"-55.066797","9":"878.9972","10":"1113.3443","11":"644.6502","12":"TFLX + PROT"},{"1":"3.2","2":"2018.2","3":"927.5425","4":"-15.659768","5":"1039.7278","6":"23.74726","7":"815.3573","8":"-55.066797","9":"877.4313","10":"1115.7190","11":"639.1435","12":"TFLX + PROT"},{"1":"3.3","2":"2018.3","3":"927.5425","4":"-15.659768","5":"1039.7278","6":"23.74726","7":"815.3573","8":"-55.066797","9":"875.8653","10":"1118.0937","11":"633.6369","12":"TFLX + PROT"},{"1":"3.4","2":"2018.4","3":"927.5425","4":"-15.659768","5":"1039.7278","6":"23.74726","7":"815.3573","8":"-55.066797","9":"874.2993","10":"1120.4685","11":"628.1302","12":"TFLX + PROT"},{"1":"3.5","2":"2018.5","3":"927.5425","4":"-15.659768","5":"1039.7278","6":"23.74726","7":"815.3573","8":"-55.066797","9":"872.7333","10":"1122.8432","11":"622.6235","12":"TFLX + PROT"},{"1":"3.6","2":"2018.6","3":"927.5425","4":"-15.659768","5":"1039.7278","6":"23.74726","7":"815.3573","8":"-55.066797","9":"871.1674","10":"1125.2179","11":"617.1168","12":"TFLX + PROT"},{"1":"3.7","2":"2018.7","3":"927.5425","4":"-15.659768","5":"1039.7278","6":"23.74726","7":"815.3573","8":"-55.066797","9":"869.6014","10":"1127.5926","11":"611.6101","12":"TFLX + PROT"},{"1":"3.8","2":"2018.8","3":"927.5425","4":"-15.659768","5":"1039.7278","6":"23.74726","7":"815.3573","8":"-55.066797","9":"868.0354","10":"1129.9674","11":"606.1035","12":"TFLX + PROT"},{"1":"3.9","2":"2018.9","3":"927.5425","4":"-15.659768","5":"1039.7278","6":"23.74726","7":"815.3573","8":"-55.066797","9":"866.4694","10":"1132.3421","11":"600.5968","12":"TFLX + PROT"},{"1":"4.0","2":"2019.0","3":"927.5425","4":"-15.659768","5":"1039.7278","6":"23.74726","7":"815.3573","8":"-55.066797","9":"864.9035","10":"1134.7168","11":"595.0901","12":"TFLX + PROT"},{"1":"4.1","2":"2019.1","3":"927.5425","4":"-15.659768","5":"1039.7278","6":"23.74726","7":"815.3573","8":"-55.066797","9":"863.3375","10":"1137.0915","11":"589.5834","12":"TFLX + PROT"},{"1":"4.2","2":"2019.2","3":"927.5425","4":"-15.659768","5":"1039.7278","6":"23.74726","7":"815.3573","8":"-55.066797","9":"861.7715","10":"1139.4663","11":"584.0767","12":"TFLX + PROT"},{"1":"4.3","2":"2019.3","3":"927.5425","4":"-15.659768","5":"1039.7278","6":"23.74726","7":"815.3573","8":"-55.066797","9":"860.2055","10":"1141.8410","11":"578.5701","12":"TFLX + PROT"},{"1":"4.4","2":"2019.4","3":"927.5425","4":"-15.659768","5":"1039.7278","6":"23.74726","7":"815.3573","8":"-55.066797","9":"858.6395","10":"1144.2157","11":"573.0634","12":"TFLX + PROT"},{"1":"4.5","2":"2019.5","3":"927.5425","4":"-15.659768","5":"1039.7278","6":"23.74726","7":"815.3573","8":"-55.066797","9":"857.0736","10":"1146.5904","11":"567.5567","12":"TFLX + PROT"},{"1":"4.6","2":"2019.6","3":"927.5425","4":"-15.659768","5":"1039.7278","6":"23.74726","7":"815.3573","8":"-55.066797","9":"855.5076","10":"1148.9652","11":"562.0500","12":"TFLX + PROT"},{"1":"4.7","2":"2019.7","3":"927.5425","4":"-15.659768","5":"1039.7278","6":"23.74726","7":"815.3573","8":"-55.066797","9":"853.9416","10":"1151.3399","11":"556.5433","12":"TFLX + PROT"},{"1":"4.8","2":"2019.8","3":"927.5425","4":"-15.659768","5":"1039.7278","6":"23.74726","7":"815.3573","8":"-55.066797","9":"852.3756","10":"1153.7146","11":"551.0367","12":"TFLX + PROT"},{"1":"4.9","2":"2019.9","3":"927.5425","4":"-15.659768","5":"1039.7278","6":"23.74726","7":"815.3573","8":"-55.066797","9":"850.8097","10":"1156.0893","11":"545.5300","12":"TFLX + PROT"},{"1":"5.0","2":"2020.0","3":"927.5425","4":"-15.659768","5":"1039.7278","6":"23.74726","7":"815.3573","8":"-55.066797","9":"849.2437","10":"1158.4641","11":"540.0233","12":"TFLX + PROT"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<pre class="r"><code>openxlsx::write.xlsx(predicted, here(&quot;data&quot;,&quot;predicted_yield.xlsx&quot;), colNames = TRUE)</code></pre>
+</div>
+</div>
+<div id="azox-benz" class="section level3">
+<h3>AZOX + BENZ</h3>
+<pre class="r"><code>library(janitor)
+# create the log of the sev variable
+rust_yld1 &lt;- rust_yld %&gt;%
+  filter(brand_name %in% c(&quot;AACHECK&quot;, &quot;AZOX + BENZ&quot;)) %&gt;% 
+  group_by(study) %&gt;% 
+  mutate(n2 = n()) %&gt;% 
+  filter(n2 != 1)
+
+rust_yld1 = rust_yld1 %&gt;% 
+mutate(region = case_when(
+    state == &quot;MT&quot; ~ &quot;North&quot;,
+    state == &quot;BA&quot; ~ &quot;North&quot;,
+    state == &quot;DF&quot; ~ &quot;North&quot;,
+    state == &quot;MS&quot; ~ &quot;North&quot;,
+    state == &quot;GO&quot; ~ &quot;North&quot;,
+    state == &quot;TO&quot; ~ &quot;North&quot;,
+    state == &quot;PR&quot; ~ &quot;South&quot;,
+    state == &quot;MG&quot; ~ &quot;North&quot;,
+    state == &quot;SP&quot; ~ &quot;South&quot;,
+    state == &quot;RS&quot; ~ &quot;South&quot;)) 
+
+rust_yld1 %&gt;%
+tabyl(brand_name, region)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["brand_name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["North"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["South"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"AACHECK","2":"104","3":"41"},{"1":"AZOX + BENZ","2":"104","3":"41"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<pre class="r"><code>rust_yld1 %&gt;%
+tabyl(brand_name, state)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["brand_name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["BA"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["DF"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["GO"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["MG"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["MS"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["MT"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["PR"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["RS"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["SP"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["TO"],"name":[11],"type":["dbl"],"align":["right"]}],"data":[{"1":"AACHECK","2":"4","3":"3","4":"21","5":"4","6":"21","7":"50","8":"30","9":"7","10":"4","11":"1"},{"1":"AZOX + BENZ","2":"4","3":"3","4":"21","5":"4","6":"21","7":"50","8":"30","9":"7","10":"4","11":"1"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div id="nw" class="section level4">
+<h4>NW</h4>
+<pre class="r"><code>library(metafor)
+yld_gain &lt;- rust_yld %&gt;%
+  mutate(gain = mean_yld - yld_check) %&gt;% 
+  filter(brand_name!= &quot;AACHECK&quot;)  
+
+rust_yld_nor &lt;- rust_yld1 %&gt;% 
+filter(region == &quot;North&quot;)
+
+mv_yld_year &lt;- rma.mv(mean_yld, vi_yld,
+  mods = ~brand_name * as.numeric(year),
+  random = list(~brand_name | study),
+  struct = &quot;UN&quot;,
+  method = &quot;ML&quot;,
+  control = list(optimizer = &quot;nlm&quot;),
+  data = rust_yld_nor %&gt;% mutate(year= year - 2015))
+
+mv_yld_year</code></pre>
+<pre><code>## 
+## Multivariate Meta-Analysis Model (k = 208; method: ML)
+## 
+## Variance Components:
+## 
+## outer factor: study      (nlvls = 104)
+## inner factor: brand_name (nlvls = 2)
+## 
+##                  estim      sqrt  k.lvl  fixed        level 
+## tau^2.1    404762.2394  636.2093    104     no      AACHECK 
+## tau^2.2    407851.7983  638.6328    104     no  AZOX + BENZ 
+## 
+##              rho.AACH  rho.AZ+B    AACH  AZ+B 
+## AACHECK             1    0.7951       -    no 
+## AZOX + BENZ    0.7951         1     104     - 
+## 
+## Test for Residual Heterogeneity:
+## QE(df = 204) = 13868.9184, p-val &lt; .0001
+## 
+## Test of Moderators (coefficients 2:4):
+## QM(df = 3) = 463.5621, p-val &lt; .0001
+## 
+## Model Results:
+## 
+##                                          estimate        se     zval    pval 
+## intrcpt                                 2093.6094  106.3863  19.6793  &lt;.0001 
+## brand_nameAZOX + BENZ                   1162.1697   71.7404  16.1997  &lt;.0001 
+## as.numeric(year)                         145.3687   39.3894   3.6906  0.0002 
+## brand_nameAZOX + BENZ:as.numeric(year)  -126.7211   26.6474  -4.7555  &lt;.0001 
+##                                             ci.lb      ci.ub 
+## intrcpt                                 1885.0962  2302.1226  *** 
+## brand_nameAZOX + BENZ                   1021.5611  1302.7783  *** 
+## as.numeric(year)                          68.1669   222.5706  *** 
+## brand_nameAZOX + BENZ:as.numeric(year)  -178.9490   -74.4933  *** 
+## 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre class="r"><code>reg1 = data.frame(mv_yld_year$beta, mv_yld_year$ci.lb, mv_yld_year$ci.ub, mv_yld_year$se) %&gt;%
+  rownames_to_column(&quot;trat&quot;) %&gt;%
+  separate(trat, into = c(&quot;lado1&quot;, &quot;lado2&quot;), sep = &quot;:&quot;) %&gt;%
+  separate(lado1, into = c(&quot;lixo&quot;, &quot;lado3&quot;),sep = &quot;brand_name&quot;) %&gt;%
+  select(-lixo) %&gt;%
+  filter(lado3 != &quot;NA&quot;) %&gt;%
+  mutate(mod = c(rep(&quot;intercept&quot;, 1), rep(&quot;slope&quot;, 1))) %&gt;% 
+  mutate(region = rep(&quot;North&quot;, length(mod))) %&gt;% 
+  select(-lado2) 
+names(reg1) = c(&quot;fungicide&quot;, &quot;mean&quot;, &quot;ci.lb&quot;, &quot;ci.ub&quot;, &quot;SE&quot;, &quot;mod&quot;, &quot;region&quot;) 
+
+elatus_norte = reg1</code></pre>
+</div>
+<div id="se" class="section level4">
+<h4>SE</h4>
+<pre class="r"><code>library(metafor)
+yld_gain &lt;- rust_yld %&gt;%
+  mutate(gain = mean_yld - yld_check) %&gt;% 
+  filter(brand_name!= &quot;AACHECK&quot;)  
+
+rust_yld_south &lt;- rust_yld1 %&gt;% 
+filter(region == &quot;South&quot;)
+
+mv_yld_year &lt;- rma.mv(mean_yld, vi_yld,
+  mods = ~brand_name * as.numeric(year),
+  random = list(~brand_name | study),
+  struct = &quot;UN&quot;,
+  method = &quot;ML&quot;,
+  control = list(optimizer = &quot;nlm&quot;),
+  data = rust_yld_south %&gt;% mutate(year= year - 2015))
+
+mv_yld_year</code></pre>
+<pre><code>## 
+## Multivariate Meta-Analysis Model (k = 82; method: ML)
+## 
+## Variance Components:
+## 
+## outer factor: study      (nlvls = 41)
+## inner factor: brand_name (nlvls = 2)
+## 
+##                  estim      sqrt  k.lvl  fixed        level 
+## tau^2.1    521876.7119  722.4103     41     no      AACHECK 
+## tau^2.2    636887.6651  798.0524     41     no  AZOX + BENZ 
+## 
+##              rho.AACH  rho.AZ+B    AACH  AZ+B 
+## AACHECK             1    0.8587       -    no 
+## AZOX + BENZ    0.8587         1      41     - 
+## 
+## Test for Residual Heterogeneity:
+## QE(df = 78) = 9033.2665, p-val &lt; .0001
+## 
+## Test of Moderators (coefficients 2:4):
+## QM(df = 3) = 211.6400, p-val &lt; .0001
+## 
+## Model Results:
+## 
+##                                          estimate        se     zval    pval 
+## intrcpt                                 2443.3541  180.4830  13.5379  &lt;.0001 
+## brand_nameAZOX + BENZ                   1217.7822  108.3954  11.2346  &lt;.0001 
+## as.numeric(year)                         174.8334   81.1147   2.1554  0.0311 
+## brand_nameAZOX + BENZ:as.numeric(year)  -149.9365   49.6502  -3.0199  0.0025 
+##                                             ci.lb      ci.ub 
+## intrcpt                                 2089.6139  2797.0942  *** 
+## brand_nameAZOX + BENZ                   1005.3311  1430.2332  *** 
+## as.numeric(year)                          15.8516   333.8152    * 
+## brand_nameAZOX + BENZ:as.numeric(year)  -247.2492   -52.6238   ** 
+## 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre class="r"><code>reg1 = data.frame(mv_yld_year$beta, mv_yld_year$ci.lb, mv_yld_year$ci.ub, mv_yld_year$se) %&gt;%
+  rownames_to_column(&quot;trat&quot;) %&gt;%
+  separate(trat, into = c(&quot;lado1&quot;, &quot;lado2&quot;), sep = &quot;:&quot;) %&gt;%
+  separate(lado1, into = c(&quot;lixo&quot;, &quot;lado3&quot;),sep = &quot;brand_name&quot;) %&gt;%
+  select(-lixo) %&gt;%
+  filter(lado3 != &quot;NA&quot;) %&gt;%
+  mutate(mod = c(rep(&quot;intercept&quot;, 1), rep(&quot;slope&quot;, 1))) %&gt;% 
+  mutate(region = rep(&quot;South&quot;, length(mod))) %&gt;% 
+  select(-lado2) 
+names(reg1) = c(&quot;fungicide&quot;, &quot;mean&quot;, &quot;ci.lb&quot;, &quot;ci.ub&quot;, &quot;SE&quot;, &quot;mod&quot;, &quot;region&quot;) 
+
+elatus_sul = reg1</code></pre>
+</div>
+</div>
+<div id="pico-benz" class="section level3">
+<h3>PICO + BENZ</h3>
+<pre class="r"><code>library(janitor)
+# create the log of the sev variable
+rust_yld1 &lt;- rust_yld %&gt;%
+  filter(brand_name %in% c(&quot;AACHECK&quot;, &quot;PICO + BENZ&quot;)) %&gt;% 
+  group_by(study) %&gt;% 
+  mutate(n2 = n()) %&gt;% 
+  filter(n2 != 1)
+
+rust_yld1 = rust_yld1 %&gt;% 
+mutate(region = case_when(
+    state == &quot;MT&quot; ~ &quot;North&quot;,
+    state == &quot;BA&quot; ~ &quot;North&quot;,
+    state == &quot;DF&quot; ~ &quot;North&quot;,
+    state == &quot;MS&quot; ~ &quot;North&quot;,
+    state == &quot;GO&quot; ~ &quot;North&quot;,
+    state == &quot;TO&quot; ~ &quot;North&quot;,
+    state == &quot;PR&quot; ~ &quot;South&quot;,
+    state == &quot;MG&quot; ~ &quot;North&quot;,
+    state == &quot;SP&quot; ~ &quot;South&quot;,
+    state == &quot;RS&quot; ~ &quot;South&quot;)) 
+
+rust_yld1 %&gt;%
+tabyl(brand_name, region)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["brand_name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["North"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["South"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"AACHECK","2":"88","3":"30"},{"1":"PICO + BENZ","2":"88","3":"30"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<pre class="r"><code>rust_yld1 %&gt;%
+tabyl(brand_name, state)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["brand_name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["BA"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["DF"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["GO"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["MG"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["MS"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["MT"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["PR"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["RS"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["SP"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["TO"],"name":[11],"type":["dbl"],"align":["right"]}],"data":[{"1":"AACHECK","2":"3","3":"4","4":"15","5":"3","6":"18","7":"44","8":"21","9":"7","10":"2","11":"1"},{"1":"PICO + BENZ","2":"3","3":"4","4":"15","5":"3","6":"18","7":"44","8":"21","9":"7","10":"2","11":"1"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div id="nw-1" class="section level4">
+<h4>NW</h4>
+<pre class="r"><code>library(metafor)
+yld_gain &lt;- rust_yld %&gt;%
+  mutate(gain = mean_yld - yld_check) %&gt;% 
+  filter(brand_name!= &quot;AACHECK&quot;)  
+
+rust_yld_nor &lt;- rust_yld1 %&gt;% 
+filter(region == &quot;North&quot;)
+
+mv_yld_year &lt;- rma.mv(mean_yld, vi_yld,
+  mods = ~brand_name * as.numeric(year),
+  random = list(~brand_name | study),
+  struct = &quot;UN&quot;,
+  method = &quot;ML&quot;,
+  control = list(optimizer = &quot;nlm&quot;),
+  data = rust_yld_nor %&gt;% mutate(year= year - 2015))
+
+mv_yld_year</code></pre>
+<pre><code>## 
+## Multivariate Meta-Analysis Model (k = 176; method: ML)
+## 
+## Variance Components:
+## 
+## outer factor: study      (nlvls = 88)
+## inner factor: brand_name (nlvls = 2)
+## 
+##                  estim      sqrt  k.lvl  fixed        level 
+## tau^2.1    694041.3466  833.0914     88     no      AACHECK 
+## tau^2.2    798894.3137  893.8089     88     no  PICO + BENZ 
+## 
+##              rho.AACH  rho.PI+B    AACH  PI+B 
+## AACHECK             1    0.8468       -    no 
+## PICO + BENZ    0.8468         1      88     - 
+## 
+## Test for Residual Heterogeneity:
+## QE(df = 172) = 22658.9911, p-val &lt; .0001
+## 
+## Test of Moderators (coefficients 2:4):
+## QM(df = 3) = 336.0714, p-val &lt; .0001
+## 
+## Model Results:
+## 
+##                                          estimate        se     zval    pval 
+## intrcpt                                 1779.3432  290.0553   6.1345  &lt;.0001 
+## brand_namePICO + BENZ                   1486.4364  173.8693   8.5492  &lt;.0001 
+## as.numeric(year)                         179.3583   82.3555   2.1779  0.0294 
+## brand_namePICO + BENZ:as.numeric(year)  -154.9267   49.5106  -3.1292  0.0018 
+##                                             ci.lb      ci.ub 
+## intrcpt                                 1210.8453  2347.8411  *** 
+## brand_namePICO + BENZ                   1145.6589  1827.2139  *** 
+## as.numeric(year)                          17.9444   340.7721    * 
+## brand_namePICO + BENZ:as.numeric(year)  -251.9657   -57.8877   ** 
+## 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre class="r"><code>reg1 = data.frame(mv_yld_year$beta, mv_yld_year$ci.lb, mv_yld_year$ci.ub, mv_yld_year$se) %&gt;%
+  rownames_to_column(&quot;trat&quot;) %&gt;%
+  separate(trat, into = c(&quot;lado1&quot;, &quot;lado2&quot;), sep = &quot;:&quot;) %&gt;%
+  separate(lado1, into = c(&quot;lixo&quot;, &quot;lado3&quot;),sep = &quot;brand_name&quot;) %&gt;%
+  select(-lixo) %&gt;%
+  filter(lado3 != &quot;NA&quot;) %&gt;%
+  mutate(mod = c(rep(&quot;intercept&quot;, 1), rep(&quot;slope&quot;, 1))) %&gt;% 
+  mutate(region = rep(&quot;North&quot;, length(mod))) %&gt;% 
+  select(-lado2) 
+names(reg1) = c(&quot;fungicide&quot;, &quot;mean&quot;, &quot;ci.lb&quot;, &quot;ci.ub&quot;, &quot;SE&quot;, &quot;mod&quot;, &quot;region&quot;) 
+
+vess_norte = reg1 </code></pre>
+</div>
+<div id="se-1" class="section level4">
+<h4>SE</h4>
+<pre class="r"><code>library(metafor)
+yld_gain &lt;- rust_yld %&gt;%
+  mutate(gain = mean_yld - yld_check) %&gt;% 
+  filter(brand_name!= &quot;AACHECK&quot;)  
+
+rust_yld_south &lt;- rust_yld1 %&gt;% 
+filter(region == &quot;South&quot;)
+
+mv_yld_year &lt;- rma.mv(mean_yld, vi_yld,
+  mods = ~brand_name * as.numeric(year),
+  random = list(~brand_name | study),
+  struct = &quot;UN&quot;,
+  method = &quot;ML&quot;,
+  control = list(optimizer = &quot;nlm&quot;),
+  data = rust_yld_south %&gt;% mutate(year= year - 2015))
+
+mv_yld_year</code></pre>
+<pre><code>## 
+## Multivariate Meta-Analysis Model (k = 60; method: ML)
+## 
+## Variance Components:
+## 
+## outer factor: study      (nlvls = 30)
+## inner factor: brand_name (nlvls = 2)
+## 
+##                  estim      sqrt  k.lvl  fixed        level 
+## tau^2.1    518346.7061  719.9630     30     no      AACHECK 
+## tau^2.2    535819.5912  731.9970     30     no  PICO + BENZ 
+## 
+##              rho.AACH  rho.PI+B    AACH  PI+B 
+## AACHECK             1    0.8879       -    no 
+## PICO + BENZ    0.8879         1      30     - 
+## 
+## Test for Residual Heterogeneity:
+## QE(df = 56) = 4877.1263, p-val &lt; .0001
+## 
+## Test of Moderators (coefficients 2:4):
+## QM(df = 3) = 160.2478, p-val &lt; .0001
+## 
+## Model Results:
+## 
+##                                          estimate        se     zval    pval 
+## intrcpt                                 3528.7061  441.8376   7.9864  &lt;.0001 
+## brand_namePICO + BENZ                    699.2209  230.0585   3.0393  0.0024 
+## as.numeric(year)                        -167.8161  134.7084  -1.2458  0.2128 
+## brand_namePICO + BENZ:as.numeric(year)    52.9786   70.8458   0.7478  0.4546 
+##                                             ci.lb      ci.ub 
+## intrcpt                                 2662.7202  4394.6919  *** 
+## brand_namePICO + BENZ                    248.3145  1150.1274   ** 
+## as.numeric(year)                        -431.8396    96.2074      
+## brand_namePICO + BENZ:as.numeric(year)   -85.8766   191.8338      
+## 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre class="r"><code>reg1 = data.frame(mv_yld_year$beta, mv_yld_year$ci.lb, mv_yld_year$ci.ub, mv_yld_year$se) %&gt;%
+  rownames_to_column(&quot;trat&quot;) %&gt;%
+  separate(trat, into = c(&quot;lado1&quot;, &quot;lado2&quot;), sep = &quot;:&quot;) %&gt;%
+  separate(lado1, into = c(&quot;lixo&quot;, &quot;lado3&quot;),sep = &quot;brand_name&quot;) %&gt;%
+  select(-lixo) %&gt;%
+  filter(lado3 != &quot;NA&quot;) %&gt;%
+  mutate(mod = c(rep(&quot;intercept&quot;, 1), rep(&quot;slope&quot;, 1))) %&gt;% 
+  mutate(region = rep(&quot;South&quot;, length(mod))) %&gt;% 
+  select(-lado2) 
+names(reg1) = c(&quot;fungicide&quot;, &quot;mean&quot;, &quot;ci.lb&quot;, &quot;ci.ub&quot;, &quot;SE&quot;, &quot;mod&quot;, &quot;region&quot;) 
+
+vess_sul = reg1 
+
+data_two_fung = rbind(elatus_norte, elatus_sul, vess_norte, vess_sul)
+
+openxlsx::write.xlsx(data_two_fung, here(&quot;data&quot;,&quot;Elatus_Vessarya_yld_simulation.xlsx&quot;), colNames = TRUE)</code></pre>
+</div>
+</div>
+<div id="mods-region" class="section level3">
+<h3>Mods: region</h3>
+<pre class="r"><code>rust_yld1 = rust_yld %&gt;% 
+mutate(region = case_when(
+    state == &quot;MT&quot; ~ &quot;North&quot;,
+    state == &quot;BA&quot; ~ &quot;North&quot;,
+    state == &quot;DF&quot; ~ &quot;North&quot;,
+    state == &quot;MS&quot; ~ &quot;North&quot;,
+    state == &quot;GO&quot; ~ &quot;North&quot;,
+    state == &quot;TO&quot; ~ &quot;North&quot;,
+    state == &quot;PR&quot; ~ &quot;South&quot;,
+    state == &quot;MG&quot; ~ &quot;North&quot;,
+    state == &quot;SP&quot; ~ &quot;South&quot;,
+    state == &quot;RS&quot; ~ &quot;South&quot;)) 
+
+rust_yld1 %&gt;%
+tabyl(brand_name, region)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["brand_name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["North"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["South"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"AACHECK","2":"126","3":"49"},{"1":"AZOX + BENZ","2":"104","3":"41"},{"1":"BIXF + TFLX + PROT","2":"88","3":"28"},{"1":"PICO + BENZ","2":"88","3":"30"},{"1":"PICO + CYPR","2":"126","3":"49"},{"1":"PICO + TEBU","2":"108","3":"46"},{"1":"PYRA + EPOX + FLUX","2":"88","3":"28"},{"1":"TFLX + CYPR","2":"107","3":"39"},{"1":"TFLX + PROT","2":"121","3":"48"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<pre class="r"><code>mv_yld_region &lt;- rma.mv(mean_yld, vi_yld,
+  mods = ~brand_name * as.factor(region),
+  random = list(~factor(brand_name) | factor(study)),
+  struct = &quot;UN&quot;,
+  method = &quot;ML&quot;,
+  control = list(optimizer = &quot;nlm&quot;),
+  data = rust_yld1)
+
+mv_yld_region</code></pre>
+<pre><code>## 
+## Multivariate Meta-Analysis Model (k = 1314; method: ML)
+## 
+## Variance Components:
+## 
+## outer factor: factor(study)      (nlvls = 175)
+## inner factor: factor(brand_name) (nlvls = 9)
+## 
+##                  estim      sqrt  k.lvl  fixed               level 
+## tau^2.1    606007.6711  778.4649    175     no             AACHECK 
+## tau^2.2    601937.4814  775.8463    145     no         AZOX + BENZ 
+## tau^2.3    721679.6495  849.5173    116     no  BIXF + TFLX + PROT 
+## tau^2.4    655626.7851  809.7078    118     no         PICO + BENZ 
+## tau^2.5    653264.0342  808.2475    175     no         PICO + CYPR 
+## tau^2.6    661692.6217  813.4449    154     no         PICO + TEBU 
+## tau^2.7    720031.9783  848.5470    116     no  PYRA + EPOX + FLUX 
+## tau^2.8    656849.4796  810.4625    146     no         TFLX + CYPR 
+## tau^2.9    628275.7729  792.6385    169     no         TFLX + PROT 
+## 
+##                     rho.AACH  rho.AZ+B  rho.B+T+P  rho.PI+B  rho.PI+C  rho.PI+T 
+## AACHECK                    1    0.8142     0.8273    0.8341    0.9320    0.9082 
+## AZOX + BENZ           0.8142         1     0.9057    0.9715    0.9069    0.9038 
+## BIXF + TFLX + PROT    0.8273    0.9057          1    0.9198    0.9353    0.9290 
+## PICO + BENZ           0.8341    0.9715     0.9198         1    0.9324    0.9317 
+## PICO + CYPR           0.9320    0.9069     0.9353    0.9324         1    0.9849 
+## PICO + TEBU           0.9082    0.9038     0.9290    0.9317    0.9849         1 
+## PYRA + EPOX + FLUX    0.8453    0.9502     0.9749    0.9580    0.9384    0.9355 
+## TFLX + CYPR           0.9350    0.9164     0.9391    0.9321    0.9952    0.9821 
+## TFLX + PROT           0.8801    0.9169     0.9685    0.9349    0.9747    0.9651 
+##                     rho.P+E+F  rho.TF+C  rho.TF+P    AACH  AZ+B  B+T+P  PI+B 
+## AACHECK                0.8453    0.9350    0.8801       -    no     no    no 
+## AZOX + BENZ            0.9502    0.9164    0.9169     145     -     no    no 
+## BIXF + TFLX + PROT     0.9749    0.9391    0.9685     116    87      -    no 
+## PICO + BENZ            0.9580    0.9321    0.9349     118    88    116     - 
+## PICO + CYPR            0.9384    0.9952    0.9747     175   145    116   118 
+## PICO + TEBU            0.9355    0.9821    0.9651     154   124     95    97 
+## PYRA + EPOX + FLUX          1    0.9499    0.9504     116    87    114   116 
+## TFLX + CYPR            0.9499         1    0.9728     146   116    116   118 
+## TFLX + PROT            0.9504    0.9728         1     169   145    110   112 
+##                     PI+C  PI+T  P+E+F  TF+C  TF+P 
+## AACHECK               no    no     no    no    no 
+## AZOX + BENZ           no    no     no    no    no 
+## BIXF + TFLX + PROT    no    no     no    no    no 
+## PICO + BENZ           no    no     no    no    no 
+## PICO + CYPR            -    no     no    no    no 
+## PICO + TEBU          154     -     no    no    no 
+## PYRA + EPOX + FLUX   116    95      -    no    no 
+## TFLX + CYPR          146   125    116     -    no 
+## TFLX + PROT          169   148    111   140     - 
+## 
+## Test for Residual Heterogeneity:
+## QE(df = 1296) = 155126.5694, p-val &lt; .0001
+## 
+## Test of Moderators (coefficients 2:18):
+## QM(df = 17) = 977.5113, p-val &lt; .0001
+## 
+## Model Results:
+## 
+##                                                       estimate        se 
+## intrcpt                                              2351.0840   69.9976 
+## brand_nameAZOX + BENZ                                 894.3456   45.1105 
+## brand_nameBIXF + TFLX + PROT                         1032.7464   47.2686 
+## brand_namePICO + BENZ                                1009.8853   44.6194 
+## brand_namePICO + CYPR                                 554.8111   29.0685 
+## brand_namePICO + TEBU                                 645.6712   33.8301 
+## brand_namePYRA + EPOX + FLUX                          967.0207   44.9301 
+## brand_nameTFLX + CYPR                                 593.7882   28.9020 
+## brand_nameTFLX + PROT                                 832.3037   36.8105 
+## as.factor(region)South                                394.8497  132.2577 
+## brand_nameAZOX + BENZ:as.factor(region)South           58.9984   85.1539 
+## brand_nameBIXF + TFLX + PROT:as.factor(region)South   150.1983   90.9738 
+## brand_namePICO + BENZ:as.factor(region)South          -36.6158   85.3171 
+## brand_namePICO + CYPR:as.factor(region)South          159.7342   54.6664 
+## brand_namePICO + TEBU:as.factor(region)South          129.9113   63.1823 
+## brand_namePYRA + EPOX + FLUX:as.factor(region)South    10.4437   86.4463 
+## brand_nameTFLX + CYPR:as.factor(region)South          182.2832   54.5530 
+## brand_nameTFLX + PROT:as.factor(region)South          202.9433   69.3671 
+##                                                         zval    pval      ci.lb 
+## intrcpt                                              33.5881  &lt;.0001  2213.8912 
+## brand_nameAZOX + BENZ                                19.8257  &lt;.0001   805.9307 
+## brand_nameBIXF + TFLX + PROT                         21.8485  &lt;.0001   940.1016 
+## brand_namePICO + BENZ                                22.6333  &lt;.0001   922.4328 
+## brand_namePICO + CYPR                                19.0863  &lt;.0001   497.8378 
+## brand_namePICO + TEBU                                19.0857  &lt;.0001   579.3654 
+## brand_namePYRA + EPOX + FLUX                         21.5228  &lt;.0001   878.9594 
+## brand_nameTFLX + CYPR                                20.5449  &lt;.0001   537.1414 
+## brand_nameTFLX + PROT                                22.6105  &lt;.0001   760.1565 
+## as.factor(region)South                                2.9855  0.0028   135.6293 
+## brand_nameAZOX + BENZ:as.factor(region)South          0.6928  0.4884  -107.9002 
+## brand_nameBIXF + TFLX + PROT:as.factor(region)South   1.6510  0.0987   -28.1072 
+## brand_namePICO + BENZ:as.factor(region)South         -0.4292  0.6678  -203.8342 
+## brand_namePICO + CYPR:as.factor(region)South          2.9220  0.0035    52.5900 
+## brand_namePICO + TEBU:as.factor(region)South          2.0561  0.0398     6.0762 
+## brand_namePYRA + EPOX + FLUX:as.factor(region)South   0.1208  0.9038  -158.9880 
+## brand_nameTFLX + CYPR:as.factor(region)South          3.3414  0.0008    75.3613 
+## brand_nameTFLX + PROT:as.factor(region)South          2.9256  0.0034    66.9863 
+##                                                          ci.ub 
+## intrcpt                                              2488.2767  *** 
+## brand_nameAZOX + BENZ                                 982.7605  *** 
+## brand_nameBIXF + TFLX + PROT                         1125.3911  *** 
+## brand_namePICO + BENZ                                1097.3378  *** 
+## brand_namePICO + CYPR                                 611.7843  *** 
+## brand_namePICO + TEBU                                 711.9769  *** 
+## brand_namePYRA + EPOX + FLUX                         1055.0819  *** 
+## brand_nameTFLX + CYPR                                 650.4350  *** 
+## brand_nameTFLX + PROT                                 904.4509  *** 
+## as.factor(region)South                                654.0701   ** 
+## brand_nameAZOX + BENZ:as.factor(region)South          225.8970      
+## brand_nameBIXF + TFLX + PROT:as.factor(region)South   328.5038    . 
+## brand_namePICO + BENZ:as.factor(region)South          130.6027      
+## brand_namePICO + CYPR:as.factor(region)South          266.8784   ** 
+## brand_namePICO + TEBU:as.factor(region)South          253.7463    * 
+## brand_namePYRA + EPOX + FLUX:as.factor(region)South   179.8754      
+## brand_nameTFLX + CYPR:as.factor(region)South          289.2051  *** 
+## brand_nameTFLX + PROT:as.factor(region)South          338.9004   ** 
+## 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre class="r"><code>anova(mv_yld_region, btt = 11:18)</code></pre>
+<pre><code>## 
+## Test of Moderators (coefficients 11:18):
+## QM(df = 8) = 34.0610, p-val &lt; .0001</code></pre>
+<pre class="r"><code>reg1 = data.frame(mv_yld_region$beta, mv_yld_region$ci.lb, mv_yld_region$ci.ub, mv_yld_region$se) %&gt;%
+  rownames_to_column(&quot;trat&quot;) %&gt;%
+  separate(trat, into = c(&quot;lado1&quot;, &quot;lado2&quot;), sep = &quot;:&quot;) %&gt;%
+  separate(lado2, into = c(&quot;lixo&quot;,&quot;lado3&quot;),sep = &quot;region&quot;) %&gt;% 
+  select(-lixo) %&gt;%
+  separate(lado1, into = c(&quot;lixo&quot;,&quot;lado1&quot;),sep = &quot;brand_name&quot; ) %&gt;%
+  select(-lixo) %&gt;%
+  filter(lado1 != &quot;NA&quot;) %&gt;%
+  mutate(n = seq(1:16))
+names(reg1) = c(&quot;fungicide&quot;, &quot;region&quot;, &quot;mean_yld&quot;, &quot;ci.lb_yld&quot;, &quot;ci.ub_yld&quot;, &quot;SE_yld&quot;,&quot;n&quot;) 
+
+reg2 = reg1 %&gt;% 
+  filter(n &lt; 9) %&gt;% 
+  mutate(region = rep(&quot;North&quot;, length(fungicide)))
+
+reg3 = reg1 %&gt;% 
+  filter(n &gt; 8) %&gt;% 
+  mutate(region = rep(&quot;South&quot;, length(fungicide)))
+
+reg4 = rbind(reg2,reg3) %&gt;% 
+  select(-&quot;n&quot;)
+
+
+openxlsx::write.xlsx(reg4, here(&quot;data&quot;,&quot;yld_SE_region.xlsx&quot;), colNames = TRUE)</code></pre>
+<pre class="r"><code>eff_log = read_excel(&quot;data/eff_log_region.xlsx&quot;)
+yld_reg &lt;- read_excel(&quot;data/yld_SE_region.xlsx&quot;)
+
+data_simulation = full_join(eff_log, yld_reg, by = c(&quot;fungicide&quot;, &quot;region&quot;))
+openxlsx::write.xlsx(data_simulation, here(&quot;data&quot;,&quot;data_simulation.xlsx&quot;), colNames = TRUE)</code></pre>
+<div id="mod-effect" class="section level4">
+<h4>Mod effect</h4>
+<pre class="r"><code>reg1 = data.frame(mv_yld_region$beta, mv_yld_region$ci.lb, mv_yld_region$ci.ub) %&gt;%
+  rownames_to_column(&quot;trat&quot;) %&gt;%
+  separate(trat, into = c(&quot;lado1&quot;, &quot;lado2&quot;), sep = &quot;:&quot;) %&gt;%
+  separate(lado2, into = c(&quot;lixo&quot;,&quot;lado3&quot;),sep = &quot;region&quot;) %&gt;% 
+  select(-lixo) %&gt;%
+  separate(lado1, into = c(&quot;lixo&quot;,&quot;lado1&quot;),sep = &quot;brand_name&quot; ) %&gt;%
+  select(-lixo) %&gt;%
+  filter(lado1 != &quot;NA&quot;) %&gt;%
+  mutate(n = seq(1:16))
+names(reg1) = c(&quot;fungicide&quot;, &quot;class&quot;, &quot;mean&quot;, &quot;ci.lb&quot;, &quot;ci.ub&quot;, &quot;n&quot;) 
+
+reg2 = reg1 %&gt;% 
+  filter(n &lt; 9) %&gt;% 
+  mutate(class = rep(&quot;North&quot;, length(fungicide)))
+
+reg3 = reg1 %&gt;% 
+  filter(n &gt; 8) %&gt;% 
+  mutate(class = rep(&quot;South&quot;, length(fungicide)))
+
+reg4 = rbind(reg2,reg3)  
+
+mean = reg4%&gt;% 
+  group_by(fungicide) %&gt;% 
+  select(1:3) %&gt;% 
+  spread(class, mean) %&gt;% 
+  mutate(mean = North + South) %&gt;% 
+  select(1,4)
+
+lower = reg4%&gt;% 
+  group_by(fungicide) %&gt;% 
+  select(1,2,4) %&gt;% 
+  spread(class, ci.lb) %&gt;% 
+  mutate(lower = North + South) %&gt;%  
+  select(1,4)
+
+upper = reg4%&gt;% 
+  group_by(fungicide) %&gt;% 
+  select(1,2,5) %&gt;% 
+  spread(class, ci.ub) %&gt;% 
+  mutate(upper = North + South) %&gt;% 
+  select(1,4)
+
+reg5 = left_join(mean, lower, by= c(&quot;fungicide&quot;)) %&gt;% 
+  left_join(upper, by = c(&quot;fungicide&quot;)) %&gt;% 
+  mutate(class = rep(&quot;South&quot;, length(&quot;fungicide&quot;))) %&gt;% 
+  select(&quot;fungicide&quot;, &quot;class&quot;, &quot;mean&quot;, &quot;lower&quot;, &quot;upper&quot;)
+
+
+North = reg4 %&gt;% 
+  filter(class == &quot;North&quot;) %&gt;% 
+  select(1:5)
+names(North) = c(&quot;fungicide&quot;, &quot;class&quot;, &quot;mean&quot;, &quot;lower&quot;, &quot;upper&quot;) 
+
+reg6 = full_join(North,reg5)</code></pre>
+<pre><code>## Joining, by = c(&quot;fungicide&quot;, &quot;class&quot;, &quot;mean&quot;, &quot;lower&quot;, &quot;upper&quot;)</code></pre>
+<pre class="r"><code>reg6</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["fungicide"],"name":[1],"type":["chr"],"align":["left"]},{"label":["class"],"name":[2],"type":["chr"],"align":["left"]},{"label":["mean"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["lower"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["upper"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"AZOX + BENZ","2":"North","3":"894.3456","4":"805.9307","5":"982.7605"},{"1":"BIXF + TFLX + PROT","2":"North","3":"1032.7464","4":"940.1016","5":"1125.3911"},{"1":"PICO + BENZ","2":"North","3":"1009.8853","4":"922.4328","5":"1097.3378"},{"1":"PICO + CYPR","2":"North","3":"554.8111","4":"497.8378","5":"611.7843"},{"1":"PICO + TEBU","2":"North","3":"645.6712","4":"579.3654","5":"711.9769"},{"1":"PYRA + EPOX + FLUX","2":"North","3":"967.0207","4":"878.9594","5":"1055.0819"},{"1":"TFLX + CYPR","2":"North","3":"593.7882","4":"537.1414","5":"650.4350"},{"1":"TFLX + PROT","2":"North","3":"832.3037","4":"760.1565","5":"904.4509"},{"1":"AZOX + BENZ","2":"South","3":"953.3440","4":"698.0305","5":"1208.6574"},{"1":"BIXF + TFLX + PROT","2":"South","3":"1182.9447","4":"911.9945","5":"1453.8949"},{"1":"PICO + BENZ","2":"South","3":"973.2696","4":"718.5987","5":"1227.9405"},{"1":"PICO + CYPR","2":"South","3":"714.5453","4":"550.4278","5":"878.6627"},{"1":"PICO + TEBU","2":"South","3":"775.5825","4":"585.4416","5":"965.7233"},{"1":"PYRA + EPOX + FLUX","2":"South","3":"977.4643","4":"719.9714","5":"1234.9573"},{"1":"TFLX + CYPR","2":"South","3":"776.0714","4":"612.5027","5":"939.6401"},{"1":"TFLX + PROT","2":"South","3":"1035.2470","4":"827.1428","5":"1243.3512"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<pre class="r"><code>openxlsx::write.xlsx(reg6, here(&quot;data&quot;,&quot;yld_region.xlsx&quot;), colNames = TRUE)</code></pre>
+</div>
+</div>
+<div id="mods-severity-baseline" class="section level3">
+<h3>Mods: severity baseline</h3>
+<pre class="r"><code>library(tidyverse)
+
+rust_yld &lt;- rust_yld %&gt;%
+    mutate(
+    sev_check_class = case_when(
+      sev_check &lt; 70 ~ &quot;Low&quot;,
+      sev_check &gt;= 70 ~ &quot;High&quot;))
+
+rust_yld %&gt;%
+tabyl(brand_name, sev_check_class)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["brand_name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["High"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Low"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"AACHECK","2":"100","3":"75"},{"1":"AZOX + BENZ","2":"82","3":"63"},{"1":"BIXF + TFLX + PROT","2":"63","3":"53"},{"1":"PICO + BENZ","2":"63","3":"55"},{"1":"PICO + CYPR","2":"100","3":"75"},{"1":"PICO + TEBU","2":"93","3":"61"},{"1":"PYRA + EPOX + FLUX","2":"61","3":"55"},{"1":"TFLX + CYPR","2":"80","3":"66"},{"1":"TFLX + PROT","2":"96","3":"73"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<pre class="r"><code>mv_yld_sev_class &lt;- rma.mv(mean_yld, vi_yld,
+  mods = ~brand_name * as.factor(sev_check_class) ,
+  random = list(~factor(brand_name) | factor(study)),
+  struct = &quot;UN&quot;,
+  method = &quot;ML&quot;,
+  control = list(optimizer = &quot;nlm&quot;),
+  data = rust_yld)
+
+mv_yld_sev_class</code></pre>
+<pre><code>## 
+## Multivariate Meta-Analysis Model (k = 1314; method: ML)
+## 
+## Variance Components:
+## 
+## outer factor: factor(study)      (nlvls = 175)
+## inner factor: factor(brand_name) (nlvls = 9)
+## 
+##                  estim      sqrt  k.lvl  fixed               level 
+## tau^2.1    588997.6993  767.4619    175     no             AACHECK 
+## tau^2.2    634330.7301  796.4488    145     no         AZOX + BENZ 
+## tau^2.3    762949.9431  873.4701    116     no  BIXF + TFLX + PROT 
+## tau^2.4    668811.0794  817.8087    118     no         PICO + BENZ 
+## tau^2.5    691060.7120  831.3006    175     no         PICO + CYPR 
+## tau^2.6    691070.0371  831.3062    154     no         PICO + TEBU 
+## tau^2.7    735711.1697  857.7361    116     no  PYRA + EPOX + FLUX 
+## tau^2.8    704707.8950  839.4688    146     no         TFLX + CYPR 
+## tau^2.9    683393.4981  826.6762    169     no         TFLX + PROT 
+## 
+##                     rho.AACH  rho.AZ+B  rho.B+T+P  rho.PI+B  rho.PI+C  rho.PI+T 
+## AACHECK                    1    0.8255     0.8343    0.8413    0.9336    0.9100 
+## AZOX + BENZ           0.8255         1     0.9120    0.9728    0.9121    0.9097 
+## BIXF + TFLX + PROT    0.8343    0.9120          1    0.9193    0.9381    0.9314 
+## PICO + BENZ           0.8413    0.9728     0.9193         1    0.9289    0.9278 
+## PICO + CYPR           0.9336    0.9121     0.9381    0.9289         1    0.9855 
+## PICO + TEBU           0.9100    0.9097     0.9314    0.9278    0.9855         1 
+## PYRA + EPOX + FLUX    0.8525    0.9568     0.9746    0.9585    0.9365    0.9324 
+## TFLX + CYPR           0.9371    0.9210     0.9413    0.9268    0.9958    0.9831 
+## TFLX + PROT           0.8829    0.9206     0.9696    0.9306    0.9760    0.9663 
+##                     rho.P+E+F  rho.TF+C  rho.TF+P    AACH  AZ+B  B+T+P  PI+B 
+## AACHECK                0.8525    0.9371    0.8829       -    no     no    no 
+## AZOX + BENZ            0.9568    0.9210    0.9206     145     -     no    no 
+## BIXF + TFLX + PROT     0.9746    0.9413    0.9696     116    87      -    no 
+## PICO + BENZ            0.9585    0.9268    0.9306     118    88    116     - 
+## PICO + CYPR            0.9365    0.9958    0.9760     175   145    116   118 
+## PICO + TEBU            0.9324    0.9831    0.9663     154   124     95    97 
+## PYRA + EPOX + FLUX          1    0.9455    0.9479     116    87    114   116 
+## TFLX + CYPR            0.9455         1    0.9745     146   116    116   118 
+## TFLX + PROT            0.9479    0.9745         1     169   145    110   112 
+##                     PI+C  PI+T  P+E+F  TF+C  TF+P 
+## AACHECK               no    no     no    no    no 
+## AZOX + BENZ           no    no     no    no    no 
+## BIXF + TFLX + PROT    no    no     no    no    no 
+## PICO + BENZ           no    no     no    no    no 
+## PICO + CYPR            -    no     no    no    no 
+## PICO + TEBU          154     -     no    no    no 
+## PYRA + EPOX + FLUX   116    95      -    no    no 
+## TFLX + CYPR          146   125    116     -    no 
+## TFLX + PROT          169   148    111   140     - 
+## 
+## Test for Residual Heterogeneity:
+## QE(df = 1296) = 167547.7250, p-val &lt; .0001
+## 
+## Test of Moderators (coefficients 2:18):
+## QM(df = 17) = 983.1316, p-val &lt; .0001
+## 
+## Model Results:
+## 
+##                                                              estimate        se 
+## intrcpt                                                     2272.7953   77.4679 
+## brand_nameAZOX + BENZ                                       1005.3144   49.6013 
+## brand_nameBIXF + TFLX + PROT                                1154.1764   53.9432 
+## brand_namePICO + BENZ                                       1119.6025   50.1055 
+## brand_namePICO + CYPR                                        651.0735   32.9249 
+## brand_namePICO + TEBU                                        728.4738   37.7547 
+## brand_namePYRA + EPOX + FLUX                                1088.0312   50.7783 
+## brand_nameTFLX + CYPR                                        707.2705   33.1093 
+## brand_nameTFLX + PROT                                        956.3937   41.7684 
+## as.factor(sev_check_class)Low                                438.0983  118.3458 
+## brand_nameAZOX + BENZ:as.factor(sev_check_class)Low         -220.7779   75.6310 
+## brand_nameBIXF + TFLX + PROT:as.factor(sev_check_class)Low  -171.4304   81.4070 
+## brand_namePICO + BENZ:as.factor(sev_check_class)Low         -250.2076   75.5580 
+## brand_namePICO + CYPR:as.factor(sev_check_class)Low         -117.3651   50.2694 
+## brand_namePICO + TEBU:as.factor(sev_check_class)Low         -107.1294   58.1481 
+## brand_namePYRA + EPOX + FLUX:as.factor(sev_check_class)Low  -237.2981   76.3145 
+## brand_nameTFLX + CYPR:as.factor(sev_check_class)Low         -137.6340   50.2045 
+## brand_nameTFLX + PROT:as.factor(sev_check_class)Low         -151.6628   63.7592 
+##                                                                zval    pval 
+## intrcpt                                                     29.3385  &lt;.0001 
+## brand_nameAZOX + BENZ                                       20.2679  &lt;.0001 
+## brand_nameBIXF + TFLX + PROT                                21.3962  &lt;.0001 
+## brand_namePICO + BENZ                                       22.3449  &lt;.0001 
+## brand_namePICO + CYPR                                       19.7745  &lt;.0001 
+## brand_namePICO + TEBU                                       19.2949  &lt;.0001 
+## brand_namePYRA + EPOX + FLUX                                21.4271  &lt;.0001 
+## brand_nameTFLX + CYPR                                       21.3617  &lt;.0001 
+## brand_nameTFLX + PROT                                       22.8976  &lt;.0001 
+## as.factor(sev_check_class)Low                                3.7018  0.0002 
+## brand_nameAZOX + BENZ:as.factor(sev_check_class)Low         -2.9191  0.0035 
+## brand_nameBIXF + TFLX + PROT:as.factor(sev_check_class)Low  -2.1058  0.0352 
+## brand_namePICO + BENZ:as.factor(sev_check_class)Low         -3.3115  0.0009 
+## brand_namePICO + CYPR:as.factor(sev_check_class)Low         -2.3347  0.0196 
+## brand_namePICO + TEBU:as.factor(sev_check_class)Low         -1.8424  0.0654 
+## brand_namePYRA + EPOX + FLUX:as.factor(sev_check_class)Low  -3.1095  0.0019 
+## brand_nameTFLX + CYPR:as.factor(sev_check_class)Low         -2.7415  0.0061 
+## brand_nameTFLX + PROT:as.factor(sev_check_class)Low         -2.3787  0.0174 
+##                                                                 ci.lb 
+## intrcpt                                                     2120.9609 
+## brand_nameAZOX + BENZ                                        908.0976 
+## brand_nameBIXF + TFLX + PROT                                1048.4498 
+## brand_namePICO + BENZ                                       1021.3974 
+## brand_namePICO + CYPR                                        586.5418 
+## brand_namePICO + TEBU                                        654.4759 
+## brand_namePYRA + EPOX + FLUX                                 988.5077 
+## brand_nameTFLX + CYPR                                        642.3774 
+## brand_nameTFLX + PROT                                        874.5292 
+## as.factor(sev_check_class)Low                                206.1448 
+## brand_nameAZOX + BENZ:as.factor(sev_check_class)Low         -369.0118 
+## brand_nameBIXF + TFLX + PROT:as.factor(sev_check_class)Low  -330.9852 
+## brand_namePICO + BENZ:as.factor(sev_check_class)Low         -398.2986 
+## brand_namePICO + CYPR:as.factor(sev_check_class)Low         -215.8914 
+## brand_namePICO + TEBU:as.factor(sev_check_class)Low         -221.0976 
+## brand_namePYRA + EPOX + FLUX:as.factor(sev_check_class)Low  -386.8717 
+## brand_nameTFLX + CYPR:as.factor(sev_check_class)Low         -236.0329 
+## brand_nameTFLX + PROT:as.factor(sev_check_class)Low         -276.6287 
+##                                                                 ci.ub 
+## intrcpt                                                     2424.6296  *** 
+## brand_nameAZOX + BENZ                                       1102.5311  *** 
+## brand_nameBIXF + TFLX + PROT                                1259.9031  *** 
+## brand_namePICO + BENZ                                       1217.8075  *** 
+## brand_namePICO + CYPR                                        715.6051  *** 
+## brand_namePICO + TEBU                                        802.4717  *** 
+## brand_namePYRA + EPOX + FLUX                                1187.5548  *** 
+## brand_nameTFLX + CYPR                                        772.1636  *** 
+## brand_nameTFLX + PROT                                       1038.2582  *** 
+## as.factor(sev_check_class)Low                                670.0518  *** 
+## brand_nameAZOX + BENZ:as.factor(sev_check_class)Low          -72.5439   ** 
+## brand_nameBIXF + TFLX + PROT:as.factor(sev_check_class)Low   -11.8756    * 
+## brand_namePICO + BENZ:as.factor(sev_check_class)Low         -102.1166  *** 
+## brand_namePICO + CYPR:as.factor(sev_check_class)Low          -18.8388    * 
+## brand_namePICO + TEBU:as.factor(sev_check_class)Low            6.8388    . 
+## brand_namePYRA + EPOX + FLUX:as.factor(sev_check_class)Low   -87.7245   ** 
+## brand_nameTFLX + CYPR:as.factor(sev_check_class)Low          -39.2350   ** 
+## brand_nameTFLX + PROT:as.factor(sev_check_class)Low          -26.6970    * 
+## 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre class="r"><code>anova(mv_yld_sev_class, btt = 11:18)</code></pre>
+<pre><code>## 
+## Test of Moderators (coefficients 11:18):
+## QM(df = 8) = 15.1418, p-val = 0.0564</code></pre>
+<div id="mod-effect-1" class="section level4">
+<h4>Mod effect</h4>
+<pre class="r"><code>reg1 = data.frame(mv_yld_sev_class$beta, mv_yld_sev_class$ci.lb, mv_yld_sev_class$ci.ub) %&gt;%
+  rownames_to_column(&quot;trat&quot;) %&gt;%
+  separate(trat, into = c(&quot;lado1&quot;, &quot;lado2&quot;), sep = &quot;:&quot;) %&gt;%
+  separate(lado2, into = c(&quot;lixo&quot;,&quot;lado3&quot;),sep = &quot;sev_check_class&quot;) %&gt;% 
+  select(-lixo) %&gt;%
+  separate(lado1, into = c(&quot;lixo&quot;,&quot;lado1&quot;),sep = &quot;brand_name&quot; ) %&gt;%
+  select(-lixo) %&gt;%
+  filter(lado1 != &quot;NA&quot;) %&gt;%
+  mutate(n = seq(1:16))
+names(reg1) = c(&quot;fungicide&quot;, &quot;class&quot;, &quot;mean&quot;, &quot;ci.lb&quot;, &quot;ci.ub&quot;, &quot;n&quot;) 
+
+reg2 = reg1 %&gt;%
+  filter(n &lt; 9) %&gt;% 
+  mutate(class = rep(&quot;High&quot;, length(fungicide)))
+
+reg3 = reg1 %&gt;% 
+  filter(n &gt; 8) %&gt;% 
+  mutate(class = rep(&quot;Low&quot;, length(fungicide)))
+
+reg4 = rbind(reg2,reg3)  
+
+mean = reg4%&gt;% 
+  group_by(fungicide) %&gt;% 
+  select(1:3) %&gt;% 
+  spread(class, mean) %&gt;% 
+  mutate(mean = High + Low) %&gt;% 
+  select(1,4)
+
+lower = reg4%&gt;% 
+  group_by(fungicide) %&gt;% 
+  select(1,2,4) %&gt;% 
+  spread(class, ci.lb) %&gt;% 
+  mutate(lower = High + Low) %&gt;%  
+  select(1,4)
+
+upper = reg4%&gt;% 
+  group_by(fungicide) %&gt;% 
+  select(1,2,5) %&gt;% 
+  spread(class, ci.ub) %&gt;% 
+  mutate(upper = High + Low) %&gt;% 
+  select(1,4)
+
+reg5 = left_join(mean, lower, by= c(&quot;fungicide&quot;)) %&gt;% 
+  left_join(upper, by = c(&quot;fungicide&quot;)) %&gt;% 
+  mutate(class = rep(&quot;Low&quot;, length(&quot;fungicide&quot;))) %&gt;% 
+  select(&quot;fungicide&quot;, &quot;class&quot;, &quot;mean&quot;, &quot;lower&quot;, &quot;upper&quot;)
+
+
+High = reg4 %&gt;% 
+  filter(class == &quot;High&quot;) %&gt;% 
+  select(1:5)
+names(High) = c(&quot;fungicide&quot;, &quot;class&quot;, &quot;mean&quot;, &quot;lower&quot;, &quot;upper&quot;) 
+
+reg6 = full_join(High,reg5)</code></pre>
+<pre><code>## Joining, by = c(&quot;fungicide&quot;, &quot;class&quot;, &quot;mean&quot;, &quot;lower&quot;, &quot;upper&quot;)</code></pre>
+<pre class="r"><code>reg6</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["fungicide"],"name":[1],"type":["chr"],"align":["left"]},{"label":["class"],"name":[2],"type":["chr"],"align":["left"]},{"label":["mean"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["lower"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["upper"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"AZOX + BENZ","2":"High","3":"1005.3144","4":"908.0976","5":"1102.5311"},{"1":"BIXF + TFLX + PROT","2":"High","3":"1154.1764","4":"1048.4498","5":"1259.9031"},{"1":"PICO + BENZ","2":"High","3":"1119.6025","4":"1021.3974","5":"1217.8075"},{"1":"PICO + CYPR","2":"High","3":"651.0735","4":"586.5418","5":"715.6051"},{"1":"PICO + TEBU","2":"High","3":"728.4738","4":"654.4759","5":"802.4717"},{"1":"PYRA + EPOX + FLUX","2":"High","3":"1088.0312","4":"988.5077","5":"1187.5548"},{"1":"TFLX + CYPR","2":"High","3":"707.2705","4":"642.3774","5":"772.1636"},{"1":"TFLX + PROT","2":"High","3":"956.3937","4":"874.5292","5":"1038.2582"},{"1":"AZOX + BENZ","2":"Low","3":"784.5365","4":"539.0858","5":"1029.9872"},{"1":"BIXF + TFLX + PROT","2":"Low","3":"982.7460","4":"717.4645","5":"1248.0275"},{"1":"PICO + BENZ","2":"Low","3":"869.3949","4":"623.0988","5":"1115.6909"},{"1":"PICO + CYPR","2":"Low","3":"533.7084","4":"370.6505","5":"696.7663"},{"1":"PICO + TEBU","2":"Low","3":"621.3444","4":"433.3782","5":"809.3105"},{"1":"PYRA + EPOX + FLUX","2":"Low","3":"850.7331","4":"601.6360","5":"1099.8303"},{"1":"TFLX + CYPR","2":"Low","3":"569.6365","4":"406.3444","5":"732.9286"},{"1":"TFLX + PROT","2":"Low","3":"804.7309","4":"597.9006","5":"1011.5612"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<pre class="r"><code>openxlsx::write.xlsx(reg6, here(&quot;data&quot;,&quot;yld_baseline.xlsx&quot;), colNames = TRUE)</code></pre>
+</div>
+</div>
+<div id="inconsistency" class="section level3">
+<h3>Inconsistency</h3>
+<p>We used a factorial-type ANOVA model to determine the significance of the <em>treatment x design</em> interaction, evaluated based on the Wald test statistic.</p>
+<pre class="r"><code>mv_yld_design &lt;- rma.mv(mean_yld, vi_yld,
+  mods = ~brand_name * design,
+  random = list(~ 1 | study / design / brand_name),
+  struct = &quot;UN&quot;,
+  method = &quot;ML&quot;,
+  control = list(optimizer = &quot;nlm&quot;),
+  data = rust_yld)
+
+mv_yld_design</code></pre>
+<pre><code>## 
+## Multivariate Meta-Analysis Model (k = 1314; method: ML)
+## 
+## Variance Components:
+## 
+##                  estim      sqrt  nlvls  fixed                   factor 
+## sigma^2.1  326626.5655  571.5125    175     no                    study 
+## sigma^2.2  326626.5651  571.5125    175     no             study/design 
+## sigma^2.3   44199.7132  210.2373   1314     no  study/design/brand_name 
+## 
+## Test for Residual Heterogeneity:
+## QE(df = 1296) = 169160.9325, p-val &lt; .0001
+## 
+## Test of Moderators (coefficients 2:18):
+## QM(df = 17) = 2377.4326, p-val &lt; .0001
+## 
+## Model Results:
+## 
+##                                       estimate        se     zval    pval 
+## intrcpt                              2593.4693  106.3961  24.3756  &lt;.0001 
+## brand_nameAZOX + BENZ                 757.4275   42.5418  17.8043  &lt;.0001 
+## brand_nameBIXF + TFLX + PROT          987.2565   49.6496  19.8845  &lt;.0001 
+## brand_namePICO + BENZ                1028.2639   47.7568  21.5313  &lt;.0001 
+## brand_namePICO + CYPR                 587.2696   41.6389  14.1039  &lt;.0001 
+## brand_namePICO + TEBU                 678.9830   42.9294  15.8163  &lt;.0001 
+## brand_namePYRA + EPOX + FLUX          911.4023   48.1021  18.9473  &lt;.0001 
+## brand_nameTFLX + CYPR                 631.5014   42.8403  14.7408  &lt;.0001 
+## brand_nameTFLX + PROT                 855.6228   41.6484  20.5439  &lt;.0001 
+## design                                -29.2953   19.6717  -1.4892  0.1364 
+## brand_nameAZOX + BENZ:design           40.2080    7.7787   5.1690  &lt;.0001 
+## brand_nameBIXF + TFLX + PROT:design    26.6692   16.7424   1.5929  0.1112 
+## brand_namePICO + BENZ:design          -42.0625   15.0385  -2.7970  0.0052 
+## brand_namePICO + CYPR:design            0.1022    7.7117   0.0133  0.9894 
+## brand_namePICO + TEBU:design           -0.7833    7.7578  -0.1010  0.9196 
+## brand_namePYRA + EPOX + FLUX:design     3.3399   15.3704   0.2173  0.8280 
+## brand_nameTFLX + CYPR:design            2.8844    9.1329   0.3158  0.7521 
+## brand_nameTFLX + PROT:design            7.3169    7.7320   0.9463  0.3440 
+##                                          ci.lb      ci.ub 
+## intrcpt                              2384.9368  2802.0019  *** 
+## brand_nameAZOX + BENZ                 674.0471   840.8079  *** 
+## brand_nameBIXF + TFLX + PROT          889.9450  1084.5679  *** 
+## brand_namePICO + BENZ                 934.6624  1121.8655  *** 
+## brand_namePICO + CYPR                 505.6588   668.8804  *** 
+## brand_namePICO + TEBU                 594.8428   763.1231  *** 
+## brand_namePYRA + EPOX + FLUX          817.1240  1005.6806  *** 
+## brand_nameTFLX + CYPR                 547.5360   715.4668  *** 
+## brand_nameTFLX + PROT                 773.9934   937.2523  *** 
+## design                                -67.8511     9.2606      
+## brand_nameAZOX + BENZ:design           24.9619    55.4540  *** 
+## brand_nameBIXF + TFLX + PROT:design    -6.1454    59.4838      
+## brand_namePICO + BENZ:design          -71.5374   -12.5875   ** 
+## brand_namePICO + CYPR:design          -15.0124    15.2168      
+## brand_namePICO + TEBU:design          -15.9884    14.4217      
+## brand_namePYRA + EPOX + FLUX:design   -26.7854    33.4652      
+## brand_nameTFLX + CYPR:design          -15.0157    20.7845      
+## brand_nameTFLX + PROT:design           -7.8376    22.4714      
+## 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre class="r"><code>anova(mv_yld_design, btt = 11:18)</code></pre>
+<pre><code>## 
+## Test of Moderators (coefficients 11:18):
+## QM(df = 8) = 55.7813, p-val &lt; .0001</code></pre>
+</div>
+</div>
+</div>
+
+
+
+Copyright 2017 Emerson Del Ponte
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = false;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,543 @@
+
+
+
+# Raw Data import 
+
+
+```{r, warning=FALSE}
+library(tidyverse)
+library(metafor)
+library(ggthemes)
+library(cowplot)
+library(scales)
+library(broom)
+library(dplyr)
+library(readxl)
+library(gsheet)
+library(janitor)
+library(cowplot)
+
+
+rust <- gsheet2tbl("https://docs.google.com/spreadsheets/d/1Xx_gK6ERLLhQGIrOPB_ZYs9LoHTmsv030s30Dc_TPzg/edit#gid=287066174", sheetid = "2015-2020")
+
+
+rust %>% 
+  group_by(study)
+length(unique(rust$study))
+```
+
+
+
+## Summarrising data (mean and variance)
+
+```{r, warning=FALSE}
+
+rust1 <- rust %>% 
+  group_by(study, year, location, state, n_spray, brand_name) %>% 
+  summarise(mean_sev = mean(sev),
+            mean_yld = mean(yld))
+
+rust_sev <- rust %>% 
+  group_by(study, year) %>%  
+  select(brand_name, rep, sev) %>%
+  group_by(study, year) %>% 
+  do(tidy(aov(.$sev ~ .$brand_name + factor(.$rep)))) %>% 
+  filter(term == "Residuals") %>% 
+  select(1,2,6) %>% 
+  set_names(c("study", "year", "v_sev"))
+
+
+rust_yld <- rust %>% 
+  filter(yld>0) %>% 
+  group_by(study, year) %>% 
+  select(brand_name, rep, yld) %>% 
+  group_by(study, year) %>% 
+  do(tidy(aov(.$yld ~ .$brand_name + factor(.$rep)))) %>% 
+  filter(term == "Residuals") %>% 
+  select(1,2,6) %>% 
+  set_names(c("study", "year", "v_yld"))
+
+
+qmr = left_join(rust_sev, rust_yld)
+
+rust_trial = full_join(rust1, qmr)
+rust_trial
+```
+
+
+## Exploratory analysis
+
+### By year
+
+```{r}
+library(janitor) 
+a1 = rust_trial %>%
+  group_by(study,year) %>% 
+  summarise() %>% 
+  tabyl(year)
+a1
+```
+
+### By year and n_spray
+
+```{r}
+library(janitor) 
+a1 = rust_trial %>%
+  group_by(study,year,n_spray) %>% 
+  summarise() %>%
+  tabyl(n_spray, year)
+a1
+```
+
+### By location
+
+```{r}
+rust_trial %>%
+  group_by(study,location) %>% 
+  summarise() %>%
+  tabyl(location)
+ 
+
+rust %>% 
+  group_by(location)
+length(unique(rust$location))
+```
+
+
+### By state
+
+```{r}
+a2 = rust_trial %>%
+  group_by(study,state) %>% 
+  summarise() %>% 
+  tabyl(state)
+a2
+```
+
+### By active ingredient
+
+```{r}
+a3 = rust_trial %>%
+  group_by(study,brand_name) %>% 
+  summarise() %>% 
+  tabyl(brand_name) %>% 
+  filter(n>100)
+a3
+```
+
+### By active ingredient and year
+
+```{r}
+rust_trial %>%
+  tabyl(brand_name,year)
+```
+### By active ingredient and n_spray
+
+```{r}
+rust_trial %>%
+  tabyl(brand_name,n_spray)
+```
+
+## Selected Fungicides
+
+```{r, warning=FALSE}
+
+rust3 <- rust_trial %>% 
+  filter(brand_name %in% c("CHECK", "Aproach Prima", "Ativum", "Elatus", "FOX", "FOX Xpro", "Horos", "SphereMax", "Vessarya")) 
+
+
+rust3 %>%
+  tabyl(brand_name, year)
+
+# Renaming the treatments 
+library(plyr)
+rust3$brand_name <- revalue(rust3$brand_name, c("CHECK" = "AACHECK"))
+rust3$brand_name <- revalue(rust3$brand_name, c("FOX" = "TFLX + PROT"))
+rust3$brand_name <- revalue(rust3$brand_name, c("FOX Xpro" = "BIXF + TFLX + PROT"))
+rust3$brand_name <- revalue(rust3$brand_name, c("Horos" = "PICO + TEBU"))
+rust3$brand_name <- revalue(rust3$brand_name, c("SphereMax" = "TFLX + CYPR"))
+rust3$brand_name <- revalue(rust3$brand_name, c("Ativum" = "PYRA + EPOX + FLUX"))
+rust3$brand_name <- revalue(rust3$brand_name, c("Elatus" = "AZOX + BENZ"))
+rust3$brand_name <- revalue(rust3$brand_name, c("Vessarya" = "PICO + BENZ"))
+rust3$brand_name <- revalue(rust3$brand_name, c("Aproach Prima" = "PICO + CYPR"))
+detach("package:plyr", unload = TRUE)
+
+
+
+```
+
+
+## Check columns 
+
+```{r, warning=FALSE}
+# these two columns will be used as moderator variables later
+sbr_check = rust3 %>% 
+  ungroup() %>% 
+  filter(brand_name == "AACHECK")  %>% 
+  mutate(check = brand_name, sev_check = mean_sev, v_sev_check = v_sev, yld_check = mean_yld, v_yld_check = v_yld ) %>% 
+  select(study, yld_check, v_yld_check, sev_check, v_sev_check)
+
+sbr_data = rust3 %>% 
+  full_join(sbr_check)
+
+```
+
+# Create datasets
+
+
+## Severity Index 
+
+```{r}
+rust_sev <- sbr_data %>% 
+  filter(mean_sev != "NA") %>% 
+  filter(mean_sev>0)
+
+hist(rust_sev$mean_sev)
+
+
+# create the log of the sev variable
+rust_sev <- rust_sev %>%
+  mutate(log_sev = log(mean_sev))
+hist(rust_sev$log_sev)
+
+
+# create the sampling variance for the log of sev
+rust_sev$vi_sev <- with(rust_sev, v_sev / (4 * mean_sev^2))
+
+summary(rust_sev$vi_sev)
+ 
+rust_sev <- rust_sev %>%
+  group_by(study) %>% 
+  mutate(n2 = n()) %>% 
+  filter(n2 != 1)
+
+```
+
+### Design groups
+
+```{r}
+rust_sev1 = rust_sev %>% 
+  group_by(study) %>% 
+  summarise(brand_name1=paste(brand_name, collapse=';')) 
+
+rust_sev1 %>% 
+  tabyl(brand_name1)
+```
+
+
+Ten different designs (here design refers to the set of treatments in the trial) were found in the trials reporting SBR severity.
+
+```{r}
+design1 = rust_sev %>% 
+  group_by(study) %>% 
+  filter(brand_name  %in% c("PICO + CYPR", "PYRA + EPOX + FLUX", "AACHECK", "AZOX + BENZ", "TFLX + PROT", "BIXF + TFLX + PROT", "PICO + TEBU", "TFLX + CYPR", "PICO + BENZ")) %>% 
+  mutate(n3 = n()) %>% 
+  mutate(design = rep(1, length(brand_name))) %>% 
+  filter(n2 == 9) %>% 
+  filter(n3 == 9)
+design1
+
+design2 = rust_sev %>% 
+  group_by(study) %>% 
+  filter(brand_name  %in% c("PICO + CYPR", "AACHECK", "AZOX + BENZ", "TFLX + PROT", "BIXF + TFLX + PROT", "PICO + TEBU", "TFLX + CYPR", "PICO + BENZ")) %>% 
+  mutate(n3 = n()) %>% 
+  mutate(design = rep(2, length(brand_name))) %>% 
+  filter(n2 == 8) %>% 
+  filter(n3 == 8)
+design2
+
+design3 = rust_sev %>% 
+  group_by(study) %>% 
+  filter(brand_name  %in% c("PICO + CYPR", "PYRA + EPOX + FLUX", "AACHECK", "AZOX + BENZ", "TFLX + PROT", "BIXF + TFLX + PROT", "TFLX + CYPR", "PICO + BENZ")) %>% 
+  mutate(n3 = n()) %>% 
+  mutate(design = rep(3, length(brand_name))) %>% 
+  filter(n2 == 8) %>% 
+  filter(n3 == 8)
+design3
+
+design4 = rust_sev %>% 
+  group_by(study) %>% 
+  filter(brand_name  %in% c("PICO + CYPR", "PYRA + EPOX + FLUX", "AACHECK", "TFLX + PROT", "BIXF + TFLX + PROT", "PICO + TEBU", "TFLX + CYPR", "PICO + BENZ")) %>% 
+  mutate(n3 = n()) %>% 
+  mutate(design = rep(4, length(brand_name))) %>% 
+  filter(n2 == 8) %>% 
+  filter(n3 == 8)
+design4
+
+design5 = rust_sev %>% 
+  group_by(study) %>% 
+  filter(brand_name  %in% c("PICO + CYPR", "PYRA + EPOX + FLUX", "AACHECK", "AZOX + BENZ", "TFLX + PROT", "PICO + TEBU", "TFLX + CYPR", "PICO + BENZ")) %>% 
+  mutate(n3 = n()) %>% 
+  mutate(design = rep(5, length(brand_name))) %>% 
+  filter(n2 == 8) %>% 
+  filter(n3 == 8)
+design5
+
+design6 = rust_sev %>% 
+  group_by(study) %>% 
+  filter(brand_name  %in% c("PICO + CYPR", "PYRA + EPOX + FLUX", "AACHECK", "BIXF + TFLX + PROT", "PICO + TEBU", "TFLX + CYPR", "PICO + BENZ")) %>% 
+  mutate(n3 = n()) %>% 
+  mutate(design = rep(6, length(brand_name))) %>% 
+  filter(n2 == 7) %>% 
+  filter(n3 == 7)
+design6
+
+design7 = rust_sev %>% 
+  group_by(study) %>% 
+  filter(brand_name  %in% c("PICO + CYPR", "AACHECK", "BIXF + TFLX + PROT", "PICO + TEBU", "TFLX + CYPR", "PICO + BENZ")) %>% 
+  mutate(n3 = n()) %>% 
+  mutate(design = rep(7, length(brand_name))) %>% 
+  filter(n2 == 6) %>% 
+  filter(n3 == 6)
+design7
+
+design8 = rust_sev %>% 
+  group_by(study) %>% 
+  filter(brand_name  %in% c("PICO + CYPR", "AACHECK", "AZOX + BENZ", "TFLX + PROT", "PICO + TEBU", "TFLX + CYPR")) %>% 
+  mutate(n3 = n()) %>% 
+  mutate(design = rep(8, length(brand_name))) %>% 
+  filter(n2 == 6) %>% 
+  filter(n3 == 6)
+design8
+
+design9 = rust_sev %>% 
+  group_by(study) %>% 
+  filter(brand_name  %in% c("PICO + CYPR", "AACHECK", "AZOX + BENZ", "TFLX + PROT", "PICO + TEBU")) %>% 
+  mutate(n3 = n()) %>% 
+  mutate(design = rep(9, length(brand_name))) %>% 
+  filter(n2 == 5) %>% 
+  filter(n3 == 5)
+design9
+
+design10 = rust_sev %>% 
+  group_by(study) %>% 
+  filter(brand_name  %in% c("PICO + CYPR", "AACHECK", "AZOX + BENZ", "PICO + TEBU")) %>% 
+  mutate(n3 = n()) %>% 
+  mutate(design = rep(10, length(brand_name))) %>% 
+  filter(n2 == 4) %>% 
+  filter(n3 == 4)
+design10
+
+sbr_sev_design = rbind(design1, design2, design3, design4, design5, design6, design7, design8, design9, design10)
+
+
+sbr_sev_design %>% 
+  group_by(study,design) %>% 
+  summarize() %>% 
+  tabyl(design)
+```
+
+
+```{r}
+
+library(readr)
+write_csv(sbr_sev_design, "data/dat-sev.csv")
+
+
+library(knitr)
+library(tidyverse)
+rust_sev <- read_csv("data/dat-sev.csv")
+
+rust_sev %>% 
+  group_by(study)
+length(unique(rust_sev$study))
+
+rust_sev %>% 
+tabyl(state)
+
+length(unique(rust_sev$study))
+
+
+summary(rust_sev$sev_check)
+
+
+median = rust_sev %>% 
+  group_by(study, year, brand_name) %>% 
+  filter(brand_name == "AACHECK") %>% 
+  summarise(median = median(sev_check)) %>% 
+  filter(median>60)
+
+length(unique(median$study))
+```
+
+
+
+```{r}
+rust_sev %>%
+  tabyl(brand_name, year)
+
+rust_sev %>%
+  tabyl(brand_name)
+```
+
+
+
+
+## Yield
+
+```{r}
+rust_yld <- sbr_data %>% 
+  filter(mean_yld != "NA")
+
+# Sampling variance for yield
+rust_yld$vi_yld <- with(rust_yld, v_yld/4) # multivariate approach
+
+rust_yld <- rust_yld %>%
+  group_by(study) %>% 
+  mutate(n2 = n()) %>% 
+  filter(n2 != 1)
+
+```
+
+
+### Design groups
+
+```{r}
+rust_yld1 = rust_yld %>% 
+  group_by(study) %>% 
+  summarise(brand_name1=paste(brand_name, collapse=';')) 
+
+rust_yld1 %>% 
+  tabyl(brand_name1)
+```
+
+
+Ten different designs (here design refers to the set of treatments in the trial) were found in the trials reporting soybean yield.
+
+```{r}
+design1 = rust_yld %>% 
+  group_by(study) %>% 
+  filter(brand_name  %in% c("PICO + CYPR", "PYRA + EPOX + FLUX", "AACHECK", "AZOX + BENZ", "TFLX + PROT", "BIXF + TFLX + PROT", "PICO + TEBU", "TFLX + CYPR", "PICO + BENZ")) %>% 
+  mutate(n3 = n()) %>% 
+  mutate(design = rep(1, length(brand_name))) %>% 
+  filter(n2 == 9) %>% 
+  filter(n3 == 9)
+design1
+
+design2 = rust_yld %>% 
+  group_by(study) %>% 
+  filter(brand_name  %in% c("PICO + CYPR", "AACHECK", "AZOX + BENZ", "TFLX + PROT", "BIXF + TFLX + PROT", "PICO + TEBU", "TFLX + CYPR", "PICO + BENZ")) %>% 
+  mutate(n3 = n()) %>% 
+  mutate(design = rep(2, length(brand_name))) %>% 
+  filter(n2 == 8) %>% 
+  filter(n3 == 8)
+design2
+
+design3 = rust_yld %>% 
+  group_by(study) %>% 
+  filter(brand_name  %in% c("PICO + CYPR", "PYRA + EPOX + FLUX", "AACHECK", "AZOX + BENZ", "TFLX + PROT", "BIXF + TFLX + PROT", "TFLX + CYPR", "PICO + BENZ")) %>% 
+  mutate(n3 = n()) %>% 
+  mutate(design = rep(3, length(brand_name))) %>% 
+  filter(n2 == 8) %>% 
+  filter(n3 == 8)
+design3
+
+design4 = rust_yld %>% 
+  group_by(study) %>% 
+  filter(brand_name  %in% c("PICO + CYPR", "PYRA + EPOX + FLUX", "AACHECK", "TFLX + PROT", "BIXF + TFLX + PROT", "PICO + TEBU", "TFLX + CYPR", "PICO + BENZ")) %>% 
+  mutate(n3 = n()) %>% 
+  mutate(design = rep(4, length(brand_name))) %>% 
+  filter(n2 == 8) %>% 
+  filter(n3 == 8)
+design4
+
+design5 = rust_yld %>% 
+  group_by(study) %>% 
+  filter(brand_name  %in% c("PICO + CYPR", "PYRA + EPOX + FLUX", "AACHECK", "AZOX + BENZ", "TFLX + PROT", "PICO + TEBU", "TFLX + CYPR", "PICO + BENZ")) %>% 
+  mutate(n3 = n()) %>% 
+  mutate(design = rep(5, length(brand_name))) %>% 
+  filter(n2 == 8) %>% 
+  filter(n3 == 8)
+design5
+
+design6 = rust_yld %>% 
+  group_by(study) %>% 
+  filter(brand_name  %in% c("PICO + CYPR", "PYRA + EPOX + FLUX", "AACHECK", "BIXF + TFLX + PROT", "PICO + TEBU", "TFLX + CYPR", "PICO + BENZ")) %>% 
+  mutate(n3 = n()) %>% 
+  mutate(design = rep(6, length(brand_name))) %>% 
+  filter(n2 == 7) %>% 
+  filter(n3 == 7)
+design6
+
+design7 = rust_yld %>% 
+  group_by(study) %>% 
+  filter(brand_name  %in% c("PICO + CYPR", "AACHECK", "BIXF + TFLX + PROT", "PICO + TEBU", "TFLX + CYPR", "PICO + BENZ")) %>% 
+  mutate(n3 = n()) %>% 
+  mutate(design = rep(7, length(brand_name))) %>% 
+  filter(n2 == 6) %>% 
+  filter(n3 == 6)
+design7
+
+design8 = rust_yld %>% 
+  group_by(study) %>% 
+  filter(brand_name  %in% c("PICO + CYPR", "AACHECK", "AZOX + BENZ", "TFLX + PROT", "PICO + TEBU", "TFLX + CYPR")) %>% 
+  mutate(n3 = n()) %>% 
+  mutate(design = rep(8, length(brand_name))) %>% 
+  filter(n2 == 6) %>% 
+  filter(n3 == 6)
+design8
+
+design9 = rust_yld %>% 
+  group_by(study) %>% 
+  filter(brand_name  %in% c("PICO + CYPR", "AACHECK", "AZOX + BENZ", "TFLX + PROT", "PICO + TEBU")) %>% 
+  mutate(n3 = n()) %>% 
+  mutate(design = rep(9, length(brand_name))) %>% 
+  filter(n2 == 5) %>% 
+  filter(n3 == 5)
+design9
+
+design10 = rust_yld %>% 
+  group_by(study) %>% 
+  filter(brand_name  %in% c("PICO + CYPR", "PYRA + EPOX + FLUX", "AACHECK", "TFLX + PROT", "PICO + TEBU", "TFLX + CYPR", "PICO + BENZ")) %>% 
+  mutate(n3 = n()) %>% 
+  mutate(design = rep(10, length(brand_name))) %>% 
+  filter(n2 == 7) %>% 
+  filter(n3 == 7)
+design10
+
+sbr_yld_design = rbind(design1, design2, design3, design4, design5, design6, design7, design8, design9, design10)
+
+
+sbr_yld_design %>% 
+  group_by(study,design) %>% 
+  summarize() %>% 
+  tabyl(design)
+```
+
+
+```{r}
+library(readr)
+write_csv(sbr_yld_design, "data/dat-yld.csv")
+
+
+library(readr)
+library(tidyverse)
+rust_yld <- read_csv("data/dat-yld.csv")
+rust_yld %>% 
+  group_by(study)
+length(unique(rust_yld$study))
+
+rust_yld %>% 
+  group_by(study, n2) %>%
+  summarise() %>% 
+  tabyl(n2)
+
+yld_year = rust_yld %>% 
+  filter(brand_name == "AACHECK") %>% 
+  filter(year == 2020)
+
+summary(yld_year$yld_check)
+```
+
+
+
+
+```{r}
+rust_yld %>%
+  tabyl(brand_name, year)
+
+rust_yld %>%
+  tabyl(brand_name)
+```
+
+

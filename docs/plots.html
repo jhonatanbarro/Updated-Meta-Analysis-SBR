@@ -1,0 +1,1351 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Plots</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Updated Meta - analysis SBR</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa fa fa-home"></span>
+     
+    About
+  </a>
+</li>
+<li>
+  <a href="data.html">
+    <span class="fa fa fa fa-table"></span>
+     
+    Data
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa fa fa-file-code-o"></span>
+     
+    Documented analysis
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="code-sev.html">SBR Severity</a>
+    </li>
+    <li>
+      <a href="code-yld.html">Soybean yield</a>
+    </li>
+    <li>
+      <a href="simulations.html">Economic Analysis</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="plots.html">
+    <span class="fas fa-bar-chart"></span>
+     
+    Publication-ready plots
+  </a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Plots</h1>
+
+</div>
+
+
+<div id="data-import" class="section level1">
+<h1>Data import</h1>
+<div id="histogramas" class="section level2">
+<h2>Histogramas</h2>
+<pre class="r"><code>## Log of the Effect-sizes
+rust1 &lt;- rust1 %&gt;%
+  mutate(
+    log_sev = log(sev),
+    log_yld = log(yld))
+
+
+hist_log_sev &lt;- ggplot(rust1, aes(log_sev)) + 
+  geom_histogram(bin = 10, fill = &quot;steelblue&quot;, color = &quot;white&quot;) + 
+  theme_minimal_hgrid() + 
+  scale_y_continuous(breaks = c(0, 500, 1000, 1500), limits = c(0, 1500)) +
+  xlab(&quot;log(SBR severity)&quot;)
+
+
+hist_sev &lt;- ggplot(rust1, aes(sev)) + 
+  geom_histogram(bin = 10, fill = &quot;steelblue&quot;, color = &quot;white&quot;) + 
+  theme_minimal_hgrid() +
+  xlab(&quot;SBR Severity (%)&quot;)
+
+
+
+hist_yld &lt;- ggplot(rust1, aes(yld)) + 
+  geom_histogram(bin = 10,fill = &quot;steelblue&quot;, color = &quot;white&quot;) + 
+  theme_minimal_hgrid() +
+  xlab(&quot;Yield (Kg/ha)&quot;)
+
+
+library(cowplot)
+hist_plot &lt;- plot_grid(hist_sev, hist_log_sev, hist_yld, labels = c(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;), nrow = 3, align = &quot;V&quot;)</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<pre class="r"><code>hist_plot</code></pre>
+<p><img src="plots_files/figure-html/unnamed-chunk-1-1.png" width="480" /></p>
+<pre class="r"><code>ggsave(&quot;Figures/histograms.png&quot;, width = 6, height = 9, dpi = 600)</code></pre>
+</div>
+<div id="boxplots" class="section level2">
+<h2>Boxplots</h2>
+<div id="severity" class="section level3">
+<h3>Severity</h3>
+<pre class="r"><code>library(tidyverse)
+rust_sev &lt;- read_csv(&quot;data/dat-sev.csv&quot;)
+rust_sev &lt;- rust_sev %&gt;% 
+mutate(region = case_when(
+    state == &quot;MT&quot; ~ &quot;NW&quot;,
+    state == &quot;BA&quot; ~ &quot;NW&quot;,
+    state == &quot;DF&quot; ~ &quot;NW&quot;,
+    state == &quot;MS&quot; ~ &quot;NW&quot;,
+    state == &quot;GO&quot; ~ &quot;NW&quot;,
+    state == &quot;TO&quot; ~ &quot;NW&quot;,
+    state == &quot;PR&quot; ~ &quot;SE&quot;,
+    state == &quot;MG&quot; ~ &quot;NW&quot;,
+    state == &quot;SP&quot; ~ &quot;SE&quot;,
+    state == &quot;RS&quot; ~ &quot;SE&quot;)) 
+library(plyr)
+rust_sev$brand_name &lt;- revalue(rust_sev$brand_name, c(&quot;AACHECK&quot; = &quot;CHECK&quot;))
+detach(&quot;package:plyr&quot;, unload = TRUE)
+
+
+
+
+rust_sev &lt;- rust_sev  
+rust_sev$brand_name &lt;- factor(rust_sev$brand_name, levels = c(&quot;CHECK&quot;, &quot;BIXF + TFLX + PROT&quot;, &quot;PICO + BENZ&quot;, &quot;PYRA + EPOX + FLUX&quot;, &quot;AZOX + BENZ&quot;,  &quot;TFLX + PROT&quot;,&quot;PICO + TEBU&quot;, &quot;TFLX + CYPR&quot;, &quot;PICO + CYPR&quot;))
+ 
+
+box_region_sev = rust_sev %&gt;%
+  filter(brand_name == &quot;CHECK&quot;) %&gt;%
+  ggplot(aes(factor(region), sev_check)) +
+  geom_jitter(width = 0.15, size = 2, color = &quot;gray85&quot;, alpha = 1) +
+  geom_boxplot(size = 1, outlier.shape = NA, fill = NA, color = &quot;#E05313&quot;, width = 0.5) +
+  theme_minimal_hgrid(font_size = 10)+
+  labs(x = &quot;Region&quot;, y = &quot;SBR severity (%) in the CHECK&quot;) +
+  scale_y_continuous(breaks = c(0,20,40,60,80,100), limits = c(0,100))+
+  theme(axis.title.x = element_blank(),
+        axis.text.x = element_blank(),
+        axis.title.y = element_text(size=12, face = &quot;bold&quot;),
+        panel.border = element_rect(color = &quot;gray60&quot;, size=1)
+        # axis.text.y = element_text(size=12),
+        # axis.title.y = element_text(size=14, face = &quot;bold&quot;)
+        )
+box_region_sev</code></pre>
+<p><img src="plots_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<pre class="r"><code>box_sev &lt;- ggplot(rust_sev, aes(brand_name, mean_sev)) +
+  geom_jitter(width = 0.15, size = 2, color = &quot;gray85&quot;, alpha = 1) +
+  geom_boxplot(size = 1, outlier.shape = NA, fill = NA, color = &quot;#E05313&quot;, width = 0.5) +
+  theme_minimal_hgrid(font_size = 10)+
+  labs(x = &quot;Fungicide&quot;, y = &quot;SBR Severity (%)&quot;) +
+  scale_y_continuous(breaks = c(0,20,40,60,80,100), limits = c(0,100))+
+  theme(axis.title.x = element_blank(),
+        axis.text.x = element_blank(),
+        axis.title.y = element_text(size=12, face = &quot;bold&quot;),
+        panel.border = element_rect(color = &quot;gray60&quot;, size=1)
+        # axis.text.y = element_text(size=12),
+        # axis.title.y = element_text(size=14, face = &quot;bold&quot;)
+        )
+box_sev</code></pre>
+<p><img src="plots_files/figure-html/unnamed-chunk-2-2.png" width="672" /></p>
+<pre class="r"><code>sev_year &lt;- rust_sev %&gt;%
+  filter(brand_name == &quot;CHECK&quot;) %&gt;%
+  ggplot(aes(factor(year), sev_check)) +
+  geom_jitter(width = 0.15, size = 2, color = &quot;gray85&quot;, alpha = 1) +
+  geom_boxplot(size = 1, outlier.shape = NA, fill = NA, color = &quot;#E05313&quot;, width = 0.5) +
+  theme_minimal_hgrid(font_size = 10)+
+  labs(x = &quot;Harvest Season&quot;, y = &quot;&quot;) +
+  scale_y_continuous(breaks = c(0,20,40,60,80,100), limits = c(0,100))+
+  theme(axis.title.x = element_blank(),
+        axis.text.x = element_blank(),
+        axis.text.y = element_text(color = NA, size = 4),
+        axis.title.y = element_blank(),
+        panel.border = element_rect(color = &quot;gray60&quot;, size=1)
+        # axis.text.y = element_text(size=12),
+        # axis.title.y = element_text(size=14, face = &quot;bold&quot;)
+        )
+sev_year</code></pre>
+<p><img src="plots_files/figure-html/unnamed-chunk-2-3.png" width="672" /></p>
+</div>
+<div id="yield" class="section level3">
+<h3>Yield</h3>
+<!-- #FF4018 -->
+<pre class="r"><code>library(tidyverse)
+rust_yld &lt;- read_csv(&quot;data/dat-yld.csv&quot;)
+rust_yld = rust_yld %&gt;% 
+mutate(region = case_when(
+    state == &quot;MT&quot; ~ &quot;NW&quot;,
+    state == &quot;BA&quot; ~ &quot;NW&quot;,
+    state == &quot;DF&quot; ~ &quot;NW&quot;,
+    state == &quot;MS&quot; ~ &quot;NW&quot;,
+    state == &quot;GO&quot; ~ &quot;NW&quot;,
+    state == &quot;TO&quot; ~ &quot;NW&quot;,
+    state == &quot;PR&quot; ~ &quot;SE&quot;,
+    state == &quot;MG&quot; ~ &quot;NW&quot;,
+    state == &quot;SP&quot; ~ &quot;SE&quot;,
+    state == &quot;RS&quot; ~ &quot;SE&quot;)) 
+library(plyr)
+rust_yld$brand_name &lt;- revalue(rust_yld$brand_name, c(&quot;AACHECK&quot; = &quot;CHECK&quot;))
+detach(&quot;package:plyr&quot;, unload = TRUE)
+
+
+rust_yld &lt;- rust_yld  
+rust_yld$brand_name &lt;- factor(rust_yld$brand_name, levels = c(&quot;CHECK&quot;, &quot;BIXF + TFLX + PROT&quot;, &quot;PICO + BENZ&quot;, &quot;PYRA + EPOX + FLUX&quot;, &quot;AZOX + BENZ&quot;,  &quot;TFLX + PROT&quot;,&quot;PICO + TEBU&quot;, &quot;TFLX + CYPR&quot;, &quot;PICO + CYPR&quot;))
+
+box_region_yld = rust_yld %&gt;% 
+ filter(brand_name == &quot;CHECK&quot;) %&gt;%
+  ggplot(aes(factor(region), yld_check)) +
+  geom_jitter(width = 0.15, size = 2, color = &quot;gray85&quot;, alpha = 1) +
+  geom_boxplot(size = 1, outlier.shape = NA, fill = NA, color = &quot;#4D1C06&quot;, width = 0.5) +
+  theme_minimal_hgrid(font_size = 10)+
+  labs(x = &quot;Region&quot;, y = &quot;Yield (kg/ha) in the CHECK&quot;) +
+  scale_y_continuous(breaks = c(0,1000,2000,3000,4000,5000), limits = c(0, 5000))+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, size=12),
+        axis.title.x = element_text(size=12, face = &quot;bold&quot;),
+        axis.title.y = element_text(size=12, face = &quot;bold&quot;),
+        panel.border = element_rect(color = &quot;gray60&quot;, size=1)
+        # axis.text.y = element_text(size=12),
+        # axis.title = element_text(size=14, face = &quot;bold&quot;)
+         )
+box_region_yld</code></pre>
+<p><img src="plots_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<pre class="r"><code>box_yld &lt;- ggplot(rust_yld, aes(brand_name, mean_yld)) +
+  geom_jitter(width = 0.15, size = 2, color = &quot;gray85&quot;, alpha = 1) +
+  geom_boxplot(size = 1, outlier.shape = NA, fill = NA, color = &quot;#4D1C06&quot;, width = 0.5) +
+  theme_minimal_hgrid(font_size = 10)+
+  labs(x = &quot;Fungicide&quot;, y = &quot;Yield (kg/ha)&quot;) +
+  scale_y_continuous(breaks = c(0,1000,2000,3000,4000,5000), limits = c(0, 5000))+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, size=12),
+        axis.title.x = element_text(size=12, face = &quot;bold&quot;),
+        axis.title.y = element_text(size=12, face = &quot;bold&quot;),
+        panel.border = element_rect(color = &quot;gray60&quot;, size=1)
+        # axis.text.y = element_text(size=12),
+        # axis.title = element_text(size=14, face = &quot;bold&quot;)
+        )
+box_yld</code></pre>
+<p><img src="plots_files/figure-html/unnamed-chunk-3-2.png" width="672" /></p>
+<pre class="r"><code>yld_year &lt;- rust_yld %&gt;%
+  filter(brand_name == &quot;CHECK&quot;) %&gt;%
+  ggplot(aes(factor(year), yld_check)) +
+  geom_jitter(width = 0.15, size = 2, color = &quot;gray85&quot;, alpha = 1) +
+  geom_boxplot(size = 1, outlier.shape = NA, fill = NA, color = &quot;#4D1C06&quot;, width = 0.5) +
+  theme_minimal_hgrid(font_size = 10)+
+  labs(x = &quot;Harvest Season&quot;, y = &quot;&quot;) +
+  scale_y_continuous(breaks = c(0,1000,2000,3000,4000,5000), limits = c(0, 5000))+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, size=12),
+        axis.title.x = element_text(size=12, face = &quot;bold&quot;),
+        axis.title.y = element_blank(),
+        axis.text.y  = element_text(color = NA,size = 4),
+        panel.border = element_rect(color = &quot;gray60&quot;, size=1)
+        # axis.text.y = element_text(size=12),
+        # axis.title = element_text(size=14, face = &quot;bold&quot;)
+        )
+yld_year</code></pre>
+<p><img src="plots_files/figure-html/unnamed-chunk-3-3.png" width="672" /></p>
+<pre class="r"><code>library(patchwork)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;patchwork&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:cowplot&#39;:
+## 
+##     align_plots</code></pre>
+<pre class="r"><code>box_sev + box_region_sev + sev_year + 
+  box_yld+ box_region_yld + yld_year + 
+  plot_layout(heights = c(1, 1),
+              widths = c(1,.3,.7))+
+  plot_annotation(tag_levels = &#39;A&#39;) &amp;
+  theme(panel.border = element_blank())</code></pre>
+<p><img src="plots_files/figure-html/unnamed-chunk-4-1.png" width="1152" /></p>
+<pre class="r"><code>ggsave(&quot;Figures/Combo_BOX.png&quot;, width = 10, height = 8, dpi = 600)</code></pre>
+</div>
+</div>
+<div id="severity-x-yield" class="section level2">
+<h2>Severity x Yield</h2>
+<pre class="r"><code>library(cowplot)
+library(ggrepel)
+library(tidyverse)
+library(here)</code></pre>
+<pre><code>## here() starts at C:/Users/User/Google Drive/Jhonatan-Barro/Dados-ferrugem-soja-CAF/paper-NMA-2015-2020/R-codes</code></pre>
+<pre class="r"><code>yld = read_excel(here(&quot;data&quot;,&quot;yld_kg.xlsx&quot;)) 
+sev = read_excel(here(&quot;data&quot;,&quot;efficacy_sev.xlsx&quot;)) 
+
+gain = full_join(sev, yld, by = &quot;fungicide&quot;)
+  
+ 
+gain$fungicide &lt;- factor(gain$fungicide, levels = c(&quot;BIXF + TFLX + PROT&quot;, &quot;PICO + BENZ&quot;, &quot;PYRA + EPOX + FLUX&quot;, &quot;AZOX + BENZ&quot;,  &quot;TFLX + PROT&quot;,&quot;PICO + TEBU&quot;, &quot;TFLX + CYPR&quot;, &quot;PICO + CYPR&quot;))
+
+gain %&gt;% 
+  ggplot(aes(efficacy, yld)) + 
+  geom_errorbar(aes(ymin = yld_lower, ymax = yld_upper, color = fungicide), alpha = 0.8, width=0, size= 0.8)+
+  geom_errorbarh(aes(xmin = efficacy_lw, xmax = efficacy_up, color = fungicide), alpha = 0.8, height= 0, size= 0.8)+
+  geom_point(aes(efficacy, yld, color = fungicide), size = 3)+
+  scale_y_continuous(breaks=c(400,600,800,1000,1200), limits=c(400,1200))+
+  scale_x_continuous(breaks=c(50,60,70,80), limits=c(50,80))+
+  theme_minimal_grid()+
+  scale_color_calc()+
+  labs(y = &quot;Yield response (kg/ha)&quot;, x = &quot;Efficacy (%)&quot;, color = &quot;Fungicide&quot;)+
+  theme(axis.text=element_text(size=12), 
+        axis.title=element_text(size=14, face = &quot;bold&quot;),
+        legend.position = &quot;right&quot;,
+        legend.title.align = 0.5,
+        legend.title = element_text(size=12, face = &quot;bold&quot;))</code></pre>
+<p><img src="plots_files/figure-html/unnamed-chunk-5-1.png" width="768" /></p>
+<pre class="r"><code>ggsave(&quot;Figures/sev_yld.png&quot;, width = 8, height = 5, dpi = 600)</code></pre>
+</div>
+<div id="mod-year" class="section level2">
+<h2>Mod Year</h2>
+<div id="efficacy" class="section level3">
+<h3>Efficacy</h3>
+<pre class="r"><code>library(here)
+dec_efficacy = read_excel(&quot;data/predicted_efficacy.xlsx&quot;)
+
+
+
+
+library(tidyverse)
+rust_sev &lt;- read_csv(&quot;data/dat-sev.csv&quot;)</code></pre>
+<pre><code>## 
+## -- Column specification --------------------------------------------------------
+## cols(
+##   study = col_double(),
+##   year = col_double(),
+##   location = col_character(),
+##   state = col_character(),
+##   n_spray = col_double(),
+##   brand_name = col_character(),
+##   mean_sev = col_double(),
+##   mean_yld = col_double(),
+##   v_sev = col_double(),
+##   v_yld = col_double(),
+##   yld_check = col_double(),
+##   v_yld_check = col_double(),
+##   sev_check = col_double(),
+##   v_sev_check = col_double(),
+##   log_sev = col_double(),
+##   vi_sev = col_double(),
+##   n2 = col_double(),
+##   n3 = col_double(),
+##   design = col_double()
+## )</code></pre>
+<pre class="r"><code>sbr_effic &lt;- rust_sev %&gt;%
+  mutate(efficacy = (1-(mean_sev/sev_check))) %&gt;% 
+  mutate(efficacy1 = efficacy*100) %&gt;% 
+  filter(brand_name!= &quot;AACHECK&quot;)  
+  
+
+sbr_effic &lt;- sbr_effic %&gt;% 
+mutate(region = case_when(
+    state == &quot;MT&quot; ~ &quot;North&quot;,
+    state == &quot;BA&quot; ~ &quot;North&quot;,
+    state == &quot;DF&quot; ~ &quot;North&quot;,
+    state == &quot;MS&quot; ~ &quot;North&quot;,
+    state == &quot;GO&quot; ~ &quot;North&quot;,
+    state == &quot;TO&quot; ~ &quot;North&quot;,
+    state == &quot;PR&quot; ~ &quot;South&quot;,
+    state == &quot;MG&quot; ~ &quot;North&quot;,
+    state == &quot;SP&quot; ~ &quot;South&quot;,
+    state == &quot;RS&quot; ~ &quot;South&quot;)) 
+
+dec_efficacy %&gt;% 
+  mutate(brand_name = factor(brand_name, levels = c(&quot;BIXF + TFLX + PROT&quot;, &quot;PICO + BENZ&quot;, &quot;PYRA + EPOX + FLUX&quot;, &quot;AZOX + BENZ&quot;,  &quot;TFLX + PROT&quot;,&quot;PICO + TEBU&quot;, &quot;TFLX + CYPR&quot;, &quot;PICO + CYPR&quot;))) %&gt;%
+  ggplot()+
+  geom_jitter(data = sbr_effic, aes(year, efficacy*100, size = vi_sev, color = region),  alpha= 0.13, width = .2)+
+  geom_line(data = dec_efficacy, aes(year, mean_efficacy), size = 1.7, color = &quot;#E05313&quot;)+
+  geom_line(data = dec_efficacy, aes(year, CIL), linetype=&quot;dashed&quot;, size = 1, alpha = 1)+
+  geom_line(data = dec_efficacy, aes(year, CIU), linetype=&quot;dashed&quot;, size = 1, alpha = 1)+
+  theme_minimal_hgrid(font_size = 10)+
+  scale_size_continuous(range = c(3,10), breaks = c(1,10,100))+
+  scale_color_manual(values=c(&quot;steelblue&quot;, &quot;#009628&quot;),
+                     name = &quot;Region&quot;,
+                     breaks=c(&quot;North&quot;, &quot;South&quot;),
+                     labels=c(&quot;NW&quot;, &quot;SE&quot;))+
+  guides(color = guide_legend(override.aes = list(size=2.5)))+
+  theme(legend.position = &quot;top&quot;,
+        legend.justification = &quot;top&quot;,
+        legend.direction = &quot;horizontal&quot;,
+        legend.key.height = unit(1, &quot;cm&quot;),
+        legend.title = element_text(size = 12, face = &quot;bold&quot;),
+        legend.text = element_text(size = 12),
+        panel.grid = element_blank(),
+        axis.text.x = element_text(size = 10),
+        axis.text.y = element_text(size = 10),
+        axis.title.x = element_text(size=14, face = &quot;bold&quot;),
+        axis.title.y = element_text(size=14, face = &quot;bold&quot;),
+        strip.text = element_text(size = 12, color = &quot;black&quot;),
+        strip.background = element_rect(colour=&quot;white&quot;, fill=&quot;white&quot;),
+        panel.border = element_rect(color = &quot;gray60&quot;, size=1))+
+  scale_x_continuous(breaks=c(2015, 2016, 2017, 2018, 2019, 2020), limits=c(2015,2020))+
+  labs(y = &quot;Efficacy (%)&quot;, x = &quot;Crop Season&quot;, color = &quot;Region&quot;, size = &quot;Sampling Variance&quot;)+
+  facet_wrap(~factor(brand_name), ncol = 2)+
+  coord_cartesian(ylim=c(0,100))+
+  labs(y = &quot;Efficacy (%)&quot;, x = &quot;Harvest Season&quot;, size = &quot;Sampling Variance&quot;, color = &quot;Region&quot;)</code></pre>
+<pre><code>## Warning: Removed 124 rows containing missing values (geom_point).</code></pre>
+<p><img src="plots_files/figure-html/unnamed-chunk-6-1.png" width="960" /></p>
+<pre class="r"><code>ggsave(&quot;Figures/decline_efficacy.png&quot;, width = 8, height = 10, dpi = 600)</code></pre>
+<pre><code>## Warning: Removed 124 rows containing missing values (geom_point).</code></pre>
+</div>
+<div id="yield-1" class="section level3">
+<h3>Yield</h3>
+<pre class="r"><code>library(cowplot)
+
+dec_yld = read_excel(&quot;data/predicted_yield.xlsx&quot;)
+rust_yld &lt;- read_csv(&quot;data/dat-yld.csv&quot;)</code></pre>
+<pre><code>## 
+## -- Column specification --------------------------------------------------------
+## cols(
+##   study = col_double(),
+##   year = col_double(),
+##   location = col_character(),
+##   state = col_character(),
+##   n_spray = col_double(),
+##   brand_name = col_character(),
+##   mean_sev = col_double(),
+##   mean_yld = col_double(),
+##   v_sev = col_double(),
+##   v_yld = col_double(),
+##   yld_check = col_double(),
+##   v_yld_check = col_double(),
+##   sev_check = col_double(),
+##   v_sev_check = col_double(),
+##   vi_yld = col_double(),
+##   n2 = col_double(),
+##   n3 = col_double(),
+##   design = col_double()
+## )</code></pre>
+<pre class="r"><code>yld_gain &lt;- rust_yld %&gt;%
+  mutate(gain = mean_yld - yld_check) %&gt;% 
+  filter(brand_name!= &quot;AACHECK&quot;)  
+  
+
+yld_gain &lt;- yld_gain %&gt;% 
+mutate(region = case_when(
+    state == &quot;MT&quot; ~ &quot;North&quot;,
+    state == &quot;BA&quot; ~ &quot;North&quot;,
+    state == &quot;DF&quot; ~ &quot;North&quot;,
+    state == &quot;MS&quot; ~ &quot;North&quot;,
+    state == &quot;GO&quot; ~ &quot;North&quot;,
+    state == &quot;TO&quot; ~ &quot;North&quot;,
+    state == &quot;PR&quot; ~ &quot;South&quot;,
+    state == &quot;MG&quot; ~ &quot;North&quot;,
+    state == &quot;SP&quot; ~ &quot;South&quot;,
+    state == &quot;RS&quot; ~ &quot;South&quot;))
+
+
+dec_yld %&gt;% 
+  mutate(brand_name = factor(brand_name, levels = c(&quot;BIXF + TFLX + PROT&quot;, &quot;PICO + BENZ&quot;, &quot;PYRA + EPOX + FLUX&quot;, &quot;AZOX + BENZ&quot;,  &quot;TFLX + PROT&quot;,&quot;PICO + TEBU&quot;, &quot;TFLX + CYPR&quot;, &quot;PICO + CYPR&quot;))) %&gt;%
+  ggplot()+
+  geom_jitter(data = yld_gain, aes(year, gain, size = vi_yld, color = region), alpha= 0.13, width = 0.2)+
+  geom_line(data = dec_yld, aes(year, mean_gain), size = 1.7, color = &quot;#4D1C06&quot;)+
+  geom_line(data = dec_yld, aes(year, CIL), linetype=&quot;dashed&quot;, size = 1, alpha = 1)+
+  geom_line(data = dec_yld, aes(year, CIU), linetype=&quot;dashed&quot;, size =1, alpha = 1)+
+  theme_minimal_hgrid(font_size = 10)+
+  scale_color_manual(values=c(&quot;steelblue&quot;, &quot;#009628&quot;),
+                     name = &quot;Region&quot;,
+                     breaks=c(&quot;North&quot;, &quot;South&quot;),
+                     labels=c(&quot;NW&quot;, &quot;SE&quot;))+
+  scale_size_continuous(range = c(.01,5))+
+  scale_size_continuous(range = c(.5,8), breaks = c(600,6000,60000))+
+  guides(color = guide_legend(override.aes = list(size=2.5)))+
+  theme(legend.position = &quot;top&quot;,
+        legend.justification = &quot;top&quot;,
+        legend.direction = &quot;horizontal&quot;,
+        legend.key.height = unit(1, &quot;cm&quot;),
+        legend.title = element_text(size = 12, face = &quot;bold&quot;),
+        legend.text = element_text(size = 12),
+        panel.grid = element_blank(),
+        axis.text.x = element_text(size = 10),
+        axis.text.y = element_text(size = 10),
+        axis.title.x = element_text(size=14, face = &quot;bold&quot;),
+        axis.title.y = element_text(size=14, face = &quot;bold&quot;),
+        strip.text = element_text(size = 12, color = &quot;black&quot;),
+        strip.background = element_rect(colour=&quot;white&quot;, fill=&quot;white&quot;),
+        panel.border = element_rect(color = &quot;gray60&quot;, size=1))+
+  scale_x_continuous(breaks=c(2015, 2016, 2017, 2018, 2019, 2020), limits=c(2015,2020))+
+  labs(y = &quot;Yield response (kg/ha)&quot;, x = &quot;Harvest Season&quot;,  color = &quot;Region&quot;, size = &quot;Sampling Variance&quot;)+
+  ylim(0,3000)+
+  facet_wrap(~factor(brand_name), ncol = 2)</code></pre>
+<pre><code>## Scale for &#39;size&#39; is already present. Adding another scale for &#39;size&#39;, which
+## will replace the existing scale.</code></pre>
+<pre><code>## Warning: Removed 137 rows containing missing values (geom_point).</code></pre>
+<p><img src="plots_files/figure-html/unnamed-chunk-7-1.png" width="960" /></p>
+<pre class="r"><code>ggsave(&quot;Figures/decline_yield.png&quot;, width = 8, height = 10, dpi = 600)</code></pre>
+<pre><code>## Warning: Removed 137 rows containing missing values (geom_point).</code></pre>
+</div>
+</div>
+<div id="mod-region" class="section level2">
+<h2>Mod Region</h2>
+<pre class="r"><code>library(cowplot)
+library(tidyverse)
+library(here)
+
+yld_region = read_excel(here(&quot;data&quot;,&quot;yld_region.xlsx&quot;)) 
+names(yld_region) = c(&quot;fungicide&quot;, &quot;region&quot;, &quot;yld&quot;, &quot;yld_lw&quot;, &quot;yld_upp&quot;)
+yld_overall = read_excel(here(&quot;data&quot;,&quot;yld_kg.xlsx&quot;)) %&gt;% 
+  mutate(region = rep(&quot;Overall&quot;, length(fungicide)))
+names(yld_overall) = c(&quot;yld&quot;,  &quot;yld_lw&quot;, &quot;yld_upp&quot;, &quot;fungicide&quot;, &quot;region&quot;)
+yld = rbind(yld_overall, yld_region)
+
+efficacy_region = read_excel(here(&quot;data&quot;,&quot;eff_region.xlsx&quot;))
+names(efficacy_region) = c(&quot;fungicide&quot;, &quot;region&quot;, &quot;efficacy&quot;, &quot;eff_lw&quot;, &quot;eff_upp&quot;)
+sev = read_excel(here(&quot;data&quot;,&quot;efficacy_sev.xlsx&quot;)) %&gt;% 
+  mutate(region = rep(&quot;Overall&quot;, length(fungicide)))
+names(sev) = c(&quot;efficacy&quot;,  &quot;eff_lw&quot;, &quot;eff_upp&quot;, &quot;fungicide&quot;, &quot;region&quot;)
+efficacy = rbind(sev, efficacy_region)
+
+gain1 = left_join(efficacy, yld) %&gt;% 
+  filter(region != &quot;Overall&quot;) %&gt;% 
+  mutate(sig = case_when(
+    fungicide == &quot;BIXF + TFLX + PROT&quot; ~ &quot;sig&quot;,
+    fungicide == &quot;PICO + CYPR&quot; ~ &quot;sig&quot;,
+    fungicide == &quot;PICO + TEBU&quot; ~ &quot;sig&quot;,
+    fungicide == &quot;TFLX + CYPR&quot; ~ &quot;sig&quot;,
+    fungicide == &quot;TFLX + PROT&quot; ~ &quot;sig&quot;,
+    fungicide == &quot;AZOX + BENZ&quot; ~ &quot;ns&quot;,
+    fungicide == &quot;PICO + BENZ&quot; ~ &quot;ns&quot;,
+    fungicide == &quot;PYRA + EPOX + FLUX&quot; ~ &quot;ns&quot;,
+  ))</code></pre>
+<pre><code>## Joining, by = c(&quot;fungicide&quot;, &quot;region&quot;)</code></pre>
+<pre class="r"><code>g1 = gain1 %&gt;%
+ mutate(fungicide = factor(fungicide, levels = c(&quot;PICO + CYPR&quot;, &quot;TFLX + CYPR&quot;, &quot;PICO + TEBU&quot;,  &quot;TFLX + PROT&quot;, &quot;AZOX + BENZ&quot;, &quot;PYRA + EPOX + FLUX&quot;, &quot;PICO + BENZ&quot;, &quot;BIXF + TFLX + PROT&quot;))) %&gt;%
+  mutate(region = factor(region, levels = c(&quot;South&quot;,&quot;North&quot;))) %&gt;%
+  ggplot(aes(fungicide, efficacy)) +
+  geom_errorbar(aes(ymin = eff_lw,ymax = eff_upp, color = region, shape = sig), width = 0, size = 1,  position = position_dodge(0.3))+
+  labs(y = &quot;Efficacy (%)&quot;, x = &quot;Fungicide&quot;,  color = &quot;Region&quot;, shape = &quot;&quot;)+
+  scale_y_continuous(breaks=c(50,60,70,80,90,100))+
+  geom_point(aes(fungicide, efficacy, color = region),  position = position_dodge(0.3), size = 3.5) +
+  geom_point(aes(x =fungicide, y = 90,  shape = sig), size = 6, color = &quot;red&quot;)+
+  theme_minimal_grid()+
+  theme(axis.text=element_text(size=10),
+        legend.justification = &quot;center&quot;,
+        axis.title=element_text(size=10, face = &quot;bold&quot;),
+        legend.position = &quot;top&quot;,
+        panel.border = element_rect(color = &quot;gray60&quot;, size=1),
+        legend.title = element_text(size = 10, face = &quot;bold&quot;),
+        legend.text = element_text(size = 10, face = &quot;italic&quot;))+
+  scale_color_manual(values=c(&quot;steelblue&quot;, &quot;#009628&quot;),
+                     name = &quot;Region&quot;,
+                     breaks=c(&quot;North&quot;,  &quot;South&quot;),
+                     labels=c(&quot;NW&quot;, &quot;SE&quot;))+
+  # scale_shape_manual(values = c(1,16),
+  #                   labels=c(&quot;P &gt; 0.05&quot;,  &quot;P \u2264 0.05&quot;))+
+  scale_shape_manual(values = c(&quot; &quot;,&quot;*&quot;),
+                    labels=c(&quot;&quot;,  &quot;P \u2264 0.05&quot;))+
+  coord_fixed()+
+  coord_flip()</code></pre>
+<pre><code>## Warning: Ignoring unknown aesthetics: shape</code></pre>
+<pre><code>## Coordinate system already present. Adding new coordinate system, which will replace the existing one.</code></pre>
+<pre class="r"><code>gain2 = left_join(efficacy, yld) %&gt;% 
+  filter(region != &quot;Overall&quot;) %&gt;% 
+  mutate(sig = case_when(
+    fungicide == &quot;BIXF + TFLX + PROT&quot; ~ &quot;ns&quot;,
+    fungicide == &quot;PICO + CYPR&quot; ~ &quot;sig&quot;,
+    fungicide == &quot;PICO + TEBU&quot; ~ &quot;sig&quot;,
+    fungicide == &quot;TFLX + CYPR&quot; ~ &quot;sig&quot;,
+    fungicide == &quot;TFLX + PROT&quot; ~ &quot;sig&quot;,
+    fungicide == &quot;AZOX + BENZ&quot; ~ &quot;ns&quot;,
+    fungicide == &quot;PICO + BENZ&quot; ~ &quot;ns&quot;,
+    fungicide == &quot;PYRA + EPOX + FLUX&quot; ~ &quot;ns&quot;,
+  ))</code></pre>
+<pre><code>## Joining, by = c(&quot;fungicide&quot;, &quot;region&quot;)</code></pre>
+<pre class="r"><code>g2 = gain2 %&gt;%
+  mutate(fungicide = factor(fungicide, levels = c(&quot;PICO + CYPR&quot;, &quot;TFLX + CYPR&quot;, &quot;PICO + TEBU&quot;,  &quot;TFLX + PROT&quot;, &quot;AZOX + BENZ&quot;, &quot;PYRA + EPOX + FLUX&quot;, &quot;PICO + BENZ&quot;, &quot;BIXF + TFLX + PROT&quot;))) %&gt;%
+  mutate(region = factor(region, levels = c(&quot;South&quot;,&quot;North&quot;))) %&gt;%
+  ggplot(aes(fungicide, yld)) +
+  geom_errorbar(aes(ymin = yld_lw, ymax = yld_upp, color = region, shape = sig), width = 0, size = 1,  position = position_dodge(0.3))+
+  labs(y = &quot;Yield response (kg/ha)&quot;, x = &quot;Fungicide&quot;,  color = &quot;Region&quot;, shape = &quot;&quot;)+
+  scale_y_continuous(breaks=c(500,750,1000,1250))+
+  geom_point(aes(fungicide, yld, color = region),  position = position_dodge(0.3), size = 3.5) +
+  geom_point(aes(x =fungicide, y = 1400,  shape = sig), size = 6, color = &quot;red&quot;)+
+  theme_minimal_grid()+
+  theme(axis.title.x= element_text(size=10, face = &quot;bold&quot;),
+        axis.text.x=element_text(size=10),
+        axis.title.y = element_blank(),
+        axis.text.y = element_blank(),
+        panel.border = element_rect(color = &quot;gray60&quot;, size=1),
+        legend.position = &quot;top&quot;,
+        legend.title = element_text(size = 10, face = &quot;bold&quot;),
+        legend.text = element_text(size = 10, face = &quot;italic&quot;))+
+  scale_color_manual(values=c(&quot;steelblue&quot;, &quot;#009628&quot;),
+                     name = &quot;Region&quot;,
+                     breaks=c(&quot;North&quot;,  &quot;South&quot;),
+                     labels=c(&quot;NW&quot;,  &quot;SE&quot;))+
+  # scale_shape_manual(values = c(1,16),
+  #                   labels=c(&quot;P &gt; 0.05&quot;,  &quot;P \u2264 0.05&quot;))+
+  scale_shape_manual(values = c(&quot; &quot;,&quot;*&quot;),
+                    labels=c(&quot;&quot;,  &quot;P \u2264 0.05&quot;))+
+  coord_fixed()+
+  coord_flip()</code></pre>
+<pre><code>## Warning: Ignoring unknown aesthetics: shape</code></pre>
+<pre><code>## Coordinate system already present. Adding new coordinate system, which will replace the existing one.</code></pre>
+<pre class="r"><code>library(patchwork)
+g1 + g2 + plot_layout(guides = &quot;collect&quot;) &amp; theme(legend.position = &quot;top&quot;)</code></pre>
+<p><img src="plots_files/figure-html/unnamed-chunk-8-1.png" width="768" /></p>
+<pre class="r"><code>ggsave(&quot;Figures/region.png&quot;, height=5, width=8, dpi = 600)</code></pre>
+</div>
+<div id="map" class="section level2">
+<h2>Map</h2>
+<pre class="r"><code>library(gsheet)
+library(janitor)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;janitor&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     chisq.test, fisher.test</code></pre>
+<pre class="r"><code>coord &lt;- gsheet2tbl(&quot;https://docs.google.com/spreadsheets/d/1Xx_gK6ERLLhQGIrOPB_ZYs9LoHTmsv030s30Dc_TPzg/edit#gid=1130774788&quot;, sheetid = &quot;map&quot;)
+
+library(tidyverse)
+rust_sev &lt;- read_csv(&quot;data/dat-sev.csv&quot;)</code></pre>
+<pre><code>## 
+## -- Column specification --------------------------------------------------------
+## cols(
+##   study = col_double(),
+##   year = col_double(),
+##   location = col_character(),
+##   state = col_character(),
+##   n_spray = col_double(),
+##   brand_name = col_character(),
+##   mean_sev = col_double(),
+##   mean_yld = col_double(),
+##   v_sev = col_double(),
+##   v_yld = col_double(),
+##   yld_check = col_double(),
+##   v_yld_check = col_double(),
+##   sev_check = col_double(),
+##   v_sev_check = col_double(),
+##   log_sev = col_double(),
+##   vi_sev = col_double(),
+##   n2 = col_double(),
+##   n3 = col_double(),
+##   design = col_double()
+## )</code></pre>
+<pre class="r"><code>sbr_effic &lt;- rust_sev %&gt;%
+  group_by(location, state, brand_name) %&gt;% 
+  summarise(efficacy = (1-(mean_sev/sev_check))*100,
+            vi_sev = mean(vi_sev)) %&gt;% 
+  group_by(location, state, brand_name) %&gt;%
+  summarise(efficacy = mean(efficacy),
+            vi_sev = mean(vi_sev))</code></pre>
+<pre><code>## `summarise()` regrouping output by &#39;location&#39;, &#39;state&#39;, &#39;brand_name&#39; (override with `.groups` argument)</code></pre>
+<pre><code>## `summarise()` regrouping output by &#39;location&#39;, &#39;state&#39; (override with `.groups` argument)</code></pre>
+<pre class="r"><code>rust_trial &lt;- gsheet2tbl(&quot;https://docs.google.com/spreadsheets/d/1Xx_gK6ERLLhQGIrOPB_ZYs9LoHTmsv030s30Dc_TPzg/edit#gid=287066174&quot;, sheetid = &quot;2015-2020&quot;)</code></pre>
+<pre><code>## Warning: 74 parsing failures.
+##  row col expected actual                                                                                                                   file
+## 6539 sev a double      . &#39;https://docs.google.com/spreadsheets/export?id=1Xx_gK6ERLLhQGIrOPB_ZYs9LoHTmsv030s30Dc_TPzg&amp;format=csv&amp;gid=287066174&#39;
+## 6539 yld a double      . &#39;https://docs.google.com/spreadsheets/export?id=1Xx_gK6ERLLhQGIrOPB_ZYs9LoHTmsv030s30Dc_TPzg&amp;format=csv&amp;gid=287066174&#39;
+## 6540 sev a double      . &#39;https://docs.google.com/spreadsheets/export?id=1Xx_gK6ERLLhQGIrOPB_ZYs9LoHTmsv030s30Dc_TPzg&amp;format=csv&amp;gid=287066174&#39;
+## 6540 yld a double      . &#39;https://docs.google.com/spreadsheets/export?id=1Xx_gK6ERLLhQGIrOPB_ZYs9LoHTmsv030s30Dc_TPzg&amp;format=csv&amp;gid=287066174&#39;
+## 6541 sev a double      . &#39;https://docs.google.com/spreadsheets/export?id=1Xx_gK6ERLLhQGIrOPB_ZYs9LoHTmsv030s30Dc_TPzg&amp;format=csv&amp;gid=287066174&#39;
+## .... ... ........ ...... ......................................................................................................................
+## See problems(...) for more details.</code></pre>
+<pre class="r"><code>trial_n = rust_trial %&gt;%
+  group_by(study,location) %&gt;% 
+  summarise() %&gt;%
+  tabyl(location)</code></pre>
+<pre><code>## `summarise()` regrouping output by &#39;study&#39; (override with `.groups` argument)</code></pre>
+<pre class="r"><code>trial_n = data.frame(trial_n) %&gt;% 
+  select(1,2)
+
+sbr_effic = full_join(sbr_effic, trial_n, by = c(&quot;location&quot;))
+
+map = full_join(sbr_effic, coord, by = c(&quot;location&quot;, &quot;state&quot;)) %&gt;% 
+  filter(efficacy &gt; 0)
+map</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["location"],"name":[1],"type":["chr"],"align":["left"]},{"label":["state"],"name":[2],"type":["chr"],"align":["left"]},{"label":["brand_name"],"name":[3],"type":["chr"],"align":["left"]},{"label":["efficacy"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["vi_sev"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["n"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["long"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["lat"],"name":[8],"type":["dbl"],"align":["right"]}],"data":[{"1":"ALVORADA","2":"TO","3":"AZOX + BENZ","4":"65.58704","5":"1.905093e-02","6":"1","7":"-49.1274","8":"-12.4775"},{"1":"ALVORADA","2":"TO","3":"BIXF + TFLX + PROT","4":"65.58704","5":"1.905093e-02","6":"1","7":"-49.1274","8":"-12.4775"},{"1":"ALVORADA","2":"TO","3":"PICO + BENZ","4":"63.56275","5":"1.699296e-02","6":"1","7":"-49.1274","8":"-12.4775"},{"1":"ALVORADA","2":"TO","3":"PICO + CYPR","4":"65.58704","5":"1.905093e-02","6":"1","7":"-49.1274","8":"-12.4775"},{"1":"ALVORADA","2":"TO","3":"PYRA + EPOX + FLUX","4":"71.65992","5":"2.809040e-02","6":"1","7":"-49.1274","8":"-12.4775"},{"1":"ALVORADA","2":"TO","3":"TFLX + CYPR","4":"47.36842","5":"8.144555e-03","6":"1","7":"-49.1274","8":"-12.4775"},{"1":"ALVORADA","2":"TO","3":"TFLX + PROT","4":"63.56275","5":"1.699296e-02","6":"1","7":"-49.1274","8":"-12.4775"},{"1":"AMAMBAI","2":"MS","3":"AZOX + BENZ","4":"66.28235","5":"1.644116e-03","6":"2","7":"-55.2290","8":"-23.1080"},{"1":"AMAMBAI","2":"MS","3":"BIXF + TFLX + PROT","4":"71.82936","5":"2.916726e-03","6":"2","7":"-55.2290","8":"-23.1080"},{"1":"AMAMBAI","2":"MS","3":"PICO + BENZ","4":"65.07490","5":"1.822501e-03","6":"2","7":"-55.2290","8":"-23.1080"},{"1":"AMAMBAI","2":"MS","3":"PICO + CYPR","4":"44.90904","5":"7.242236e-04","6":"2","7":"-55.2290","8":"-23.1080"},{"1":"AMAMBAI","2":"MS","3":"PICO + TEBU","4":"50.34329","5":"8.912118e-04","6":"2","7":"-55.2290","8":"-23.1080"},{"1":"AMAMBAI","2":"MS","3":"PYRA + EPOX + FLUX","4":"71.92499","5":"2.883784e-03","6":"2","7":"-55.2290","8":"-23.1080"},{"1":"AMAMBAI","2":"MS","3":"TFLX + CYPR","4":"50.01812","5":"8.796566e-04","6":"2","7":"-55.2290","8":"-23.1080"},{"1":"AMAMBAI","2":"MS","3":"TFLX + PROT","4":"60.97873","5":"1.227565e-03","6":"2","7":"-55.2290","8":"-23.1080"},{"1":"ANÁPOLIS","2":"GO","3":"AZOX + BENZ","4":"29.93617","5":"4.039604e-03","6":"2","7":"-48.9530","8":"-16.3200"},{"1":"ANÁPOLIS","2":"GO","3":"PICO + CYPR","4":"42.49946","5":"9.807160e-03","6":"2","7":"-48.9530","8":"-16.3200"},{"1":"ANÁPOLIS","2":"GO","3":"PICO + TEBU","4":"56.84920","5":"2.268779e-02","6":"2","7":"-48.9530","8":"-16.3200"},{"1":"ANÁPOLIS","2":"GO","3":"TFLX + CYPR","4":"44.99092","5":"1.156871e-02","6":"2","7":"-48.9530","8":"-16.3200"},{"1":"ANÁPOLIS","2":"GO","3":"TFLX + PROT","4":"61.56074","5":"3.168958e-02","6":"2","7":"-48.9530","8":"-16.3200"},{"1":"BONITO","2":"MS","3":"AZOX + BENZ","4":"64.86282","5":"1.055834e-03","6":"1","7":"-56.4840","8":"-21.1270"},{"1":"BONITO","2":"MS","3":"BIXF + TFLX + PROT","4":"75.76139","5":"2.218779e-03","6":"1","7":"-56.4840","8":"-21.1270"},{"1":"BONITO","2":"MS","3":"PICO + BENZ","4":"67.88321","5":"1.263762e-03","6":"1","7":"-56.4840","8":"-21.1270"},{"1":"BONITO","2":"MS","3":"PICO + CYPR","4":"49.50919","5":"5.113341e-04","6":"1","7":"-56.4840","8":"-21.1270"},{"1":"BONITO","2":"MS","3":"PICO + TEBU","4":"55.72615","5":"6.650204e-04","6":"1","7":"-56.4840","8":"-21.1270"},{"1":"BONITO","2":"MS","3":"PYRA + EPOX + FLUX","4":"75.83690","5":"2.232668e-03","6":"1","7":"-56.4840","8":"-21.1270"},{"1":"BONITO","2":"MS","3":"TFLX + CYPR","4":"54.64385","5":"6.336611e-04","6":"1","7":"-56.4840","8":"-21.1270"},{"1":"BONITO","2":"MS","3":"TFLX + PROT","4":"62.77372","5":"9.406548e-04","6":"1","7":"-56.4840","8":"-21.1270"},{"1":"CABECEIRA DO APA","2":"MS","3":"AZOX + BENZ","4":"28.68992","5":"8.159636e-04","6":"1","7":"-55.7260","8":"-22.5360"},{"1":"CABECEIRA DO APA","2":"MS","3":"BIXF + TFLX + PROT","4":"63.86644","5":"3.177980e-03","6":"1","7":"-55.7260","8":"-22.5360"},{"1":"CABECEIRA DO APA","2":"MS","3":"PICO + BENZ","4":"76.92471","5":"7.792529e-03","6":"1","7":"-55.7260","8":"-22.5360"},{"1":"CABECEIRA DO APA","2":"MS","3":"PICO + CYPR","4":"54.67886","5":"2.020091e-03","6":"1","7":"-55.7260","8":"-22.5360"},{"1":"CABECEIRA DO APA","2":"MS","3":"PICO + TEBU","4":"54.93407","5":"2.043036e-03","6":"1","7":"-55.7260","8":"-22.5360"},{"1":"CABECEIRA DO APA","2":"MS","3":"PYRA + EPOX + FLUX","4":"64.92982","5":"3.373623e-03","6":"1","7":"-55.7260","8":"-22.5360"},{"1":"CABECEIRA DO APA","2":"MS","3":"TFLX + CYPR","4":"52.80732","5":"1.863045e-03","6":"1","7":"-55.7260","8":"-22.5360"},{"1":"CABECEIRA DO APA","2":"MS","3":"TFLX + PROT","4":"65.07869","5":"3.402449e-03","6":"1","7":"-55.7260","8":"-22.5360"},{"1":"CAFELÂNDIA","2":"PR","3":"AZOX + BENZ","4":"57.78274","5":"2.270459e-02","6":"4","7":"-53.3220","8":"-24.6170"},{"1":"CAFELÂNDIA","2":"PR","3":"BIXF + TFLX + PROT","4":"65.02822","5":"2.927789e-02","6":"4","7":"-53.3220","8":"-24.6170"},{"1":"CAFELÂNDIA","2":"PR","3":"PICO + BENZ","4":"68.49552","5":"5.348403e-02","6":"4","7":"-53.3220","8":"-24.6170"},{"1":"CAFELÂNDIA","2":"PR","3":"PICO + CYPR","4":"54.92822","5":"2.396191e-02","6":"4","7":"-53.3220","8":"-24.6170"},{"1":"CAFELÂNDIA","2":"PR","3":"PICO + TEBU","4":"57.70008","5":"3.714906e-02","6":"4","7":"-53.3220","8":"-24.6170"},{"1":"CAFELÂNDIA","2":"PR","3":"PYRA + EPOX + FLUX","4":"70.97489","5":"3.848025e-02","6":"4","7":"-53.3220","8":"-24.6170"},{"1":"CAFELÂNDIA","2":"PR","3":"TFLX + CYPR","4":"48.92344","5":"2.291050e-02","6":"4","7":"-53.3220","8":"-24.6170"},{"1":"CAFELÂNDIA","2":"PR","3":"TFLX + PROT","4":"50.54608","5":"1.994762e-02","6":"4","7":"-53.3220","8":"-24.6170"},{"1":"CAMPO GRANDE","2":"MS","3":"AZOX + BENZ","4":"82.12322","5":"1.776406e-02","6":"3","7":"-54.6470","8":"-20.4430"},{"1":"CAMPO GRANDE","2":"MS","3":"BIXF + TFLX + PROT","4":"53.16852","5":"6.807903e-03","6":"3","7":"-54.6470","8":"-20.4430"},{"1":"CAMPO GRANDE","2":"MS","3":"PICO + BENZ","4":"60.85704","5":"3.038126e-02","6":"3","7":"-54.6470","8":"-20.4430"},{"1":"CAMPO GRANDE","2":"MS","3":"PICO + CYPR","4":"43.14658","5":"2.258386e-03","6":"3","7":"-54.6470","8":"-20.4430"},{"1":"CAMPO GRANDE","2":"MS","3":"PICO + TEBU","4":"47.53716","5":"2.672306e-03","6":"3","7":"-54.6470","8":"-20.4430"},{"1":"CAMPO GRANDE","2":"MS","3":"PYRA + EPOX + FLUX","4":"59.04687","5":"8.277277e-03","6":"3","7":"-54.6470","8":"-20.4430"},{"1":"CAMPO GRANDE","2":"MS","3":"TFLX + CYPR","4":"42.55658","5":"2.057769e-03","6":"3","7":"-54.6470","8":"-20.4430"},{"1":"CAMPO GRANDE","2":"MS","3":"TFLX + PROT","4":"70.47718","5":"5.613492e-03","6":"3","7":"-54.6470","8":"-20.4430"},{"1":"CAMPO NOVO DO PARECIS","2":"MT","3":"AZOX + BENZ","4":"66.76000","5":"2.901737e-02","6":"5","7":"-57.8940","8":"-13.6550"},{"1":"CAMPO NOVO DO PARECIS","2":"MT","3":"BIXF + TFLX + PROT","4":"66.60537","5":"4.438940e-03","6":"5","7":"-57.8940","8":"-13.6550"},{"1":"CAMPO NOVO DO PARECIS","2":"MT","3":"PICO + BENZ","4":"56.95892","5":"2.456987e-02","6":"5","7":"-57.8940","8":"-13.6550"},{"1":"CAMPO NOVO DO PARECIS","2":"MT","3":"PICO + CYPR","4":"38.91650","5":"1.712147e-03","6":"5","7":"-57.8940","8":"-13.6550"},{"1":"CAMPO NOVO DO PARECIS","2":"MT","3":"PICO + TEBU","4":"52.76908","5":"2.673057e-03","6":"5","7":"-57.8940","8":"-13.6550"},{"1":"CAMPO NOVO DO PARECIS","2":"MT","3":"PYRA + EPOX + FLUX","4":"52.51752","5":"6.172992e-03","6":"5","7":"-57.8940","8":"-13.6550"},{"1":"CAMPO NOVO DO PARECIS","2":"MT","3":"TFLX + CYPR","4":"38.67698","5":"1.923540e-03","6":"5","7":"-57.8940","8":"-13.6550"},{"1":"CAMPO NOVO DO PARECIS","2":"MT","3":"TFLX + PROT","4":"59.98847","5":"3.391287e-03","6":"5","7":"-57.8940","8":"-13.6550"},{"1":"CAMPO VERDE","2":"MT","3":"AZOX + BENZ","4":"69.78875","5":"9.611500e-01","6":"12","7":"-55.1680","8":"-15.5510"},{"1":"CAMPO VERDE","2":"MT","3":"BIXF + TFLX + PROT","4":"54.93195","5":"5.421455e-03","6":"12","7":"-55.1680","8":"-15.5510"},{"1":"CAMPO VERDE","2":"MT","3":"PICO + BENZ","4":"65.42927","5":"1.213546e-02","6":"12","7":"-55.1680","8":"-15.5510"},{"1":"CAMPO VERDE","2":"MT","3":"PICO + CYPR","4":"47.14906","5":"4.635312e-03","6":"12","7":"-55.1680","8":"-15.5510"},{"1":"CAMPO VERDE","2":"MT","3":"PICO + TEBU","4":"59.34696","5":"1.077712e-02","6":"12","7":"-55.1680","8":"-15.5510"},{"1":"CAMPO VERDE","2":"MT","3":"PYRA + EPOX + FLUX","4":"56.87766","5":"7.930902e-03","6":"12","7":"-55.1680","8":"-15.5510"},{"1":"CAMPO VERDE","2":"MT","3":"TFLX + CYPR","4":"50.33143","5":"4.690859e-03","6":"12","7":"-55.1680","8":"-15.5510"},{"1":"CAMPO VERDE","2":"MT","3":"TFLX + PROT","4":"57.25496","5":"1.980394e-02","6":"12","7":"-55.1680","8":"-15.5510"},{"1":"CASCAVEL","2":"PR","3":"AZOX + BENZ","4":"92.03747","5":"3.360634e+00","6":"1","7":"-53.4550","8":"-24.9550"},{"1":"CASCAVEL","2":"PR","3":"PICO + CYPR","4":"30.96019","5":"4.470170e-02","6":"1","7":"-53.4550","8":"-24.9550"},{"1":"CASCAVEL","2":"PR","3":"PICO + TEBU","4":"13.30211","5":"2.834694e-02","6":"1","7":"-53.4550","8":"-24.9550"},{"1":"CASCAVEL","2":"PR","3":"TFLX + PROT","4":"55.22248","5":"1.062682e-01","6":"1","7":"-53.4550","8":"-24.9550"},{"1":"CHAPADÃO DO SUL","2":"MS","3":"AZOX + BENZ","4":"70.68618","5":"7.342694e-01","6":"7","7":"-52.6190","8":"-18.7940"},{"1":"CHAPADÃO DO SUL","2":"MS","3":"BIXF + TFLX + PROT","4":"85.37589","5":"2.647815e-01","6":"7","7":"-52.6190","8":"-18.7940"},{"1":"CHAPADÃO DO SUL","2":"MS","3":"PICO + BENZ","4":"68.01645","5":"7.392803e-02","6":"7","7":"-52.6190","8":"-18.7940"},{"1":"CHAPADÃO DO SUL","2":"MS","3":"PICO + CYPR","4":"62.82805","5":"5.318235e-02","6":"7","7":"-52.6190","8":"-18.7940"},{"1":"CHAPADÃO DO SUL","2":"MS","3":"PICO + TEBU","4":"78.56556","5":"2.516736e+00","6":"7","7":"-52.6190","8":"-18.7940"},{"1":"CHAPADÃO DO SUL","2":"MS","3":"PYRA + EPOX + FLUX","4":"66.95651","5":"4.081831e-02","6":"7","7":"-52.6190","8":"-18.7940"},{"1":"CHAPADÃO DO SUL","2":"MS","3":"TFLX + CYPR","4":"58.76842","5":"6.605517e-02","6":"7","7":"-52.6190","8":"-18.7940"},{"1":"CHAPADÃO DO SUL","2":"MS","3":"TFLX + PROT","4":"81.81514","5":"7.280028e-01","6":"7","7":"-52.6190","8":"-18.7940"},{"1":"DECIOLÂNDIA","2":"MT","3":"AZOX + BENZ","4":"58.03318","5":"2.233277e-03","6":"9","7":"-56.3610","8":"-15.2080"},{"1":"DECIOLÂNDIA","2":"MT","3":"BIXF + TFLX + PROT","4":"69.54339","5":"1.250098e-03","6":"9","7":"-56.3610","8":"-15.2080"},{"1":"DECIOLÂNDIA","2":"MT","3":"PICO + BENZ","4":"59.32766","5":"1.228179e-03","6":"9","7":"-56.3610","8":"-15.2080"},{"1":"DECIOLÂNDIA","2":"MT","3":"PICO + CYPR","4":"37.98966","5":"1.739403e-04","6":"9","7":"-56.3610","8":"-15.2080"},{"1":"DECIOLÂNDIA","2":"MT","3":"PICO + TEBU","4":"56.23659","5":"6.283461e-04","6":"9","7":"-56.3610","8":"-15.2080"},{"1":"DECIOLÂNDIA","2":"MT","3":"PYRA + EPOX + FLUX","4":"55.17124","5":"9.498333e-04","6":"9","7":"-56.3610","8":"-15.2080"},{"1":"DECIOLÂNDIA","2":"MT","3":"TFLX + CYPR","4":"37.20329","5":"1.953039e-04","6":"9","7":"-56.3610","8":"-15.2080"},{"1":"DECIOLÂNDIA","2":"MT","3":"TFLX + PROT","4":"67.10946","5":"8.427207e-04","6":"9","7":"-56.3610","8":"-15.2080"},{"1":"DIAMANTINO","2":"MT","3":"AZOX + BENZ","4":"84.82143","5":"2.269311e-02","6":"3","7":"-56.4340","8":"-14.4060"},{"1":"DIAMANTINO","2":"MT","3":"BIXF + TFLX + PROT","4":"53.13159","5":"1.354711e-03","6":"3","7":"-56.4340","8":"-14.4060"},{"1":"DIAMANTINO","2":"MT","3":"PICO + BENZ","4":"51.65503","5":"2.773746e-02","6":"3","7":"-56.4340","8":"-14.4060"},{"1":"DIAMANTINO","2":"MT","3":"PICO + CYPR","4":"30.02363","5":"5.617388e-04","6":"3","7":"-56.4340","8":"-14.4060"},{"1":"DIAMANTINO","2":"MT","3":"PICO + TEBU","4":"43.59669","5":"8.405264e-04","6":"3","7":"-56.4340","8":"-14.4060"},{"1":"DIAMANTINO","2":"MT","3":"PYRA + EPOX + FLUX","4":"36.06809","5":"7.146681e-04","6":"3","7":"-56.4340","8":"-14.4060"},{"1":"DIAMANTINO","2":"MT","3":"TFLX + CYPR","4":"35.14774","5":"6.157818e-04","6":"3","7":"-56.4340","8":"-14.4060"},{"1":"DIAMANTINO","2":"MT","3":"TFLX + PROT","4":"47.62676","5":"1.373626e-03","6":"3","7":"-56.4340","8":"-14.4060"},{"1":"ENTRE RIOS","2":"PR","3":"AZOX + BENZ","4":"91.11303","5":"1.255354e-01","6":"3","7":"-54.2430","8":"-24.7060"},{"1":"ENTRE RIOS","2":"PR","3":"BIXF + TFLX + PROT","4":"90.44712","5":"6.993580e-04","6":"3","7":"-54.2430","8":"-24.7060"},{"1":"ENTRE RIOS","2":"PR","3":"PICO + BENZ","4":"90.36280","5":"1.014683e-03","6":"3","7":"-54.2430","8":"-24.7060"},{"1":"ENTRE RIOS","2":"PR","3":"PICO + CYPR","4":"71.17662","5":"2.457503e-04","6":"3","7":"-54.2430","8":"-24.7060"},{"1":"ENTRE RIOS","2":"PR","3":"PICO + TEBU","4":"93.70032","5":"1.258988e-01","6":"3","7":"-54.2430","8":"-24.7060"},{"1":"ENTRE RIOS","2":"PR","3":"PYRA + EPOX + FLUX","4":"86.29426","5":"4.762008e-04","6":"3","7":"-54.2430","8":"-24.7060"},{"1":"ENTRE RIOS","2":"PR","3":"TFLX + CYPR","4":"78.61364","5":"1.547005e-04","6":"3","7":"-54.2430","8":"-24.7060"},{"1":"ENTRE RIOS","2":"PR","3":"TFLX + PROT","4":"88.04592","5":"7.344343e-03","6":"3","7":"-54.2430","8":"-24.7060"},{"1":"EREBANGO","2":"RS","3":"BIXF + TFLX + PROT","4":"21.09852","5":"9.142471e-04","6":"1","7":"-52.2910","8":"-27.8530"},{"1":"EREBANGO","2":"RS","3":"PICO + BENZ","4":"16.01279","5":"8.068775e-04","6":"1","7":"-52.2910","8":"-27.8530"},{"1":"EREBANGO","2":"RS","3":"PICO + CYPR","4":"14.99564","5":"7.876831e-04","6":"1","7":"-52.2910","8":"-27.8530"},{"1":"EREBANGO","2":"RS","3":"PICO + TEBU","4":"21.67974","5":"9.278670e-04","6":"1","7":"-52.2910","8":"-27.8530"},{"1":"EREBANGO","2":"RS","3":"TFLX + CYPR","4":"16.88463","5":"8.238937e-04","6":"1","7":"-52.2910","8":"-27.8530"},{"1":"FAXINAL","2":"PR","3":"AZOX + BENZ","4":"61.11152","5":"1.264921e-02","6":"4","7":"-55.1680","8":"-15.5510"},{"1":"FAXINAL","2":"PR","3":"BIXF + TFLX + PROT","4":"94.98230","5":"1.157702e+00","6":"4","7":"-55.1680","8":"-15.5510"},{"1":"FAXINAL","2":"PR","3":"PICO + BENZ","4":"65.99422","5":"7.512505e-03","6":"4","7":"-55.1680","8":"-15.5510"},{"1":"FAXINAL","2":"PR","3":"PICO + CYPR","4":"65.39959","5":"6.331736e-03","6":"4","7":"-55.1680","8":"-15.5510"},{"1":"FAXINAL","2":"PR","3":"PICO + TEBU","4":"78.12147","5":"1.491701e-02","6":"4","7":"-55.1680","8":"-15.5510"},{"1":"FAXINAL","2":"PR","3":"PYRA + EPOX + FLUX","4":"69.05366","5":"8.216443e-03","6":"4","7":"-55.1680","8":"-15.5510"},{"1":"FAXINAL","2":"PR","3":"TFLX + CYPR","4":"69.78819","5":"2.089567e-02","6":"4","7":"-55.1680","8":"-15.5510"},{"1":"FAXINAL","2":"PR","3":"TFLX + PROT","4":"89.75664","5":"7.091364e-01","6":"4","7":"-55.1680","8":"-15.5510"},{"1":"GOIÂNIA","2":"GO","3":"AZOX + BENZ","4":"59.48678","5":"1.673245e-03","6":"1","7":"-49.2650","8":"-16.6870"},{"1":"GOIÂNIA","2":"GO","3":"BIXF + TFLX + PROT","4":"61.58631","5":"1.861149e-03","6":"1","7":"-49.2650","8":"-16.6870"},{"1":"GOIÂNIA","2":"GO","3":"PICO + BENZ","4":"68.19596","5":"2.715116e-03","6":"1","7":"-49.2650","8":"-16.6870"},{"1":"GOIÂNIA","2":"GO","3":"PICO + CYPR","4":"32.89269","5":"6.098366e-04","6":"1","7":"-49.2650","8":"-16.6870"},{"1":"GOIÂNIA","2":"GO","3":"PICO + TEBU","4":"45.72317","5":"9.322324e-04","6":"1","7":"-49.2650","8":"-16.6870"},{"1":"GOIÂNIA","2":"GO","3":"PYRA + EPOX + FLUX","4":"54.27683","5":"1.313652e-03","6":"1","7":"-49.2650","8":"-16.6870"},{"1":"GOIÂNIA","2":"GO","3":"TFLX + CYPR","4":"33.12597","5":"6.140987e-04","6":"1","7":"-49.2650","8":"-16.6870"},{"1":"GOIÂNIA","2":"GO","3":"TFLX + PROT","4":"60.73095","5":"1.780952e-03","6":"1","7":"-49.2650","8":"-16.6870"},{"1":"GUARAPUAVA","2":"PR","3":"AZOX + BENZ","4":"90.85317","5":"1.873377e-04","6":"1","7":"-51.4560","8":"-25.3930"},{"1":"GUARAPUAVA","2":"PR","3":"PICO + CYPR","4":"59.34742","5":"9.483970e-06","6":"1","7":"-51.4560","8":"-25.3930"},{"1":"GUARAPUAVA","2":"PR","3":"PICO + TEBU","4":"80.12838","5":"3.969170e-05","6":"1","7":"-51.4560","8":"-25.3930"},{"1":"GUARAPUAVA","2":"PR","3":"TFLX + CYPR","4":"60.25675","5":"9.922926e-06","6":"1","7":"-51.4560","8":"-25.3930"},{"1":"GUARAPUAVA","2":"PR","3":"TFLX + PROT","4":"86.60070","5":"8.729752e-05","6":"1","7":"-51.4560","8":"-25.3930"},{"1":"ITAARA","2":"RS","3":"AZOX + BENZ","4":"57.97626","5":"1.812516e-03","6":"4","7":"-53.7590","8":"-29.5910"},{"1":"ITAARA","2":"RS","3":"BIXF + TFLX + PROT","4":"53.92945","5":"2.852929e-03","6":"4","7":"-53.7590","8":"-29.5910"},{"1":"ITAARA","2":"RS","3":"PICO + BENZ","4":"43.67736","5":"1.878429e-03","6":"4","7":"-53.7590","8":"-29.5910"},{"1":"ITAARA","2":"RS","3":"PICO + CYPR","4":"47.58677","5":"1.062510e-03","6":"4","7":"-53.7590","8":"-29.5910"},{"1":"ITAARA","2":"RS","3":"PICO + TEBU","4":"59.51286","5":"2.311713e-03","6":"4","7":"-53.7590","8":"-29.5910"},{"1":"ITAARA","2":"RS","3":"PYRA + EPOX + FLUX","4":"52.92500","5":"2.495163e-03","6":"4","7":"-53.7590","8":"-29.5910"},{"1":"ITAARA","2":"RS","3":"TFLX + CYPR","4":"46.09031","5":"9.701281e-04","6":"4","7":"-53.7590","8":"-29.5910"},{"1":"ITAARA","2":"RS","3":"TFLX + PROT","4":"71.40798","5":"2.917505e-03","6":"4","7":"-53.7590","8":"-29.5910"},{"1":"JATAÍ","2":"GO","3":"AZOX + BENZ","4":"76.90869","5":"1.284640e+00","6":"3","7":"-51.7210","8":"-17.8750"},{"1":"JATAÍ","2":"GO","3":"BIXF + TFLX + PROT","4":"87.69043","5":"9.285662e-03","6":"3","7":"-51.7210","8":"-17.8750"},{"1":"JATAÍ","2":"GO","3":"PICO + BENZ","4":"96.83120","5":"1.401228e-01","6":"3","7":"-51.7210","8":"-17.8750"},{"1":"JATAÍ","2":"GO","3":"PICO + CYPR","4":"40.47509","5":"4.984675e-03","6":"3","7":"-51.7210","8":"-17.8750"},{"1":"JATAÍ","2":"GO","3":"PICO + TEBU","4":"72.03891","5":"5.048302e-01","6":"3","7":"-51.7210","8":"-17.8750"},{"1":"JATAÍ","2":"GO","3":"PYRA + EPOX + FLUX","4":"96.09994","5":"9.250297e-02","6":"3","7":"-51.7210","8":"-17.8750"},{"1":"JATAÍ","2":"GO","3":"TFLX + CYPR","4":"57.19896","5":"3.173801e-03","6":"3","7":"-51.7210","8":"-17.8750"},{"1":"JATAÍ","2":"GO","3":"TFLX + PROT","4":"66.98961","5":"8.109928e-02","6":"3","7":"-51.7210","8":"-17.8750"},{"1":"LONDRINA","2":"PR","3":"AZOX + BENZ","4":"67.83157","5":"8.377358e-02","6":"9","7":"-51.1700","8":"-23.3050"},{"1":"LONDRINA","2":"PR","3":"BIXF + TFLX + PROT","4":"85.01487","5":"9.080100e-02","6":"9","7":"-51.1700","8":"-23.3050"},{"1":"LONDRINA","2":"PR","3":"PICO + BENZ","4":"63.25893","5":"2.713270e-02","6":"9","7":"-51.1700","8":"-23.3050"},{"1":"LONDRINA","2":"PR","3":"PICO + CYPR","4":"59.72086","5":"1.557906e-02","6":"9","7":"-51.1700","8":"-23.3050"},{"1":"LONDRINA","2":"PR","3":"PICO + TEBU","4":"59.49898","5":"1.729719e-02","6":"9","7":"-51.1700","8":"-23.3050"},{"1":"LONDRINA","2":"PR","3":"PYRA + EPOX + FLUX","4":"75.67713","5":"2.572975e-02","6":"9","7":"-51.1700","8":"-23.3050"},{"1":"LONDRINA","2":"PR","3":"TFLX + CYPR","4":"63.19660","5":"1.135835e-02","6":"9","7":"-51.1700","8":"-23.3050"},{"1":"LONDRINA","2":"PR","3":"TFLX + PROT","4":"69.29278","5":"3.562618e-02","6":"9","7":"-51.1700","8":"-23.3050"},{"1":"LUCAS DO RIO VERDE","2":"MT","3":"AZOX + BENZ","4":"57.24114","5":"6.447819e-03","6":"5","7":"-55.9210","8":"-13.0630"},{"1":"LUCAS DO RIO VERDE","2":"MT","3":"BIXF + TFLX + PROT","4":"78.06152","5":"1.461586e-02","6":"5","7":"-55.9210","8":"-13.0630"},{"1":"LUCAS DO RIO VERDE","2":"MT","3":"PICO + BENZ","4":"64.70214","5":"5.429420e-03","6":"5","7":"-55.9210","8":"-13.0630"},{"1":"LUCAS DO RIO VERDE","2":"MT","3":"PICO + CYPR","4":"57.64975","5":"2.134572e-03","6":"5","7":"-55.9210","8":"-13.0630"},{"1":"LUCAS DO RIO VERDE","2":"MT","3":"PICO + TEBU","4":"72.55595","5":"3.912087e-03","6":"5","7":"-55.9210","8":"-13.0630"},{"1":"LUCAS DO RIO VERDE","2":"MT","3":"PYRA + EPOX + FLUX","4":"67.88003","5":"6.927626e-03","6":"5","7":"-55.9210","8":"-13.0630"},{"1":"LUCAS DO RIO VERDE","2":"MT","3":"TFLX + CYPR","4":"61.99847","5":"2.659389e-03","6":"5","7":"-55.9210","8":"-13.0630"},{"1":"LUCAS DO RIO VERDE","2":"MT","3":"TFLX + PROT","4":"72.99898","5":"7.423878e-03","6":"5","7":"-55.9210","8":"-13.0630"},{"1":"LUÍS EDUARDO MAGALHÃES","2":"BA","3":"AZOX + BENZ","4":"72.96264","5":"2.062028e-01","6":"5","7":"-45.7800","8":"-12.0910"},{"1":"LUÍS EDUARDO MAGALHÃES","2":"BA","3":"BIXF + TFLX + PROT","4":"73.89184","5":"2.964831e-01","6":"5","7":"-45.7800","8":"-12.0910"},{"1":"LUÍS EDUARDO MAGALHÃES","2":"BA","3":"PICO + BENZ","4":"92.17556","5":"2.533771e+00","6":"5","7":"-45.7800","8":"-12.0910"},{"1":"LUÍS EDUARDO MAGALHÃES","2":"BA","3":"PICO + CYPR","4":"54.04368","5":"4.820674e-02","6":"5","7":"-45.7800","8":"-12.0910"},{"1":"LUÍS EDUARDO MAGALHÃES","2":"BA","3":"PICO + TEBU","4":"56.10595","5":"3.702395e-02","6":"5","7":"-45.7800","8":"-12.0910"},{"1":"LUÍS EDUARDO MAGALHÃES","2":"BA","3":"PYRA + EPOX + FLUX","4":"80.71194","5":"3.856597e-01","6":"5","7":"-45.7800","8":"-12.0910"},{"1":"LUÍS EDUARDO MAGALHÃES","2":"BA","3":"TFLX + CYPR","4":"64.38912","5":"5.118057e-02","6":"5","7":"-45.7800","8":"-12.0910"},{"1":"LUÍS EDUARDO MAGALHÃES","2":"BA","3":"TFLX + PROT","4":"64.78010","5":"7.777458e-02","6":"5","7":"-45.7800","8":"-12.0910"},{"1":"MARACAJU","2":"MS","3":"AZOX + BENZ","4":"78.51189","5":"1.816539e-02","6":"5","7":"-55.7660","8":"-22.0160"},{"1":"MARACAJU","2":"MS","3":"BIXF + TFLX + PROT","4":"78.36972","5":"1.584082e-02","6":"5","7":"-55.7660","8":"-22.0160"},{"1":"MARACAJU","2":"MS","3":"PICO + BENZ","4":"76.97704","5":"1.628239e-02","6":"5","7":"-55.7660","8":"-22.0160"},{"1":"MARACAJU","2":"MS","3":"PICO + CYPR","4":"56.77444","5":"3.022217e-03","6":"5","7":"-55.7660","8":"-22.0160"},{"1":"MARACAJU","2":"MS","3":"PICO + TEBU","4":"61.60443","5":"5.517548e-03","6":"5","7":"-55.7660","8":"-22.0160"},{"1":"MARACAJU","2":"MS","3":"PYRA + EPOX + FLUX","4":"76.56817","5":"8.624033e-03","6":"5","7":"-55.7660","8":"-22.0160"},{"1":"MARACAJU","2":"MS","3":"TFLX + CYPR","4":"57.94267","5":"3.064551e-03","6":"5","7":"-55.7660","8":"-22.0160"},{"1":"MARACAJU","2":"MS","3":"TFLX + PROT","4":"69.20422","5":"8.163122e-03","6":"5","7":"-55.7660","8":"-22.0160"},{"1":"MAUA DA SERRA","2":"PR","3":"AZOX + BENZ","4":"66.97551","5":"6.007616e-02","6":"3","7":"-55.1670","8":"-21.6250"},{"1":"MAUA DA SERRA","2":"PR","3":"BIXF + TFLX + PROT","4":"94.42815","5":"1.255789e-01","6":"3","7":"-55.1670","8":"-21.6250"},{"1":"MAUA DA SERRA","2":"PR","3":"PICO + BENZ","4":"90.61584","5":"4.427146e-02","6":"3","7":"-55.1670","8":"-21.6250"},{"1":"MAUA DA SERRA","2":"PR","3":"PICO + CYPR","4":"52.04870","5":"5.164335e-03","6":"3","7":"-55.1670","8":"-21.6250"},{"1":"MAUA DA SERRA","2":"PR","3":"PICO + TEBU","4":"59.10919","5":"1.856304e-02","6":"3","7":"-55.1670","8":"-21.6250"},{"1":"MAUA DA SERRA","2":"PR","3":"PYRA + EPOX + FLUX","4":"88.12317","5":"2.763845e-02","6":"3","7":"-55.1670","8":"-21.6250"},{"1":"MAUA DA SERRA","2":"PR","3":"TFLX + CYPR","4":"50.52554","5":"1.078262e-02","6":"3","7":"-55.1670","8":"-21.6250"},{"1":"MAUA DA SERRA","2":"PR","3":"TFLX + PROT","4":"73.78276","5":"1.139046e-01","6":"3","7":"-55.1670","8":"-21.6250"},{"1":"NAVIRAÍ","2":"MS","3":"AZOX + BENZ","4":"83.85939","5":"1.722450e-02","6":"2","7":"-54.2020","8":"-23.0620"},{"1":"NAVIRAÍ","2":"MS","3":"BIXF + TFLX + PROT","4":"91.90405","5":"4.211227e-02","6":"2","7":"-54.2020","8":"-23.0620"},{"1":"NAVIRAÍ","2":"MS","3":"PICO + BENZ","4":"90.10495","5":"2.819086e-02","6":"2","7":"-54.2020","8":"-23.0620"},{"1":"NAVIRAÍ","2":"MS","3":"PICO + CYPR","4":"58.45630","5":"2.497648e-03","6":"2","7":"-54.2020","8":"-23.0620"},{"1":"NAVIRAÍ","2":"MS","3":"PICO + TEBU","4":"64.06905","5":"3.360602e-03","6":"2","7":"-54.2020","8":"-23.0620"},{"1":"NAVIRAÍ","2":"MS","3":"PYRA + EPOX + FLUX","4":"89.95502","5":"2.735562e-02","6":"2","7":"-54.2020","8":"-23.0620"},{"1":"NAVIRAÍ","2":"MS","3":"TFLX + CYPR","4":"61.72224","5":"2.942230e-03","6":"2","7":"-54.2020","8":"-23.0620"},{"1":"NAVIRAÍ","2":"MS","3":"TFLX + PROT","4":"71.77126","5":"5.485438e-03","6":"2","7":"-54.2020","8":"-23.0620"},{"1":"NOVA MUTUM","2":"MT","3":"AZOX + BENZ","4":"67.61051","5":"2.023542e-02","6":"3","7":"-56.0850","8":"-13.8210"},{"1":"NOVA MUTUM","2":"MT","3":"BIXF + TFLX + PROT","4":"79.48371","5":"2.224177e-01","6":"3","7":"-56.0850","8":"-13.8210"},{"1":"NOVA MUTUM","2":"MT","3":"PICO + BENZ","4":"79.55821","5":"6.923609e-02","6":"3","7":"-56.0850","8":"-13.8210"},{"1":"NOVA MUTUM","2":"MT","3":"PICO + CYPR","4":"52.35281","5":"9.569501e-03","6":"3","7":"-56.0850","8":"-13.8210"},{"1":"NOVA MUTUM","2":"MT","3":"PICO + TEBU","4":"76.89848","5":"3.749470e-02","6":"3","7":"-56.0850","8":"-13.8210"},{"1":"NOVA MUTUM","2":"MT","3":"PYRA + EPOX + FLUX","4":"76.16078","5":"3.215270e-02","6":"3","7":"-56.0850","8":"-13.8210"},{"1":"NOVA MUTUM","2":"MT","3":"TFLX + CYPR","4":"57.43073","5":"1.292971e-02","6":"3","7":"-56.0850","8":"-13.8210"},{"1":"NOVA MUTUM","2":"MT","3":"TFLX + PROT","4":"82.70447","5":"4.815303e-01","6":"3","7":"-56.0850","8":"-13.8210"},{"1":"NOVA XAVANTINA","2":"MT","3":"AZOX + BENZ","4":"98.65135","5":"1.532478e+01","6":"1","7":"-52.3590","8":"-14.6640"},{"1":"NOVA XAVANTINA","2":"MT","3":"BIXF + TFLX + PROT","4":"84.56543","5":"1.170051e-01","6":"1","7":"-52.3590","8":"-14.6640"},{"1":"NOVA XAVANTINA","2":"MT","3":"PICO + BENZ","4":"97.65235","5":"5.057387e+00","6":"1","7":"-52.3590","8":"-14.6640"},{"1":"NOVA XAVANTINA","2":"MT","3":"PICO + CYPR","4":"79.42058","5":"6.581539e-02","6":"1","7":"-52.3590","8":"-14.6640"},{"1":"NOVA XAVANTINA","2":"MT","3":"PICO + TEBU","4":"82.51748","5":"9.119811e-02","6":"1","7":"-52.3590","8":"-14.6640"},{"1":"NOVA XAVANTINA","2":"MT","3":"PYRA + EPOX + FLUX","4":"98.80120","5":"1.939543e+01","6":"1","7":"-52.3590","8":"-14.6640"},{"1":"NOVA XAVANTINA","2":"MT","3":"TFLX + CYPR","4":"75.62438","5":"4.691182e-02","6":"1","7":"-52.3590","8":"-14.6640"},{"1":"NOVA XAVANTINA","2":"MT","3":"TFLX + PROT","4":"75.62438","5":"4.691182e-02","6":"1","7":"-52.3590","8":"-14.6640"},{"1":"PALMEIRA","2":"PR","3":"AZOX + BENZ","4":"79.82365","5":"9.275898e-03","6":"5","7":"-50.0050","8":"-25.4250"},{"1":"PALMEIRA","2":"PR","3":"BIXF + TFLX + PROT","4":"83.58702","5":"2.902066e-02","6":"5","7":"-50.0050","8":"-25.4250"},{"1":"PALMEIRA","2":"PR","3":"PICO + BENZ","4":"79.65247","5":"4.425596e-03","6":"5","7":"-50.0050","8":"-25.4250"},{"1":"PALMEIRA","2":"PR","3":"PICO + CYPR","4":"74.73309","5":"2.824864e-03","6":"5","7":"-50.0050","8":"-25.4250"},{"1":"PALMEIRA","2":"PR","3":"PICO + TEBU","4":"79.86468","5":"4.402329e-03","6":"5","7":"-50.0050","8":"-25.4250"},{"1":"PALMEIRA","2":"PR","3":"PYRA + EPOX + FLUX","4":"77.47039","5":"2.776638e-03","6":"5","7":"-50.0050","8":"-25.4250"},{"1":"PALMEIRA","2":"PR","3":"TFLX + CYPR","4":"76.19455","5":"3.344547e-03","6":"5","7":"-50.0050","8":"-25.4250"},{"1":"PALMEIRA","2":"PR","3":"TFLX + PROT","4":"87.52888","5":"4.413112e-02","6":"5","7":"-50.0050","8":"-25.4250"},{"1":"PASSO FUNDO","2":"RS","3":"AZOX + BENZ","4":"56.96511","5":"1.270606e-03","6":"4","7":"-52.4100","8":"-28.2620"},{"1":"PASSO FUNDO","2":"RS","3":"BIXF + TFLX + PROT","4":"67.32227","5":"3.720289e-03","6":"4","7":"-52.4100","8":"-28.2620"},{"1":"PASSO FUNDO","2":"RS","3":"PICO + BENZ","4":"58.53558","5":"1.631914e-03","6":"4","7":"-52.4100","8":"-28.2620"},{"1":"PASSO FUNDO","2":"RS","3":"PICO + CYPR","4":"41.70732","5":"7.043478e-04","6":"4","7":"-52.4100","8":"-28.2620"},{"1":"PASSO FUNDO","2":"RS","3":"PICO + TEBU","4":"54.25798","5":"1.176736e-03","6":"4","7":"-52.4100","8":"-28.2620"},{"1":"PASSO FUNDO","2":"RS","3":"PYRA + EPOX + FLUX","4":"65.79034","5":"2.362006e-03","6":"4","7":"-52.4100","8":"-28.2620"},{"1":"PASSO FUNDO","2":"RS","3":"TFLX + CYPR","4":"46.06090","5":"1.030240e-03","6":"4","7":"-52.4100","8":"-28.2620"},{"1":"PASSO FUNDO","2":"RS","3":"TFLX + PROT","4":"61.29036","5":"2.033815e-03","6":"4","7":"-52.4100","8":"-28.2620"},{"1":"PAULÍNIA","2":"SP","3":"AZOX + BENZ","4":"80.06173","5":"6.598895e-02","6":"4","7":"-47.1560","8":"-22.7500"},{"1":"PAULÍNIA","2":"SP","3":"BIXF + TFLX + PROT","4":"88.90006","5":"5.667983e+00","6":"4","7":"-47.1560","8":"-22.7500"},{"1":"PAULÍNIA","2":"SP","3":"PICO + BENZ","4":"86.34500","5":"1.740258e-01","6":"4","7":"-47.1560","8":"-22.7500"},{"1":"PAULÍNIA","2":"SP","3":"PICO + CYPR","4":"60.55060","5":"2.875860e-03","6":"4","7":"-47.1560","8":"-22.7500"},{"1":"PAULÍNIA","2":"SP","3":"PICO + TEBU","4":"63.47447","5":"3.398040e-02","6":"4","7":"-47.1560","8":"-22.7500"},{"1":"PAULÍNIA","2":"SP","3":"PYRA + EPOX + FLUX","4":"81.04896","5":"4.445464e-01","6":"4","7":"-47.1560","8":"-22.7500"},{"1":"PAULÍNIA","2":"SP","3":"TFLX + CYPR","4":"70.35994","5":"5.058851e-03","6":"4","7":"-47.1560","8":"-22.7500"},{"1":"PAULÍNIA","2":"SP","3":"TFLX + PROT","4":"78.46473","5":"1.560118e-01","6":"4","7":"-47.1560","8":"-22.7500"},{"1":"PEDRA PRETA","2":"MT","3":"AZOX + BENZ","4":"71.02975","5":"1.658500e-01","6":"6","7":"-54.4810","8":"-16.6210"},{"1":"PEDRA PRETA","2":"MT","3":"BIXF + TFLX + PROT","4":"68.26218","5":"4.722819e-02","6":"6","7":"-54.4810","8":"-16.6210"},{"1":"PEDRA PRETA","2":"MT","3":"PICO + BENZ","4":"65.12596","5":"1.226318e-02","6":"6","7":"-54.4810","8":"-16.6210"},{"1":"PEDRA PRETA","2":"MT","3":"PICO + CYPR","4":"48.82158","5":"1.721573e-02","6":"6","7":"-54.4810","8":"-16.6210"},{"1":"PEDRA PRETA","2":"MT","3":"PICO + TEBU","4":"50.21894","5":"9.640016e-03","6":"6","7":"-54.4810","8":"-16.6210"},{"1":"PEDRA PRETA","2":"MT","3":"PYRA + EPOX + FLUX","4":"65.08562","5":"2.611864e-02","6":"6","7":"-54.4810","8":"-16.6210"},{"1":"PEDRA PRETA","2":"MT","3":"TFLX + CYPR","4":"48.11167","5":"8.906836e-03","6":"6","7":"-54.4810","8":"-16.6210"},{"1":"PEDRA PRETA","2":"MT","3":"TFLX + PROT","4":"56.06668","5":"4.646124e-02","6":"6","7":"-54.4810","8":"-16.6210"},{"1":"PLANALTINA","2":"DF","3":"AZOX + BENZ","4":"61.08591","5":"1.683121e-03","6":"4","7":"-47.6520","8":"-15.6220"},{"1":"PLANALTINA","2":"DF","3":"BIXF + TFLX + PROT","4":"69.52294","5":"4.408991e-03","6":"4","7":"-47.6520","8":"-15.6220"},{"1":"PLANALTINA","2":"DF","3":"PICO + BENZ","4":"63.65041","5":"2.426591e-03","6":"4","7":"-47.6520","8":"-15.6220"},{"1":"PLANALTINA","2":"DF","3":"PICO + CYPR","4":"47.02055","5":"1.116935e-03","6":"4","7":"-47.6520","8":"-15.6220"},{"1":"PLANALTINA","2":"DF","3":"PICO + TEBU","4":"57.21558","5":"2.262034e-03","6":"4","7":"-47.6520","8":"-15.6220"},{"1":"PLANALTINA","2":"DF","3":"PYRA + EPOX + FLUX","4":"64.60493","5":"2.601033e-03","6":"4","7":"-47.6520","8":"-15.6220"},{"1":"PLANALTINA","2":"DF","3":"TFLX + CYPR","4":"48.78611","5":"1.234905e-03","6":"4","7":"-47.6520","8":"-15.6220"},{"1":"PLANALTINA","2":"DF","3":"TFLX + PROT","4":"59.47803","5":"2.080880e-03","6":"4","7":"-47.6520","8":"-15.6220"},{"1":"PONTA GROSSA","2":"PR","3":"AZOX + BENZ","4":"84.21389","5":"3.736317e+01","6":"5","7":"-50.1550","8":"-25.0950"},{"1":"PONTA GROSSA","2":"PR","3":"BIXF + TFLX + PROT","4":"89.31661","5":"2.305508e-01","6":"5","7":"-50.1550","8":"-25.0950"},{"1":"PONTA GROSSA","2":"PR","3":"PICO + BENZ","4":"88.88013","5":"3.334416e-01","6":"5","7":"-50.1550","8":"-25.0950"},{"1":"PONTA GROSSA","2":"PR","3":"PICO + CYPR","4":"86.28197","5":"4.089384e-01","6":"5","7":"-50.1550","8":"-25.0950"},{"1":"PONTA GROSSA","2":"PR","3":"PICO + TEBU","4":"88.94823","5":"1.782551e+00","6":"5","7":"-50.1550","8":"-25.0950"},{"1":"PONTA GROSSA","2":"PR","3":"PYRA + EPOX + FLUX","4":"84.15678","5":"2.270741e-01","6":"5","7":"-50.1550","8":"-25.0950"},{"1":"PONTA GROSSA","2":"PR","3":"TFLX + CYPR","4":"82.95092","5":"9.305931e-02","6":"5","7":"-50.1550","8":"-25.0950"},{"1":"PONTA GROSSA","2":"PR","3":"TFLX + PROT","4":"84.31009","5":"3.372345e-01","6":"5","7":"-50.1550","8":"-25.0950"},{"1":"PRIMAVERA DO LESTE","2":"MT","3":"AZOX + BENZ","4":"58.94321","5":"2.088159e-02","6":"12","7":"-54.2960","8":"-15.5620"},{"1":"PRIMAVERA DO LESTE","2":"MT","3":"BIXF + TFLX + PROT","4":"72.68099","5":"2.734222e-02","6":"12","7":"-54.2960","8":"-15.5620"},{"1":"PRIMAVERA DO LESTE","2":"MT","3":"PICO + BENZ","4":"60.78057","5":"2.647053e-02","6":"12","7":"-54.2960","8":"-15.5620"},{"1":"PRIMAVERA DO LESTE","2":"MT","3":"PICO + CYPR","4":"44.65622","5":"4.760285e-03","6":"12","7":"-54.2960","8":"-15.5620"},{"1":"PRIMAVERA DO LESTE","2":"MT","3":"PICO + TEBU","4":"56.33734","5":"7.713297e-03","6":"12","7":"-54.2960","8":"-15.5620"},{"1":"PRIMAVERA DO LESTE","2":"MT","3":"PYRA + EPOX + FLUX","4":"57.53947","5":"9.739814e-03","6":"12","7":"-54.2960","8":"-15.5620"},{"1":"PRIMAVERA DO LESTE","2":"MT","3":"TFLX + CYPR","4":"45.22365","5":"4.638135e-03","6":"12","7":"-54.2960","8":"-15.5620"},{"1":"PRIMAVERA DO LESTE","2":"MT","3":"TFLX + PROT","4":"61.23222","5":"1.090085e-02","6":"12","7":"-54.2960","8":"-15.5620"},{"1":"QUERÊNCIA","2":"MT","3":"AZOX + BENZ","4":"68.13472","5":"9.534931e-04","6":"1","7":"-52.2130","8":"-12.5700"},{"1":"QUERÊNCIA","2":"MT","3":"BIXF + TFLX + PROT","4":"79.27461","5":"2.253968e-03","6":"1","7":"-52.2130","8":"-12.5700"},{"1":"QUERÊNCIA","2":"MT","3":"PICO + BENZ","4":"65.80311","5":"8.279039e-04","6":"1","7":"-52.2130","8":"-12.5700"},{"1":"QUERÊNCIA","2":"MT","3":"PICO + CYPR","4":"36.26943","5":"2.383733e-04","6":"1","7":"-52.2130","8":"-12.5700"},{"1":"QUERÊNCIA","2":"MT","3":"PYRA + EPOX + FLUX","4":"65.80311","5":"8.279039e-04","6":"1","7":"-52.2130","8":"-12.5700"},{"1":"QUERÊNCIA","2":"MT","3":"TFLX + CYPR","4":"31.08808","5":"2.038752e-04","6":"1","7":"-52.2130","8":"-12.5700"},{"1":"QUERÊNCIA","2":"MT","3":"TFLX + PROT","4":"80.31088","5":"2.497472e-03","6":"1","7":"-52.2130","8":"-12.5700"},{"1":"RIO VERDE","2":"GO","3":"AZOX + BENZ","4":"77.35742","5":"3.754859e-02","6":"12","7":"-50.9200","8":"-17.7930"},{"1":"RIO VERDE","2":"GO","3":"BIXF + TFLX + PROT","4":"74.81240","5":"7.307197e-03","6":"12","7":"-50.9200","8":"-17.7930"},{"1":"RIO VERDE","2":"GO","3":"PICO + BENZ","4":"72.24328","5":"5.239503e-02","6":"12","7":"-50.9200","8":"-17.7930"},{"1":"RIO VERDE","2":"GO","3":"PICO + CYPR","4":"37.46020","5":"8.311120e-04","6":"12","7":"-50.9200","8":"-17.7930"},{"1":"RIO VERDE","2":"GO","3":"PICO + TEBU","4":"59.46736","5":"1.999267e-03","6":"12","7":"-50.9200","8":"-17.7930"},{"1":"RIO VERDE","2":"GO","3":"PYRA + EPOX + FLUX","4":"76.99346","5":"7.620114e-03","6":"12","7":"-50.9200","8":"-17.7930"},{"1":"RIO VERDE","2":"GO","3":"TFLX + CYPR","4":"42.98502","5":"1.028748e-03","6":"12","7":"-50.9200","8":"-17.7930"},{"1":"RIO VERDE","2":"GO","3":"TFLX + PROT","4":"68.56488","5":"3.575918e-03","6":"12","7":"-50.9200","8":"-17.7930"},{"1":"SANTA MARIA","2":"RS","3":"AZOX + BENZ","4":"92.20183","5":"2.265307e-02","6":"1","7":"-53.8130","8":"-29.6880"},{"1":"SANTA MARIA","2":"RS","3":"PICO + CYPR","4":"70.64220","5":"1.598325e-03","6":"1","7":"-53.8130","8":"-29.6880"},{"1":"SANTA MARIA","2":"RS","3":"PICO + TEBU","4":"80.42813","5":"3.596230e-03","6":"1","7":"-53.8130","8":"-29.6880"},{"1":"SANTA MARIA","2":"RS","3":"TFLX + PROT","4":"87.61468","5":"8.980435e-03","6":"1","7":"-53.8130","8":"-29.6880"},{"1":"SANTO ANTONIO DE GOIAS","2":"GO","3":"AZOX + BENZ","4":"94.41489","5":"2.086168e-02","6":"1","7":"-49.3080","8":"-16.4850"},{"1":"SANTO ANTONIO DE GOIAS","2":"GO","3":"PICO + CYPR","4":"78.45745","5":"1.402225e-03","6":"1","7":"-49.3080","8":"-16.4850"},{"1":"SANTO ANTONIO DE GOIAS","2":"GO","3":"PICO + TEBU","4":"81.91489","5":"1.989619e-03","6":"1","7":"-49.3080","8":"-16.4850"},{"1":"SANTO ANTONIO DE GOIAS","2":"GO","3":"TFLX + PROT","4":"89.09574","5":"5.472933e-03","6":"1","7":"-49.3080","8":"-16.4850"},{"1":"SÃO GABRIEL DO OESTE","2":"MS","3":"AZOX + BENZ","4":"76.12124","5":"7.614109e-03","6":"5","7":"-54.5770","8":"-19.3940"},{"1":"SÃO GABRIEL DO OESTE","2":"MS","3":"BIXF + TFLX + PROT","4":"75.55623","5":"7.934542e-03","6":"5","7":"-54.5770","8":"-19.3940"},{"1":"SÃO GABRIEL DO OESTE","2":"MS","3":"PICO + BENZ","4":"77.91589","5":"1.475769e-02","6":"5","7":"-54.5770","8":"-19.3940"},{"1":"SÃO GABRIEL DO OESTE","2":"MS","3":"PICO + CYPR","4":"51.96144","5":"1.880104e-03","6":"5","7":"-54.5770","8":"-19.3940"},{"1":"SÃO GABRIEL DO OESTE","2":"MS","3":"PICO + TEBU","4":"54.55002","5":"2.106085e-03","6":"5","7":"-54.5770","8":"-19.3940"},{"1":"SÃO GABRIEL DO OESTE","2":"MS","3":"PYRA + EPOX + FLUX","4":"76.85622","5":"8.389199e-03","6":"5","7":"-54.5770","8":"-19.3940"},{"1":"SÃO GABRIEL DO OESTE","2":"MS","3":"TFLX + CYPR","4":"51.84555","5":"1.869929e-03","6":"5","7":"-54.5770","8":"-19.3940"},{"1":"SÃO GABRIEL DO OESTE","2":"MS","3":"TFLX + PROT","4":"63.82232","5":"3.511491e-03","6":"5","7":"-54.5770","8":"-19.3940"},{"1":"SÃO MIGUEL DO PASSA QUATRO","2":"GO","3":"AZOX + BENZ","4":"81.90698","5":"5.892278e-03","6":"2","7":"-48.7500","8":"-16.8600"},{"1":"SÃO MIGUEL DO PASSA QUATRO","2":"GO","3":"BIXF + TFLX + PROT","4":"77.32996","5":"4.779195e-03","6":"2","7":"-48.7500","8":"-16.8600"},{"1":"SÃO MIGUEL DO PASSA QUATRO","2":"GO","3":"PICO + BENZ","4":"74.80288","5":"3.835030e-03","6":"2","7":"-48.7500","8":"-16.8600"},{"1":"SÃO MIGUEL DO PASSA QUATRO","2":"GO","3":"PICO + CYPR","4":"68.86814","5":"2.874619e-03","6":"2","7":"-48.7500","8":"-16.8600"},{"1":"SÃO MIGUEL DO PASSA QUATRO","2":"GO","3":"PICO + TEBU","4":"69.83344","5":"2.648252e-03","6":"2","7":"-48.7500","8":"-16.8600"},{"1":"SÃO MIGUEL DO PASSA QUATRO","2":"GO","3":"PYRA + EPOX + FLUX","4":"73.69711","5":"3.469216e-03","6":"2","7":"-48.7500","8":"-16.8600"},{"1":"SÃO MIGUEL DO PASSA QUATRO","2":"GO","3":"TFLX + CYPR","4":"67.30534","5":"2.484949e-03","6":"2","7":"-48.7500","8":"-16.8600"},{"1":"SÃO MIGUEL DO PASSA QUATRO","2":"GO","3":"TFLX + PROT","4":"77.12114","5":"4.673095e-03","6":"2","7":"-48.7500","8":"-16.8600"},{"1":"SAPEZAL","2":"MT","3":"AZOX + BENZ","4":"62.83186","5":"6.789633e-03","6":"2","7":"-58.8160","8":"-13.5500"},{"1":"SAPEZAL","2":"MT","3":"BIXF + TFLX + PROT","4":"63.48364","5":"9.213790e-03","6":"2","7":"-58.8160","8":"-13.5500"},{"1":"SAPEZAL","2":"MT","3":"PICO + BENZ","4":"55.68198","5":"6.856392e-03","6":"2","7":"-58.8160","8":"-13.5500"},{"1":"SAPEZAL","2":"MT","3":"PICO + CYPR","4":"55.01334","5":"7.169392e-03","6":"2","7":"-58.8160","8":"-13.5500"},{"1":"SAPEZAL","2":"MT","3":"PICO + TEBU","4":"55.14819","5":"5.952064e-03","6":"2","7":"-58.8160","8":"-13.5500"},{"1":"SAPEZAL","2":"MT","3":"PYRA + EPOX + FLUX","4":"60.23177","5":"1.456666e-02","6":"2","7":"-58.8160","8":"-13.5500"},{"1":"SAPEZAL","2":"MT","3":"TFLX + CYPR","4":"51.43981","5":"5.057112e-03","6":"2","7":"-58.8160","8":"-13.5500"},{"1":"SAPEZAL","2":"MT","3":"TFLX + PROT","4":"60.40034","5":"1.002050e-02","6":"2","7":"-58.8160","8":"-13.5500"},{"1":"SENADOR CANEDO","2":"GO","3":"AZOX + BENZ","4":"83.04705","5":"7.894805e+00","6":"3","7":"-49.0920","8":"-16.7090"},{"1":"SENADOR CANEDO","2":"GO","3":"PICO + CYPR","4":"72.50363","5":"6.655131e-01","6":"3","7":"-49.0920","8":"-16.7090"},{"1":"SENADOR CANEDO","2":"GO","3":"PICO + TEBU","4":"75.41728","5":"1.049691e-01","6":"3","7":"-49.0920","8":"-16.7090"},{"1":"SENADOR CANEDO","2":"GO","3":"TFLX + CYPR","4":"60.58655","5":"1.530361e-03","6":"3","7":"-49.0920","8":"-16.7090"},{"1":"SENADOR CANEDO","2":"GO","3":"TFLX + PROT","4":"75.20969","5":"1.803983e+00","6":"3","7":"-49.0920","8":"-16.7090"},{"1":"SILVÂNIA","2":"GO","3":"AZOX + BENZ","4":"81.94595","5":"4.998130e-03","6":"2","7":"-48.3400","8":"-16.4700"},{"1":"SILVÂNIA","2":"GO","3":"BIXF + TFLX + PROT","4":"81.08114","5":"4.605496e-03","6":"2","7":"-48.3400","8":"-16.4700"},{"1":"SILVÂNIA","2":"GO","3":"PICO + BENZ","4":"81.66425","5":"4.751931e-03","6":"2","7":"-48.3400","8":"-16.4700"},{"1":"SILVÂNIA","2":"GO","3":"PICO + CYPR","4":"70.98030","5":"2.030475e-03","6":"2","7":"-48.3400","8":"-16.4700"},{"1":"SILVÂNIA","2":"GO","3":"PICO + TEBU","4":"75.49097","5":"2.599877e-03","6":"2","7":"-48.3400","8":"-16.4700"},{"1":"SILVÂNIA","2":"GO","3":"PYRA + EPOX + FLUX","4":"77.10970","5":"3.152418e-03","6":"2","7":"-48.3400","8":"-16.4700"},{"1":"SILVÂNIA","2":"GO","3":"TFLX + CYPR","4":"70.76623","5":"1.948305e-03","6":"2","7":"-48.3400","8":"-16.4700"},{"1":"SILVÂNIA","2":"GO","3":"TFLX + PROT","4":"82.89739","5":"5.510640e-03","6":"2","7":"-48.3400","8":"-16.4700"},{"1":"SORRISO","2":"MT","3":"AZOX + BENZ","4":"59.59427","5":"7.409992e-04","6":"2","7":"-55.7140","8":"-12.5580"},{"1":"SORRISO","2":"MT","3":"BIXF + TFLX + PROT","4":"67.68077","5":"1.161694e-03","6":"2","7":"-55.7140","8":"-12.5580"},{"1":"SORRISO","2":"MT","3":"PICO + BENZ","4":"81.71940","5":"4.237708e-03","6":"2","7":"-55.7140","8":"-12.5580"},{"1":"SORRISO","2":"MT","3":"PICO + CYPR","4":"54.10543","5":"5.743582e-04","6":"2","7":"-55.7140","8":"-12.5580"},{"1":"SORRISO","2":"MT","3":"PICO + TEBU","4":"59.57593","5":"7.665291e-04","6":"2","7":"-55.7140","8":"-12.5580"},{"1":"SORRISO","2":"MT","3":"PYRA + EPOX + FLUX","4":"64.65408","5":"9.778707e-04","6":"2","7":"-55.7140","8":"-12.5580"},{"1":"SORRISO","2":"MT","3":"TFLX + CYPR","4":"48.67727","5":"4.749334e-04","6":"2","7":"-55.7140","8":"-12.5580"},{"1":"SORRISO","2":"MT","3":"TFLX + PROT","4":"62.58039","5":"8.740190e-04","6":"2","7":"-55.7140","8":"-12.5580"},{"1":"UBERLÂNDIA","2":"MG","3":"AZOX + BENZ","4":"81.75282","5":"4.939598e-02","6":"5","7":"-48.2760","8":"-18.9130"},{"1":"UBERLÂNDIA","2":"MG","3":"BIXF + TFLX + PROT","4":"70.38384","5":"1.394628e-01","6":"5","7":"-48.2760","8":"-18.9130"},{"1":"UBERLÂNDIA","2":"MG","3":"PICO + BENZ","4":"64.94949","5":"1.114034e-01","6":"5","7":"-48.2760","8":"-18.9130"},{"1":"UBERLÂNDIA","2":"MG","3":"PICO + CYPR","4":"55.87703","5":"1.387027e-02","6":"5","7":"-48.2760","8":"-18.9130"},{"1":"UBERLÂNDIA","2":"MG","3":"PICO + TEBU","4":"58.33206","5":"1.174440e-02","6":"5","7":"-48.2760","8":"-18.9130"},{"1":"UBERLÂNDIA","2":"MG","3":"PYRA + EPOX + FLUX","4":"63.78788","5":"7.687748e-02","6":"5","7":"-48.2760","8":"-18.9130"},{"1":"UBERLÂNDIA","2":"MG","3":"TFLX + CYPR","4":"48.99456","5":"9.938622e-03","6":"5","7":"-48.2760","8":"-18.9130"},{"1":"UBERLÂNDIA","2":"MG","3":"TFLX + PROT","4":"77.25761","5":"4.782214e-01","6":"5","7":"-48.2760","8":"-18.9130"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<pre class="r"><code>library(rnaturalearth)
+library(ggplot2)
+library(ggmap)</code></pre>
+<pre><code>## Google&#39;s Terms of Service: https://cloud.google.com/maps-platform/terms/.</code></pre>
+<pre><code>## Please cite ggmap if you use it! See citation(&quot;ggmap&quot;) for details.</code></pre>
+<pre><code>## 
+## Attaching package: &#39;ggmap&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:cowplot&#39;:
+## 
+##     theme_nothing</code></pre>
+<pre class="r"><code>library(ggspatial)
+library(viridis)</code></pre>
+<pre><code>## Loading required package: viridisLite</code></pre>
+<pre><code>## 
+## Attaching package: &#39;viridis&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:scales&#39;:
+## 
+##     viridis_pal</code></pre>
+<pre class="r"><code>SUL = ne_states(
+  country = c(&quot;Argentina&quot;, &quot;Uruguay&quot;, &quot;Paraguay&quot;, &quot;Colombia&quot;, &quot;Bolivia&quot;),
+  returnclass = &quot;sf&quot;)
+br_sf &lt;- ne_states(geounit = &quot;brazil&quot;,
+                   returnclass = &quot;sf&quot;)
+
+states &lt;- filter(br_sf, 
+                 name_pt == &quot;Rio Grande do Sul&quot;|
+                 name_pt == &quot;Paraná&quot;|
+                 name_pt == &quot;São Paulo&quot;|
+                 name_pt == &quot;Mato Grosso&quot;|
+                 name_pt == &quot;Mato Grosso do Sul&quot;|
+                 name_pt == &quot;Goiás&quot;|
+                 name_pt == &quot;Tocantins&quot;|
+                 name_pt == &quot;Bahia&quot;|
+                 name_pt == &quot;Minas Gerais&quot;|
+                 name_pt == &quot;Distrito Federal&quot;)
+
+states = states %&gt;% 
+  mutate(id = case_when(
+    name_pt == &quot;Rio Grande do Sul&quot; ~ &quot;RS&quot;,
+    name_pt == &quot;Paraná&quot; ~ &quot;PR&quot;,
+    name_pt == &quot;São Paulo&quot; ~ &quot;SP&quot;,
+    name_pt == &quot;Mato Grosso&quot; ~ &quot;MT&quot;,
+    name_pt == &quot;Mato Grosso do Sul&quot; ~ &quot;MS&quot;,
+    name_pt == &quot;Goiás&quot; ~ &quot;GO&quot;,
+    name_pt == &quot;Tocantins&quot; ~ &quot;TO&quot;,
+    name_pt == &quot;Minas Gerais&quot; ~ &quot;MG&quot;,
+    name_pt == &quot;Distrito Federal&quot; ~ &quot;DF&quot;,
+    name_pt == &quot;Bahia&quot; ~ &quot;BA&quot;))
+
+map %&gt;% 
+  mutate(brand_name = factor(brand_name, levels = c(&quot;BIXF + TFLX + PROT&quot;, &quot;PICO + BENZ&quot;, &quot;PYRA + EPOX + FLUX&quot;, &quot;AZOX + BENZ&quot;,  &quot;TFLX + PROT&quot;,&quot;PICO + TEBU&quot;, &quot;TFLX + CYPR&quot;, &quot;PICO + CYPR&quot;))) %&gt;% 
+ggplot()+
+  geom_sf(data = SUL, fill = &quot;gray95&quot;, color = &quot;gray95&quot;) +
+  geom_sf(data = br_sf, fill = &quot;gray98&quot;, color= &quot;gray60&quot;, size =0.2) +
+  geom_sf(data = states, aes(x = longitude, y = latitude), fill = &quot;white&quot;, color = &quot;gray40&quot;, size = 0.2) +
+  geom_text(data = states, aes(x = longitude, y = latitude,  label = id), size = 2.5, hjust = 0.5, color = &quot;black&quot;, fontface = &quot;bold&quot;)+
+  geom_jitter(data = map, aes(x = long, y = lat, size = n, color = efficacy), alpha = 0.8) +
+  #geom_point(data = map, aes(x = long, y = lat, size = vi_sev, color = efficacy), alpha = .5) +
+  labs(x = &quot;Longitude&quot;, y = &quot;Latitude&quot;, color = &quot;Efficacy&quot;, size = &quot;Number of Trials&quot;) +
+  scale_size_continuous(range = c(1,5), breaks = c(1,5,12))+
+  #theme_bw()+
+  theme_minimal_grid()+
+  annotation_scale(location = &quot;bl&quot;, width_hint = 0.2) +
+  coord_sf(xlim = c(-60,-40), ylim = c(-32, -9), expand = FALSE)+
+  scale_colour_viridis_b(option = &quot;C&quot;, direction = 1)+
+   # scale_color_gradient2(low = &quot;red&quot;, mid =&quot;black&quot;, high = &quot;green&quot;, midpoint = 60)+
+  theme(legend.position = c(0.7, 0.18),
+        legend.direction = &quot;vertical&quot;,
+        legend.title.align = 0.5,
+        legend.title = element_text(size = 10, face = &quot;bold&quot;),
+        legend.text = element_text(size = 10),
+        axis.text.x =  element_text(size = 6),
+        axis.text.y = element_text(size = 6),
+        axis.title.x = element_text(size=12, face = &quot;bold&quot;),
+        axis.title.y = element_text(size=12, face = &quot;bold&quot;),
+        strip.text = element_text(size = 10, color = &quot;black&quot;),
+        panel.grid = element_blank(),
+        panel.border = element_rect(color = &quot;gray50&quot;, size=.2),
+        panel.spacing.x = unit(1.5, &quot;lines&quot;),
+        panel.background = element_rect(fill = &quot;#d2eeff&quot;)
+        )+
+  facet_wrap(~factor(brand_name), ncol = 3)</code></pre>
+<pre><code>## Scale on map varies by more than 10%, scale bar may be inaccurate</code></pre>
+<pre><code>## Scale on map varies by more than 10%, scale bar may be inaccurate
+## Scale on map varies by more than 10%, scale bar may be inaccurate
+## Scale on map varies by more than 10%, scale bar may be inaccurate
+## Scale on map varies by more than 10%, scale bar may be inaccurate
+## Scale on map varies by more than 10%, scale bar may be inaccurate
+## Scale on map varies by more than 10%, scale bar may be inaccurate
+## Scale on map varies by more than 10%, scale bar may be inaccurate</code></pre>
+<p><img src="plots_files/figure-html/unnamed-chunk-10-1.png" width="768" /></p>
+<pre class="r"><code># hist(map$vi_sev)
+
+ggsave(&quot;Figures/map.png&quot;, height=10, width=8, dpi = 600)</code></pre>
+<pre><code>## Scale on map varies by more than 10%, scale bar may be inaccurate
+## Scale on map varies by more than 10%, scale bar may be inaccurate
+## Scale on map varies by more than 10%, scale bar may be inaccurate
+## Scale on map varies by more than 10%, scale bar may be inaccurate
+## Scale on map varies by more than 10%, scale bar may be inaccurate
+## Scale on map varies by more than 10%, scale bar may be inaccurate
+## Scale on map varies by more than 10%, scale bar may be inaccurate
+## Scale on map varies by more than 10%, scale bar may be inaccurate</code></pre>
+</div>
+<div id="cover-figure" class="section level2">
+<h2>Cover Figure</h2>
+<pre class="r"><code>library(janitor)
+library(gsheet)
+coord &lt;- gsheet2tbl(&quot;https://docs.google.com/spreadsheets/d/1Xx_gK6ERLLhQGIrOPB_ZYs9LoHTmsv030s30Dc_TPzg/edit#gid=1130774788&quot;, sheetid = &quot;map&quot;)
+
+library(tidyverse)
+rust_sev &lt;- read_csv(&quot;data/dat-sev.csv&quot;)</code></pre>
+<pre><code>## 
+## -- Column specification --------------------------------------------------------
+## cols(
+##   study = col_double(),
+##   year = col_double(),
+##   location = col_character(),
+##   state = col_character(),
+##   n_spray = col_double(),
+##   brand_name = col_character(),
+##   mean_sev = col_double(),
+##   mean_yld = col_double(),
+##   v_sev = col_double(),
+##   v_yld = col_double(),
+##   yld_check = col_double(),
+##   v_yld_check = col_double(),
+##   sev_check = col_double(),
+##   v_sev_check = col_double(),
+##   log_sev = col_double(),
+##   vi_sev = col_double(),
+##   n2 = col_double(),
+##   n3 = col_double(),
+##   design = col_double()
+## )</code></pre>
+<pre class="r"><code>rust_trial &lt;- gsheet2tbl(&quot;https://docs.google.com/spreadsheets/d/1Xx_gK6ERLLhQGIrOPB_ZYs9LoHTmsv030s30Dc_TPzg/edit#gid=287066174&quot;, sheetid = &quot;2015-2020&quot;)
+trial_n = rust_trial %&gt;%
+  group_by(study,location) %&gt;% 
+  summarise() %&gt;%
+  tabyl(location)</code></pre>
+<pre><code>## `summarise()` regrouping output by &#39;study&#39; (override with `.groups` argument)</code></pre>
+<pre class="r"><code>trial_n = data.frame(trial_n) %&gt;% 
+  select(1,2)
+
+map2 = full_join(coord, trial_n, by = c(&quot;location&quot;))
+
+map2</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["location"],"name":[1],"type":["chr"],"align":["left"]},{"label":["state"],"name":[2],"type":["chr"],"align":["left"]},{"label":["long"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["lat"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["n"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"ALVORADA","2":"TO","3":"-49.1274","4":"-12.4775","5":"1"},{"1":"AMAMBAI","2":"MS","3":"-55.2290","4":"-23.1080","5":"2"},{"1":"ANÁPOLIS","2":"GO","3":"-48.9530","4":"-16.3200","5":"2"},{"1":"BONITO","2":"MS","3":"-56.4840","4":"-21.1270","5":"1"},{"1":"CABECEIRA DO APA","2":"MS","3":"-55.7260","4":"-22.5360","5":"1"},{"1":"CAFELÂNDIA","2":"PR","3":"-53.3220","4":"-24.6170","5":"4"},{"1":"CAMPO GRANDE","2":"MS","3":"-54.6470","4":"-20.4430","5":"3"},{"1":"CAMPO NOVO DO PARECIS","2":"MT","3":"-57.8940","4":"-13.6550","5":"5"},{"1":"CAMPO VERDE","2":"MT","3":"-55.1680","4":"-15.5510","5":"12"},{"1":"CASCAVEL","2":"PR","3":"-53.4550","4":"-24.9550","5":"1"},{"1":"CHAPADÃO DO SUL","2":"MS","3":"-52.6190","4":"-18.7940","5":"7"},{"1":"DECIOLÂNDIA","2":"MT","3":"-56.3610","4":"-15.2080","5":"9"},{"1":"DIAMANTINO","2":"MT","3":"-56.4340","4":"-14.4060","5":"3"},{"1":"ENTRE RIOS","2":"PR","3":"-54.2430","4":"-24.7060","5":"3"},{"1":"EREBANGO","2":"RS","3":"-52.2910","4":"-27.8530","5":"1"},{"1":"FAXINAL","2":"PR","3":"-55.1680","4":"-15.5510","5":"4"},{"1":"GOIÂNIA","2":"GO","3":"-49.2650","4":"-16.6870","5":"1"},{"1":"GUARAPUAVA","2":"PR","3":"-51.4560","4":"-25.3930","5":"1"},{"1":"ITAARA","2":"RS","3":"-53.7590","4":"-29.5910","5":"4"},{"1":"JATAÍ","2":"GO","3":"-51.7210","4":"-17.8750","5":"3"},{"1":"LONDRINA","2":"PR","3":"-51.1700","4":"-23.3050","5":"9"},{"1":"LUCAS DO RIO VERDE","2":"MT","3":"-55.9210","4":"-13.0630","5":"5"},{"1":"LUÍS EDUARDO MAGALHÃES","2":"BA","3":"-45.7800","4":"-12.0910","5":"5"},{"1":"MARACAJU","2":"MS","3":"-55.7660","4":"-22.0160","5":"5"},{"1":"MAUA DA SERRA","2":"PR","3":"-55.1670","4":"-21.6250","5":"3"},{"1":"NAVIRAÍ","2":"MS","3":"-54.2020","4":"-23.0620","5":"2"},{"1":"NOVA MUTUM","2":"MT","3":"-56.0850","4":"-13.8210","5":"3"},{"1":"NOVA XAVANTINA","2":"MT","3":"-52.3590","4":"-14.6640","5":"1"},{"1":"PALMEIRA","2":"PR","3":"-50.0050","4":"-25.4250","5":"5"},{"1":"PASSO FUNDO","2":"RS","3":"-52.4100","4":"-28.2620","5":"4"},{"1":"PAULÍNIA","2":"SP","3":"-47.1560","4":"-22.7500","5":"4"},{"1":"PEDRA PRETA","2":"MT","3":"-54.4810","4":"-16.6210","5":"6"},{"1":"PLANALTINA","2":"DF","3":"-47.6520","4":"-15.6220","5":"4"},{"1":"PONTA GROSSA","2":"PR","3":"-50.1550","4":"-25.0950","5":"5"},{"1":"PRIMAVERA DO LESTE","2":"MT","3":"-54.2960","4":"-15.5620","5":"12"},{"1":"QUERÊNCIA","2":"MT","3":"-52.2130","4":"-12.5700","5":"1"},{"1":"RIO VERDE","2":"GO","3":"-50.9200","4":"-17.7930","5":"12"},{"1":"SANTA MARIA","2":"RS","3":"-53.8130","4":"-29.6880","5":"1"},{"1":"SANTO ANTONIO DE GOIAS","2":"GO","3":"-49.3080","4":"-16.4850","5":"1"},{"1":"SÃO GABRIEL DO OESTE","2":"MS","3":"-54.5770","4":"-19.3940","5":"5"},{"1":"SÃO MIGUEL DO PASSA QUATRO","2":"GO","3":"-48.7500","4":"-16.8600","5":"2"},{"1":"SAPEZAL","2":"MT","3":"-58.8160","4":"-13.5500","5":"2"},{"1":"SENADOR CANEDO","2":"GO","3":"-49.0920","4":"-16.7090","5":"3"},{"1":"SILVÂNIA","2":"GO","3":"-48.3400","4":"-16.4700","5":"2"},{"1":"SORRISO","2":"MT","3":"-55.7140","4":"-12.5580","5":"2"},{"1":"UBERLÂNDIA","2":"MG","3":"-48.2760","4":"-18.9130","5":"5"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<pre class="r"><code>library(rnaturalearth)
+library(ggplot2)
+library(ggmap)
+library(ggspatial)
+library(viridis)
+
+SUL = ne_states(
+  country = c(&quot;Argentina&quot;, &quot;Uruguay&quot;, &quot;Paraguay&quot;, &quot;Colombia&quot;, &quot;Bolivia&quot;),
+  returnclass = &quot;sf&quot;)
+br_sf &lt;- ne_states(geounit = &quot;brazil&quot;,
+                   returnclass = &quot;sf&quot;)
+
+states &lt;- filter(br_sf, 
+                 name_pt == &quot;Rio Grande do Sul&quot;|
+                 name_pt == &quot;Paraná&quot;|
+                 name_pt == &quot;São Paulo&quot;|
+                 name_pt == &quot;Mato Grosso&quot;|
+                 name_pt == &quot;Mato Grosso do Sul&quot;|
+                 name_pt == &quot;Goiás&quot;|
+                 name_pt == &quot;Tocantins&quot;|
+                 name_pt == &quot;Bahia&quot;|
+                 name_pt == &quot;Minas Gerais&quot;|
+                 name_pt == &quot;Distrito Federal&quot;)
+
+states = states %&gt;% 
+  mutate(id = case_when(
+    name_pt == &quot;Rio Grande do Sul&quot; ~ &quot;RS&quot;,
+    name_pt == &quot;Paraná&quot; ~ &quot;PR&quot;,
+    name_pt == &quot;São Paulo&quot; ~ &quot;SP&quot;,
+    name_pt == &quot;Mato Grosso&quot; ~ &quot;MT&quot;,
+    name_pt == &quot;Mato Grosso do Sul&quot; ~ &quot;MS&quot;,
+    name_pt == &quot;Goiás&quot; ~ &quot;GO&quot;,
+    name_pt == &quot;Tocantins&quot; ~ &quot;TO&quot;,
+    name_pt == &quot;Minas Gerais&quot; ~ &quot;MG&quot;,
+    name_pt == &quot;Distrito Federal&quot; ~ &quot;DF&quot;,
+    name_pt == &quot;Bahia&quot; ~ &quot;BA&quot;))
+
+map2 %&gt;% 
+ggplot()+
+  geom_sf(data = SUL, fill = &quot;gray95&quot;, color = &quot;gray95&quot;) +
+  geom_sf(data = br_sf, fill = &quot;gray98&quot;, color= &quot;gray60&quot;, size =0.2) +
+  geom_sf(data = states, aes(x = longitude, y = latitude), fill = &quot;white&quot;, color = &quot;gray40&quot;, size = 0.2) +
+  geom_text(data = states, aes(x = longitude, y = latitude,  label = id), size = 2.5, hjust = 0.5, color = &quot;black&quot;, fontface = &quot;bold&quot;)+
+  geom_jitter(data = map2, aes(x = long, y = lat, size = n), color = &quot;red&quot; , alpha = .6) +
+  labs(x = &quot;Longitude&quot;, y = &quot;Latitude&quot;, size = &quot;Number of Trials&quot;) +
+  scale_size_continuous(range = c(1,5), breaks = c(1,5,12))+
+  theme_minimal_grid()+
+  annotation_scale(location = &quot;bl&quot;, width_hint = 0.2) +
+  coord_sf(xlim = c(-60,-40), ylim = c(-32, -6), expand = FALSE)+
+  theme(legend.position = &quot;bottom&quot;,
+        legend.justification = &quot;center&quot;,
+        legend.title.align = 0.5,
+        legend.title = element_text(size = 10, face = &quot;bold&quot;),
+        legend.text = element_text(size = 10),
+        axis.text.x =  element_text(size = 6),
+        axis.text.y = element_text(size = 6),
+        axis.title.x = element_text(size=12, face = &quot;bold&quot;),
+        axis.title.y = element_text(size=12, face = &quot;bold&quot;),
+        panel.grid = element_blank(),
+        panel.border = element_rect(color = &quot;gray50&quot;, size=.2),
+        panel.spacing.x = unit(1.5, &quot;lines&quot;),
+        panel.background = element_rect(fill = &quot;#d2eeff&quot;)
+        )</code></pre>
+<pre><code>## Scale on map varies by more than 10%, scale bar may be inaccurate</code></pre>
+<p><img src="plots_files/figure-html/unnamed-chunk-11-1.png" width="480" /></p>
+<pre class="r"><code>ggsave(&quot;Figures/cover_map.png&quot;, height=6, width=5, dpi = 600)</code></pre>
+<pre><code>## Scale on map varies by more than 10%, scale bar may be inaccurate</code></pre>
+</div>
+</div>
+
+
+
+Copyright 2017 Emerson Del Ponte
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = false;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

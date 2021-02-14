@@ -1,0 +1,660 @@
+% Code
+
+# Data
+
+
+```{r, warning=FALSE}
+library(readr)
+library(metafor)
+library(tidyverse)
+library(here)
+rust_yld <- read_csv("data/dat-yld.csv")
+
+```
+
+
+
+## Absolute yield
+
+```{r}
+
+library(metafor)
+
+mv_yld <- rma.mv(mean_yld, vi_yld,
+  mods = ~brand_name,
+  random = list(~brand_name | study),
+  struct = "UN",
+  method = "ML",
+  control = list(optimizer = "nlm"),
+  data = rust_yld
+)
+
+summary(mv_yld)
+```
+
+
+```{r}
+yield_res<- data.frame(cbind(mv_yld$b, 
+                             mv_yld$ci.lb,
+                             mv_yld$ci.ub)) %>% 
+  mutate(fungicide = c("check", "AZOX + BENZ", "BIXF + TFLX + PROT", "PICO + BENZ", "PICO + CYPR","PICO + TEBU", "PYRA + EPOX + FLUX", "TFLX + CYPR", "TFLX + PROT")) %>% 
+  filter(fungicide != "check")
+
+
+names (yield_res) = c("yld", "yld_lower", "yld_upper", "fungicide")
+  
+yield_res
+
+
+#write_csv(yield_res, "data/yld_kg.csv")
+openxlsx::write.xlsx(yield_res, here("data","yld_kg.xlsx"), colNames = TRUE)
+```
+
+### Contrasts
+
+We can set linear contrasts between treatments of interest and get the P-valued using the `anova` function.
+
+```{r}
+anova(mv_yld, L = rbind(
+  c(0, 1, -1, 0, 0, 0, 0, 0, 0),
+  c(0, 1, 0, -1, 0, 0, 0, 0, 0),
+  c(0, 1, 0, 0, -1, 0, 0, 0, 0),
+  c(0, 1, 0, 0, 0, -1, 0, 0, 0),
+  c(0, 1, 0, 0, 0, 0, -1, 0, 0),
+  c(0, 1, 0, 0, 0, 0, 0, -1, 0),
+  c(0, 1, 0, 0, 0, 0, 0, 0, -1),
+  c(0, 0, 1, -1, 0, 0, 0, 0, 0),
+  c(0, 0, 1, 0, -1, 0, 0, 0, 0),
+  c(0, 0, 1, 0, 0, -1, 0, 0, 0),
+  c(0, 0, 1, 0, 0, 0, -1, 0, 0),
+  c(0, 0, 1, 0, 0, 0, 0, -1, 0),
+  c(0, 0, 1, 0, 0, 0, 0, 0, -1),
+  c(0, 0, 0, 1, -1, 0, 0, 0, 0),
+  c(0, 0, 0, 1, 0, -1, 0, 0, 0),
+  c(0, 0, 0, 1, 0, 0, -1, 0, 0),
+  c(0, 0, 0, 1, 0, 0, 0, -1, 0),
+  c(0, 0, 0, 1, 0, 0, 0, 0, -1),
+  c(0, 0, 0, 0, 1, -1, 0, 0, 0),
+  c(0, 0, 0, 0, 1, 0, -1, 0, 0),
+  c(0, 0, 0, 0, 1, 0, 0, -1, 0),
+  c(0, 0, 0, 0, 1, 0, 0, 0, -1),
+  c(0, 0, 0, 0, 0, 1, -1, 0, 0),
+  c(0, 0, 0, 0, 0, 1, 0, -1, 0),
+  c(0, 0, 0, 0, 0, 1, 0, 0, -1),
+  c(0, 0, 0, 0, 0, 0, 1, -1, 0),
+  c(0, 0, 0, 0, 0, 0, 1, 0, -1),
+  c(0, 0, 0, 0, 0, 0, 0, 1, -1)
+  ))
+```
+
+## Moderator analysis
+
+### Mods: year 
+
+```{r, warning=FALSE}
+mv_yld_year <- rma.mv(mean_yld, vi_yld,
+  mods = ~brand_name * as.numeric(year),
+  random = list(~brand_name | study),
+  struct = "UN",
+  method = "ML",
+  control = list(optimizer = "nlm"),
+  data = rust_yld %>% mutate(year= year - 2015))
+
+mv_yld_year
+
+anova(mv_yld_year, btt = 11:18)
+```
+
+#### Decline yield
+
+```{r fig.height=8, fig.width=10}
+
+yld_gain <- rust_yld %>%
+  mutate(gain = mean_yld - yld_check) %>% 
+  filter(brand_name!= "AACHECK")  
+  
+
+yld_gain <- yld_gain %>% 
+mutate(region = case_when(
+    state == "MT" ~ "North",
+    state == "BA" ~ "North",
+    state == "DF" ~ "North",
+    state == "MS" ~ "North",
+    state == "GO" ~ "North",
+    state == "TO" ~ "North",
+    state == "PR" ~ "South",
+    state == "MG" ~ "South",
+    state == "SP" ~ "South",
+    state == "RS" ~ "South")) 
+
+
+reg1 = data.frame(mv_yld_year$beta, mv_yld_year$ci.lb, mv_yld_year$ci.ub) %>%
+  rownames_to_column("trat") %>%
+  separate(trat, into = c("lado1", "lado2"), sep = ":") %>%
+  separate(lado1, into = c("lixo", "lado3"),sep = "brand_name") %>%
+  select(-lixo) %>%
+  filter(lado3 != "NA") %>%
+  mutate(mod = c(rep("intercept", 8), rep("slope", 8))) %>% 
+  select(-lado2)
+names(reg1) = c("fungicide", "mean", "ci.lb", "ci.ub", "mod") 
+
+mean = reg1 %>%
+  group_by(fungicide) %>%
+  select(1:2,5) %>%
+  spread(mod, mean) 
+names(mean) = c("fungicide", "intercept_mean", "slope_mean")
+
+upper = reg1 %>%
+  group_by(fungicide) %>%
+  select(1,3,5) %>%
+  spread(mod, ci.lb)
+names(upper) = c("fungicide", "intercept_upper", "slope_upper")
+
+lower = reg1 %>%
+  group_by(fungicide) %>%
+  select(1,4:5) %>%
+  spread(mod, ci.ub)
+names(lower) = c("fungicide", "intercept_lower", "slope_lower")
+
+data_model = left_join(mean, lower, by= c("fungicide")) %>% 
+  left_join(upper, by = c("fungicide"))
+
+year = seq(0,6, by = 0.1) 
+fungicide = NULL
+year_col = NULL
+for(i in 1:length(data_model$fungicide)){
+data_cache = yld_gain %>% 
+    filter(brand_name == data_model$fungicide[i]) 
+years = unique(data_cache$year)-2015
+year = sort(years)
+year = seq(first(year), last(year), by = 0.1)   
+  year_col = c(year_col,year) 
+  fungicide = c(fungicide, rep(data_model$fungicide[i], length(year)))
+}
+ 
+predicted = data.frame(year_col, fungicide) %>%
+  mutate(year = year_col) %>%
+  right_join(data_model, by = "fungicide") %>%
+  mutate(mean_gain = intercept_mean + slope_mean*year,
+         CIL = intercept_lower + slope_lower*year,
+         CIU = intercept_upper + slope_upper*year,
+         year = year+2015) %>% 
+  mutate(brand_name = fungicide) %>% 
+  filter(year <2020.2) %>% 
+  dplyr::select(-fungicide)
+predicted
+
+openxlsx::write.xlsx(predicted, here("data","predicted_yield.xlsx"), colNames = TRUE)
+```
+
+
+### AZOX + BENZ
+
+```{r}
+library(janitor)
+# create the log of the sev variable
+rust_yld1 <- rust_yld %>%
+  filter(brand_name %in% c("AACHECK", "AZOX + BENZ")) %>% 
+  group_by(study) %>% 
+  mutate(n2 = n()) %>% 
+  filter(n2 != 1)
+
+rust_yld1 = rust_yld1 %>% 
+mutate(region = case_when(
+    state == "MT" ~ "North",
+    state == "BA" ~ "North",
+    state == "DF" ~ "North",
+    state == "MS" ~ "North",
+    state == "GO" ~ "North",
+    state == "TO" ~ "North",
+    state == "PR" ~ "South",
+    state == "MG" ~ "North",
+    state == "SP" ~ "South",
+    state == "RS" ~ "South")) 
+
+rust_yld1 %>%
+tabyl(brand_name, region)
+
+rust_yld1 %>%
+tabyl(brand_name, state)
+
+```
+
+
+#### NW
+
+```{r}
+library(metafor)
+yld_gain <- rust_yld %>%
+  mutate(gain = mean_yld - yld_check) %>% 
+  filter(brand_name!= "AACHECK")  
+
+rust_yld_nor <- rust_yld1 %>% 
+filter(region == "North")
+
+mv_yld_year <- rma.mv(mean_yld, vi_yld,
+  mods = ~brand_name * as.numeric(year),
+  random = list(~brand_name | study),
+  struct = "UN",
+  method = "ML",
+  control = list(optimizer = "nlm"),
+  data = rust_yld_nor %>% mutate(year= year - 2015))
+
+mv_yld_year
+
+
+reg1 = data.frame(mv_yld_year$beta, mv_yld_year$ci.lb, mv_yld_year$ci.ub, mv_yld_year$se) %>%
+  rownames_to_column("trat") %>%
+  separate(trat, into = c("lado1", "lado2"), sep = ":") %>%
+  separate(lado1, into = c("lixo", "lado3"),sep = "brand_name") %>%
+  select(-lixo) %>%
+  filter(lado3 != "NA") %>%
+  mutate(mod = c(rep("intercept", 1), rep("slope", 1))) %>% 
+  mutate(region = rep("North", length(mod))) %>% 
+  select(-lado2) 
+names(reg1) = c("fungicide", "mean", "ci.lb", "ci.ub", "SE", "mod", "region") 
+
+elatus_norte = reg1
+
+
+```
+
+#### SE
+
+```{r}
+library(metafor)
+yld_gain <- rust_yld %>%
+  mutate(gain = mean_yld - yld_check) %>% 
+  filter(brand_name!= "AACHECK")  
+
+rust_yld_south <- rust_yld1 %>% 
+filter(region == "South")
+
+mv_yld_year <- rma.mv(mean_yld, vi_yld,
+  mods = ~brand_name * as.numeric(year),
+  random = list(~brand_name | study),
+  struct = "UN",
+  method = "ML",
+  control = list(optimizer = "nlm"),
+  data = rust_yld_south %>% mutate(year= year - 2015))
+
+mv_yld_year
+
+
+reg1 = data.frame(mv_yld_year$beta, mv_yld_year$ci.lb, mv_yld_year$ci.ub, mv_yld_year$se) %>%
+  rownames_to_column("trat") %>%
+  separate(trat, into = c("lado1", "lado2"), sep = ":") %>%
+  separate(lado1, into = c("lixo", "lado3"),sep = "brand_name") %>%
+  select(-lixo) %>%
+  filter(lado3 != "NA") %>%
+  mutate(mod = c(rep("intercept", 1), rep("slope", 1))) %>% 
+  mutate(region = rep("South", length(mod))) %>% 
+  select(-lado2) 
+names(reg1) = c("fungicide", "mean", "ci.lb", "ci.ub", "SE", "mod", "region") 
+
+elatus_sul = reg1
+
+
+
+```
+
+
+### PICO + BENZ
+
+```{r}
+library(janitor)
+# create the log of the sev variable
+rust_yld1 <- rust_yld %>%
+  filter(brand_name %in% c("AACHECK", "PICO + BENZ")) %>% 
+  group_by(study) %>% 
+  mutate(n2 = n()) %>% 
+  filter(n2 != 1)
+
+rust_yld1 = rust_yld1 %>% 
+mutate(region = case_when(
+    state == "MT" ~ "North",
+    state == "BA" ~ "North",
+    state == "DF" ~ "North",
+    state == "MS" ~ "North",
+    state == "GO" ~ "North",
+    state == "TO" ~ "North",
+    state == "PR" ~ "South",
+    state == "MG" ~ "North",
+    state == "SP" ~ "South",
+    state == "RS" ~ "South")) 
+
+rust_yld1 %>%
+tabyl(brand_name, region)
+
+rust_yld1 %>%
+tabyl(brand_name, state)
+
+```
+
+
+#### NW
+
+```{r}
+library(metafor)
+yld_gain <- rust_yld %>%
+  mutate(gain = mean_yld - yld_check) %>% 
+  filter(brand_name!= "AACHECK")  
+
+rust_yld_nor <- rust_yld1 %>% 
+filter(region == "North")
+
+mv_yld_year <- rma.mv(mean_yld, vi_yld,
+  mods = ~brand_name * as.numeric(year),
+  random = list(~brand_name | study),
+  struct = "UN",
+  method = "ML",
+  control = list(optimizer = "nlm"),
+  data = rust_yld_nor %>% mutate(year= year - 2015))
+
+mv_yld_year
+
+
+reg1 = data.frame(mv_yld_year$beta, mv_yld_year$ci.lb, mv_yld_year$ci.ub, mv_yld_year$se) %>%
+  rownames_to_column("trat") %>%
+  separate(trat, into = c("lado1", "lado2"), sep = ":") %>%
+  separate(lado1, into = c("lixo", "lado3"),sep = "brand_name") %>%
+  select(-lixo) %>%
+  filter(lado3 != "NA") %>%
+  mutate(mod = c(rep("intercept", 1), rep("slope", 1))) %>% 
+  mutate(region = rep("North", length(mod))) %>% 
+  select(-lado2) 
+names(reg1) = c("fungicide", "mean", "ci.lb", "ci.ub", "SE", "mod", "region") 
+
+vess_norte = reg1 
+
+
+
+
+```
+
+#### SE
+
+```{r}
+library(metafor)
+yld_gain <- rust_yld %>%
+  mutate(gain = mean_yld - yld_check) %>% 
+  filter(brand_name!= "AACHECK")  
+
+rust_yld_south <- rust_yld1 %>% 
+filter(region == "South")
+
+mv_yld_year <- rma.mv(mean_yld, vi_yld,
+  mods = ~brand_name * as.numeric(year),
+  random = list(~brand_name | study),
+  struct = "UN",
+  method = "ML",
+  control = list(optimizer = "nlm"),
+  data = rust_yld_south %>% mutate(year= year - 2015))
+
+mv_yld_year
+
+
+reg1 = data.frame(mv_yld_year$beta, mv_yld_year$ci.lb, mv_yld_year$ci.ub, mv_yld_year$se) %>%
+  rownames_to_column("trat") %>%
+  separate(trat, into = c("lado1", "lado2"), sep = ":") %>%
+  separate(lado1, into = c("lixo", "lado3"),sep = "brand_name") %>%
+  select(-lixo) %>%
+  filter(lado3 != "NA") %>%
+  mutate(mod = c(rep("intercept", 1), rep("slope", 1))) %>% 
+  mutate(region = rep("South", length(mod))) %>% 
+  select(-lado2) 
+names(reg1) = c("fungicide", "mean", "ci.lb", "ci.ub", "SE", "mod", "region") 
+
+vess_sul = reg1 
+
+data_two_fung = rbind(elatus_norte, elatus_sul, vess_norte, vess_sul)
+
+openxlsx::write.xlsx(data_two_fung, here("data","Elatus_Vessarya_yld_simulation.xlsx"), colNames = TRUE)
+
+
+
+```
+
+### Mods: region 
+
+```{r, warning=FALSE}
+rust_yld1 = rust_yld %>% 
+mutate(region = case_when(
+    state == "MT" ~ "North",
+    state == "BA" ~ "North",
+    state == "DF" ~ "North",
+    state == "MS" ~ "North",
+    state == "GO" ~ "North",
+    state == "TO" ~ "North",
+    state == "PR" ~ "South",
+    state == "MG" ~ "North",
+    state == "SP" ~ "South",
+    state == "RS" ~ "South")) 
+
+rust_yld1 %>%
+tabyl(brand_name, region)
+
+mv_yld_region <- rma.mv(mean_yld, vi_yld,
+  mods = ~brand_name * as.factor(region),
+  random = list(~factor(brand_name) | factor(study)),
+  struct = "UN",
+  method = "ML",
+  control = list(optimizer = "nlm"),
+  data = rust_yld1)
+
+mv_yld_region
+
+anova(mv_yld_region, btt = 11:18)
+```
+
+```{r}
+reg1 = data.frame(mv_yld_region$beta, mv_yld_region$ci.lb, mv_yld_region$ci.ub, mv_yld_region$se) %>%
+  rownames_to_column("trat") %>%
+  separate(trat, into = c("lado1", "lado2"), sep = ":") %>%
+  separate(lado2, into = c("lixo","lado3"),sep = "region") %>% 
+  select(-lixo) %>%
+  separate(lado1, into = c("lixo","lado1"),sep = "brand_name" ) %>%
+  select(-lixo) %>%
+  filter(lado1 != "NA") %>%
+  mutate(n = seq(1:16))
+names(reg1) = c("fungicide", "region", "mean_yld", "ci.lb_yld", "ci.ub_yld", "SE_yld","n") 
+
+reg2 = reg1 %>% 
+  filter(n < 9) %>% 
+  mutate(region = rep("North", length(fungicide)))
+
+reg3 = reg1 %>% 
+  filter(n > 8) %>% 
+  mutate(region = rep("South", length(fungicide)))
+
+reg4 = rbind(reg2,reg3) %>% 
+  select(-"n")
+
+
+openxlsx::write.xlsx(reg4, here("data","yld_SE_region.xlsx"), colNames = TRUE)
+
+
+```
+
+
+```{r}
+eff_log = read_excel("data/eff_log_region.xlsx")
+yld_reg <- read_excel("data/yld_SE_region.xlsx")
+
+data_simulation = full_join(eff_log, yld_reg, by = c("fungicide", "region"))
+openxlsx::write.xlsx(data_simulation, here("data","data_simulation.xlsx"), colNames = TRUE)
+
+```
+
+
+#### Mod effect
+
+```{r}
+reg1 = data.frame(mv_yld_region$beta, mv_yld_region$ci.lb, mv_yld_region$ci.ub) %>%
+  rownames_to_column("trat") %>%
+  separate(trat, into = c("lado1", "lado2"), sep = ":") %>%
+  separate(lado2, into = c("lixo","lado3"),sep = "region") %>% 
+  select(-lixo) %>%
+  separate(lado1, into = c("lixo","lado1"),sep = "brand_name" ) %>%
+  select(-lixo) %>%
+  filter(lado1 != "NA") %>%
+  mutate(n = seq(1:16))
+names(reg1) = c("fungicide", "class", "mean", "ci.lb", "ci.ub", "n") 
+
+reg2 = reg1 %>% 
+  filter(n < 9) %>% 
+  mutate(class = rep("North", length(fungicide)))
+
+reg3 = reg1 %>% 
+  filter(n > 8) %>% 
+  mutate(class = rep("South", length(fungicide)))
+
+reg4 = rbind(reg2,reg3)  
+
+mean = reg4%>% 
+  group_by(fungicide) %>% 
+  select(1:3) %>% 
+  spread(class, mean) %>% 
+  mutate(mean = North + South) %>% 
+  select(1,4)
+
+lower = reg4%>% 
+  group_by(fungicide) %>% 
+  select(1,2,4) %>% 
+  spread(class, ci.lb) %>% 
+  mutate(lower = North + South) %>%  
+  select(1,4)
+
+upper = reg4%>% 
+  group_by(fungicide) %>% 
+  select(1,2,5) %>% 
+  spread(class, ci.ub) %>% 
+  mutate(upper = North + South) %>% 
+  select(1,4)
+
+reg5 = left_join(mean, lower, by= c("fungicide")) %>% 
+  left_join(upper, by = c("fungicide")) %>% 
+  mutate(class = rep("South", length("fungicide"))) %>% 
+  select("fungicide", "class", "mean", "lower", "upper")
+
+
+North = reg4 %>% 
+  filter(class == "North") %>% 
+  select(1:5)
+names(North) = c("fungicide", "class", "mean", "lower", "upper") 
+
+reg6 = full_join(North,reg5)
+reg6
+
+openxlsx::write.xlsx(reg6, here("data","yld_region.xlsx"), colNames = TRUE)
+```
+
+### Mods: severity baseline 
+
+
+```{r, warning=FALSE}
+library(tidyverse)
+
+rust_yld <- rust_yld %>%
+    mutate(
+    sev_check_class = case_when(
+      sev_check < 70 ~ "Low",
+      sev_check >= 70 ~ "High"))
+
+rust_yld %>%
+tabyl(brand_name, sev_check_class)
+
+mv_yld_sev_class <- rma.mv(mean_yld, vi_yld,
+  mods = ~brand_name * as.factor(sev_check_class) ,
+  random = list(~factor(brand_name) | factor(study)),
+  struct = "UN",
+  method = "ML",
+  control = list(optimizer = "nlm"),
+  data = rust_yld)
+
+mv_yld_sev_class
+
+anova(mv_yld_sev_class, btt = 11:18)
+```
+
+#### Mod effect
+
+```{r}
+reg1 = data.frame(mv_yld_sev_class$beta, mv_yld_sev_class$ci.lb, mv_yld_sev_class$ci.ub) %>%
+  rownames_to_column("trat") %>%
+  separate(trat, into = c("lado1", "lado2"), sep = ":") %>%
+  separate(lado2, into = c("lixo","lado3"),sep = "sev_check_class") %>% 
+  select(-lixo) %>%
+  separate(lado1, into = c("lixo","lado1"),sep = "brand_name" ) %>%
+  select(-lixo) %>%
+  filter(lado1 != "NA") %>%
+  mutate(n = seq(1:16))
+names(reg1) = c("fungicide", "class", "mean", "ci.lb", "ci.ub", "n") 
+
+reg2 = reg1 %>%
+  filter(n < 9) %>% 
+  mutate(class = rep("High", length(fungicide)))
+
+reg3 = reg1 %>% 
+  filter(n > 8) %>% 
+  mutate(class = rep("Low", length(fungicide)))
+
+reg4 = rbind(reg2,reg3)  
+
+mean = reg4%>% 
+  group_by(fungicide) %>% 
+  select(1:3) %>% 
+  spread(class, mean) %>% 
+  mutate(mean = High + Low) %>% 
+  select(1,4)
+
+lower = reg4%>% 
+  group_by(fungicide) %>% 
+  select(1,2,4) %>% 
+  spread(class, ci.lb) %>% 
+  mutate(lower = High + Low) %>%  
+  select(1,4)
+
+upper = reg4%>% 
+  group_by(fungicide) %>% 
+  select(1,2,5) %>% 
+  spread(class, ci.ub) %>% 
+  mutate(upper = High + Low) %>% 
+  select(1,4)
+
+reg5 = left_join(mean, lower, by= c("fungicide")) %>% 
+  left_join(upper, by = c("fungicide")) %>% 
+  mutate(class = rep("Low", length("fungicide"))) %>% 
+  select("fungicide", "class", "mean", "lower", "upper")
+
+
+High = reg4 %>% 
+  filter(class == "High") %>% 
+  select(1:5)
+names(High) = c("fungicide", "class", "mean", "lower", "upper") 
+
+reg6 = full_join(High,reg5)
+reg6
+
+openxlsx::write.xlsx(reg6, here("data","yld_baseline.xlsx"), colNames = TRUE)
+```
+
+
+### Inconsistency
+
+We used a factorial-type ANOVA model to determine the significance of the *treatment x design* interaction, evaluated based on the Wald test statistic.
+
+```{r}
+mv_yld_design <- rma.mv(mean_yld, vi_yld,
+  mods = ~brand_name * design,
+  random = list(~ 1 | study / design / brand_name),
+  struct = "UN",
+  method = "ML",
+  control = list(optimizer = "nlm"),
+  data = rust_yld)
+
+mv_yld_design
+
+anova(mv_yld_design, btt = 11:18)
+```
+
